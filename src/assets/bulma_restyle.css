@@ -1,0 +1,51 @@
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+.label {
+	font-size: 0.75rem;	
+	font-weight: bold;	
+}
+
+.input {
+	font-size: 0.75rem;	
+}
+
+.control {
+	font-size: 0.75rem;	
+	margin-top: 6px;
+	margin-bottom: 10px;
+}
+
+.card {
+	padding: 5px;
+}
+.add-new-resource {
+	text-align: right;
+}
+
+.table  {
+	font-size:12px;
+}
+
+.table>thead  {
+	font-size:14px;
+}
+
+.button-active {
+
+}
+
+.button-inactive {
+	
+}
+
+.button-up {
+	
+}
+
+.button-down {
+	
+}
+
