@@ -13,8 +13,6 @@ export default {
   data () {
   	title
   },
-  components: {
-    TopMenuBar
-  }
+  components: { TopMenuBar }
 }
 </script>

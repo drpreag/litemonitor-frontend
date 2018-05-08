@@ -1,13 +1,16 @@
 /* eslint-disable */
 <template>
   <div id="dashboard" class="content">
-
+    
     <div class="columns">
-      <div class="column is-three-quarters">
-        <h3>{{ title }}</h3>      
-      </div>
-      <div class="column is-one-quarters add-new-resource">
-      </div>
+      <div class="column is-half">
+        Hosts statistics:
+        <donut-hosts-chart v-bind:passedHostChartData="passedHostChartData" :width="300" :height="200"></donut-hosts-chart>
+      </div> 
+      <div class="column is-half">
+        Services statistics:
+        <donut-services-chart v-bind:passedServiceChartData="passedServiceChartData" :width="300" :height="200"></donut-services-chart>
+      </div>    
     </div>
 
     <div v-if="flappings">
@@ -29,8 +32,6 @@
               <drawing :sign="flapping.status" origin="updown"></drawing>
             </td>
             <td>{{ flapping.created_at | timeago }}</td>
-            <td>
-            </td>
           </tr>
         </tbody>
       </table>
@@ -42,32 +43,54 @@
 <script>
 import axios from 'axios'
 import Drawing from '@/components/Drawing'
+import DonutHostsChart from '@/components/Charts/DonutHostsChart'
+import DonutServicesChart from '@/components/Charts/DonutServicesChart'
 
 export default {
-  components: { Drawing, ChartPie },
+  components: { Drawing, DonutHostsChart, DonutServicesChart },
   data () {
     return {
       title: 'Dashboard',
-      flappings: []
+      flappings: [],
+      passedHostChartData: [],
+      passedServiceChartData: []
     }
   },
   created () {
-    this.getFlappings()
-    this.timer = setInterval(this.getFlappings, 10000)
+    //this.getFlappings();
+    this.timer = setInterval(this.getFlappings, 10000);
   },
   destroyed () {
     clearInterval(this.timer)
-  },  
+  },
+  mounted () {
+    this.getFlappings ()
+  },
   methods: {
     getFlappings () {
       axios
         .get('http://localhost:8000/api/flappings/', { crossdomain: true })
         .then(response => {
-          this.flappings = response.data.data
-        })
-        .catch(e => {
-          this.errors.push(e)
-        })        
+          this.flappings = response.data.data;
+        });
+      axios
+        .get('http://localhost:8000/api/host-stats', { crossdomain: true })
+        .then(response => {
+          if (this.passedHostChartData[0]!=response.data.down || 
+              this.passedHostChartData[1]!=response.data.up || 
+              this.passedHostChartData[2]!=response.data.non_monitored) {
+            this.passedHostChartData=[response.data.down, response.data.up, response.data.non_monitored];
+          }
+        });       
+      axios
+        .get('http://localhost:8000/api/service-stats', { crossdomain: true })
+        .then(response => {
+          if (this.passedServiceChartData[0]!=response.data.down || 
+              this.passedServiceChartData[1]!=response.data.up || 
+              this.passedServiceChartData[2]!=response.data.non_monitored) {
+            this.passedServiceChartData=[response.data.down, response.data.up, response.data.non_monitored];
+          }
+        });
     }
   }
 }

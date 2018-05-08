@@ -6,8 +6,8 @@ import vueResource from 'vue-resource'
 import VueMoment from 'vue-moment'
 import moment from 'moment'
 
+// Navigation bar
 import NavBar from './components/NavBar'
-
 // Users
 import Users from '@/components/Users/Users'
 import User from '@/components/Users/User'
@@ -26,10 +26,11 @@ import Host from '@/components/Hosts/Host'
 import HostCreate from '@/components/Hosts/HostCreate'
 //import HostEdit from '@/components/Hosts/HostEdit'
 // Probes
-
+// Charts
+import DonutHostsChart from '@/components/Charts/DonutHostsChart'
 // Common pages
 import Dashboard from '@/components/Dashboard'
-import HelloWorld from '@/components/HelloWorld'
+//import HelloWorld from '@/components/HelloWorld'
 // alert
 // 404
 // about
@@ -56,7 +57,7 @@ const router = new VueRouter ({
 //    { path: '/role/:id', name: 'Role', component: Role },
 //    { path: '/role_create', name: 'RoleCreate', component: RoleCreate },
 //    { path: '/role_edit', name: 'RoleEdit', component: RoleEdit },
-    { path: '/helloworld', name: 'HelloWorld', component: HelloWorld },
+//    { path: '/helloworld', name: 'HelloWorld', component: HelloWorld },
     { path: '/services', name: 'Services', component: Services },
     { path: '/hosts', name: 'Hosts', component: Hosts },
     { path: '/host/:id', name: 'Host', component: Host },
