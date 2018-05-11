@@ -48,6 +48,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import Drawing from '@/components/Drawing'
 
 export default {
@@ -58,25 +59,25 @@ export default {
       errors: [],      
       title: 'Hosts',
       sign: null,
-      origin      
+      origin,
+      baseURL: null      
     }
   },
-  created () {
-    this.updateResource ()
-  },  
   mounted () {
-    this.updateResource ()
+    this.baseURL = process.env.API_BASE_URL
+    this.getHosts ()
   },  
   methods: {
-    updateResource () {
-      //this.$http.get(`http://localhost:8000/api/hosts?page=${page}&per_page=${itemsPerPage}`)
-      this.$http.get(`http://localhost:8000/api/hosts`)
+    getHosts () {
+      axios  
+        //.get(this.baseURL+'/hosts?page=${page}&per_page=${itemsPerPage}', { crossdomain: true })
+        .get(this.baseURL+'/hosts', { crossdomain: true })
         .then(response => {
-          this.hosts = response.body.data
-          //this.total = response.data.meta.total
-          //this.page = this.current = response.data.meta.current_page
-          //this.itemsPerPage = response.data.meta.per_page
-      }); 
+          this.hosts = response.data.data;
+          this.total = response.data.meta.total
+          this.page = this.current = response.data.meta.current_page
+          this.itemsPerPage = response.data.meta.per_page          
+        });
     }    
   }
 }

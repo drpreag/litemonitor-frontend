@@ -53,7 +53,8 @@ export default {
       title: 'Dashboard',
       flappings: [],
       passedHostChartData: [],
-      passedServiceChartData: []
+      passedServiceChartData: [],
+      baseURL: null
     }
   },
   created () {
@@ -68,13 +69,14 @@ export default {
   },
   methods: {
     getFlappings () {
-      axios
-        .get('http://localhost:8000/api/flappings/', { crossdomain: true })
+      this.baseURL = process.env.API_BASE_URL
+      axios  
+        .get(this.baseURL+'/flappings', { crossdomain: true })
         .then(response => {
           this.flappings = response.data.data;
         });
       axios
-        .get('http://localhost:8000/api/host-stats', { crossdomain: true })
+        .get(this.baseURL+'/host-stats', { crossdomain: true })
         .then(response => {
           if (this.passedHostChartData[0]!=response.data.down || 
               this.passedHostChartData[1]!=response.data.up || 
@@ -83,7 +85,7 @@ export default {
           }
         });       
       axios
-        .get('http://localhost:8000/api/service-stats', { crossdomain: true })
+        .get(this.baseURL+'/service-stats', { crossdomain: true })
         .then(response => {
           if (this.passedServiceChartData[0]!=response.data.down || 
               this.passedServiceChartData[1]!=response.data.up || 

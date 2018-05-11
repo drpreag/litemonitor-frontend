@@ -29,13 +29,13 @@
 
             <div class="control">          
               <label class="label">Active</label>
-              <input class="form-control" type="checkbox" v-model="user.active">
+              <input class="form-control" type="checkbox" v-model="user.active" @change="changeHandler">
             </div>
 
             <div class="control">          
               <label class="label">Role</label>
               <select class="input" v-model="user.role_id">
-                <option v-for="role in roles" :value="user.role_id">
+                <option v-for="role in roles" :value="role.id">
                   {{ role.name }}
                 </option>
               </select>
@@ -60,29 +60,31 @@ export default {
   components: { Drawing },  
   data () {
     return {
+      id: null,
       user: {},
       roles: [],
       errors: [],
       title: 'Edit User',
-      sign: null
+      sign: null,
+      baseURL: null  
     }
   },
-  created () {
-    this.getUser ()
-    this.getRoles ()
-  },  
   mounted () {
+    this.baseURL = process.env.API_BASE_URL    
+    this.getRoles ()   
     this.getUser ()
-    this.getRoles ()    
   },  
   methods: {
+    changeHandler () {
+      this.$emit('input', !this.value)
+    }, 
     getUser () {
       this.id = this.$route.params.id
       axios
-        .get('http://localhost:8000/api/user/' + this.id, { crossdomain: true })
+        .get(this.baseURL+'/user/' + this.id, { crossdomain: true })
         .then(response => {
           this.user = response.data.data
-          this.title = 'User: ' + this.user.name          
+          this.title = 'User: ' + this.user.name
         })
     },  
     updateUser (e) {
@@ -94,17 +96,18 @@ export default {
         role_id: this.user.role_id,
       }
       axios
-        .put('http://localhost:8000/api/user', oldUser, { crossdomain: true })
+        .put(this.baseURL+'/user/', oldUser, { crossdomain: true })
         .then(response => {
           this.$router.push({path:'/users'})
         })
       e.preventDefault()
     },
     getRoles () {
-      this.$http.get('http://localhost:8000/api/roles')
-      .then(response => {
-        this.roles = response.body.data;
-      });
+      axios
+        .get(this.baseURL+'/roles', { crossdomain: true })
+        .then(response => {
+          this.roles = response.data.data;
+        });
     }    
   }
 }

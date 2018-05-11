@@ -24,7 +24,7 @@ import Services from '@/components/Services/Services'
 import Hosts from '@/components/Hosts/Hosts'
 import Host from '@/components/Hosts/Host'
 import HostCreate from '@/components/Hosts/HostCreate'
-//import HostEdit from '@/components/Hosts/HostEdit'
+import HostEdit from '@/components/Hosts/HostEdit'
 // Probes
 // Charts
 import DonutHostsChart from '@/components/Charts/DonutHostsChart'
@@ -62,7 +62,7 @@ const router = new VueRouter ({
     { path: '/hosts', name: 'Hosts', component: Hosts },
     { path: '/host/:id', name: 'Host', component: Host },
     { path: '/host_create', name: 'HostCreate', component: HostCreate },
-    //{ path: '/host_edit', name: 'HostEdit', component: HostEdit },
+    { path: '/host_edit', name: 'HostEdit', component: HostEdit },
   ]
 });
 

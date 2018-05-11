@@ -59,16 +59,14 @@ export default {
       sign: null
     }
   },
-  created () {
-    this.getUsers ()
-  },
   mounted () {
+    this.baseURL = process.env.API_BASE_URL  
     this.getUsers ()
   },
   methods: {
     getUsers () {
       axios
-        .get('http://localhost:8000/api/users', { crossdomain: true })
+        .get(this.baseURL+'/users', { crossdomain: true })
         .then(response => {
           this.users = response.data.data
         })

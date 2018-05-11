@@ -100,13 +100,12 @@ export default {
       id: null,
       errors: [],
       title: 'Host',
-      sign: null
+      sign: null,
+      baseURL: null  
     }
   },
-  created () {
-    this.getHost ()
-  },
   mounted () {
+    this.baseURL = process.env.API_BASE_URL   
     this.getHost ()
   },
   methods: {
@@ -114,7 +113,7 @@ export default {
       this.errors = this.host = this.id = null
       this.id = this.$route.params.id
       axios
-        .get('http://localhost:8000/api/host/' + this.id, { crossdomain: true })
+        .get(this.baseURL+'/host/' + this.id, { crossdomain: true })
         .then(response => {
           this.host = response.data.data
           this.title = 'Host: ' + this.host.name
@@ -122,7 +121,7 @@ export default {
     },
     deleteHost (id) {
       axios
-        .delete('http://localhost:8000/api/host/' + id, { crossdomain: true })
+        .delete(this.baseURL+'/host/' + id, { crossdomain: true })
         .then(response => {
           this.$router.push({path:'/hosts'})
         })

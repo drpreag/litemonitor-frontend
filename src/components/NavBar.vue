@@ -24,12 +24,12 @@
           </div>
 
         </div>
-
+<!--
         <div class="navbar-end">
           <router-link class="navbar-item" :class="activeClass('Dashboard')" :to="{ name:'Dashboard' }" exact>Login</router-link>
           <router-link class="navbar-item" :class="activeClass('Dashboard')" :to="{ name:'Dashboard' }" exact>Register</router-link>
         </div>
-        
+-->        
       </div>
     </nav>
     <br/> 

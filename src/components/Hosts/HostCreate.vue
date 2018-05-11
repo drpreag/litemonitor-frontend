@@ -19,22 +19,22 @@
 
           <div class="control">          
             <label class="label">Name</label>
-            <input class="form-control" type="text" v-model=host.name>
+            <input class="form-control" type="text" minlength=5 v-model=host.name>
           </div>
 
           <div class="control">          
             <label class="label">Description</label>
-            <input class="form-control" type="text" v-model=host.description>
+            <input class="form-control" type="text" minlength=5 v-model=host.description>
           </div>
 
           <div class="control">          
             <label class="label">FQDN / IP address</label>
-            <input class="form-control" type="text" v-model="host.fqdn">
+            <input class="form-control" type="text" minlength=10 v-model="host.fqdn">
           </div>
 
           <div class="control">          
             <label class="label">ICMP probe</label>
-            <input class="form-control" type="checkbox" v-model="host.icmp_probe">
+            <input class="form-control" type="checkbox" v-model="host.icmp_probe" @change="changeHandler">
           </div>
 
           <div align="center">
@@ -57,23 +57,36 @@ export default {
   components: { Drawing },  
   data () {
     return {
-      host: {},
+      host: {
+        name: "",
+        description: "",
+        fqdn: "",
+        icmp_probe: false
+      },
       id: null,
       errors: [],
       title: 'Add Host',
-      sign: null
+      sign: null,
+      baseURL: null  
     }
   },
+  mounted () {
+    this.baseURL = process.env.API_BASE_URL
+  },    
   methods: {
+    changeHandler () {
+      this.$emit('input', !this.value)
+    },
     addHost (e) {
+      // browser side data validation will go here
       let newHost = {
         name: this.host.name,
         description: this.host.description,
         fqdn: this.host.fqdn,
-        icmp_probe: this.host.icmp_probe
+        icmp_probe: this.host.icmp_probe.checkedValue === 'true' ? 1 : 0
       } 
       axios
-        .post('http://localhost:8000/api/host', newHost, { crossdomain: true })
+        .post(this.baseURL+'/host', newHost, { crossdomain: true })
         .then(response => {
           this.$router.push({path:'/hosts'})
         })

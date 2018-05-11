@@ -34,8 +34,8 @@
 
           <div class="control">          
             <label class="label">Role</label>
-              <select class="input" v-model="user.role_id">
-                <option v-for="role in roles" :value="user.role_id">
+              <select class="input" readonly="readonly" disabled="disabled" v-model="user.role_id" >
+                <option v-for="role in roles" :value="role.id" >
                   {{ role.name }}
                 </option>
               </select>
@@ -85,14 +85,13 @@ export default {
       id: null,
       errors: [],
       title: 'User',
-      sign: null
+      sign: null,
+      baseURL: null
     }
   },
-  created () {
-    this.getUser ()
-    this.getRoles()
-  },
   mounted () {
+    this.baseURL = process.env.API_BASE_URL  
+    this.getRoles ()    
     this.getUser ()
   },
   methods: {
@@ -100,24 +99,25 @@ export default {
       this.errors = this.user = this.id = null
       this.id = this.$route.params.id
       axios
-        .get('http://localhost:8000/api/user/' + this.id, { crossdomain: true })
+        .get(this.baseURL+'/user/' + this.id, { crossdomain: true })
         .then(response => {
           this.user = response.data.data
-          this.title = 'User: ' + this.user.name          
+          this.title = 'User: ' + this.user.name
         })
     },
     deleteUser (id) {
       axios
-        .delete('http://localhost:8000/api/user/' + id, { crossdomain: true })
+        .delete(this.baseURL+'/user/' + id, { crossdomain: true })
         .then(response => {
           this.$router.push({path:'/users'})
         })
     },
     getRoles () {
-      this.$http.get('http://localhost:8000/api/roles')
-      .then(response => {
-        this.roles = response.body.data;
-      });
+      axios
+        .get(this.baseURL+'/roles', { crossdomain: true })
+        .then(response => {
+          this.roles = response.data.data;
+        });
     }     
   }
 }

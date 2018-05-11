@@ -35,7 +35,7 @@
           <div class="control">          
             <label class="label">Role</label>
             <select class="input" v-model="user.role_id">
-              <option v-for="role in roles" :value="user.role_id">
+              <option v-for="role in roles" :value="role.id">
                 {{ role.name }}
               </option>
             </select>                
@@ -65,12 +65,14 @@ export default {
       roles: [],
       errors: [],
       title: 'Add User',
-      sign: null
+      sign: null,
+      baseURL: null
     }
   },
-  created () {
-    this.getRoles ()
-  },  
+  mounted () {
+    this.baseURL = process.env.API_BASE_URL    
+    this.getRoles ()   
+  },   
   methods: {
     addUser (e) {
       let newUser = {
@@ -80,17 +82,18 @@ export default {
         role_id: this.user.role_id,
       }
       axios
-        .post('http://localhost:8000/api/user', newUser, { crossdomain: true })
+        .post(this.baseURL+'/user', newUser, { crossdomain: true })
         .then(response => {
           this.$router.push({path:'/users'})
         })
       e.preventDefault()
     },
     getRoles () {
-      this.$http.get('http://localhost:8000/api/roles')
-      .then(response => {
-        this.roles = response.body.data;
-      });
+      axios
+        .get(this.baseURL+'/roles', { crossdomain: true })
+        .then(response => {
+          this.roles = response.data.data;
+        });
     } 
   }
 }
