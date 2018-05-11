@@ -26,8 +26,7 @@ import Host from '@/components/Hosts/Host'
 import HostCreate from '@/components/Hosts/HostCreate'
 import HostEdit from '@/components/Hosts/HostEdit'
 // Probes
-// Charts
-import DonutHostsChart from '@/components/Charts/DonutHostsChart'
+
 // Common pages
 import Dashboard from '@/components/Dashboard'
 //import HelloWorld from '@/components/HelloWorld'

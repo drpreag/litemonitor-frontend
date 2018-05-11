@@ -50,6 +50,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import Drawing from '@/components/Drawing'
 
 export default {
@@ -59,20 +60,21 @@ export default {
       services: [],
       errors: [],      
       title: 'Services',
-      sign: null
+      sign: null,
+      baseURL: null  
     }
   },
   created () {
-    this.updateResource ()
+    this.baseURL = process.env.API_BASE_URL
+    this.getServices()
   },
   methods: {
-    updateResource () {
-      this.errors = this.services = null
-      //this.$http.get(`http://localhost:8000/api/services?page=${page}&per_page=${pagination.itemsPerPage}`)
-      this.$http.get(`http://localhost:8000/api/services`)
-      .then(response => {
-        this.services = response.body.data
-      }); 
+    getServices() {
+      axios
+        .get(this.baseURL+'/services', { crossdomain: true })
+        .then(response => {
+          this.services = response.data.data;
+        });
     }
   }
 }

@@ -21,7 +21,6 @@
           <th>Comment</th>
           <th class="has-text-centered">Status change</th>
           <th>Changed at</th>
-          <th></th>
         </thead>
         <tbody>
           <tr v-for="flapping in flappings" :key="flapping.id">

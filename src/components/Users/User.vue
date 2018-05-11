@@ -81,11 +81,11 @@ export default {
   data () {
     return {
       user: null,
-      roles: [],
       id: null,
       errors: [],
       title: 'User',
       sign: null,
+      roles: [],
       baseURL: null
     }
   },
