@@ -27,11 +27,6 @@
               <input class="form-control" type="text" v-model=role.description>
             </div>
 
-            <div class="control">          
-              <label class="label">Active</label>
-              <input class="form-control" type="checkbox" v-model="role.active">
-            </div>
-
             <div align="center">
               <button type="submit" class="button is-small is-primary is-rounded">Update</button> 
             </div>
@@ -54,20 +49,19 @@ export default {
       role: {},
       errors: [],
       title: 'Edit Role',
-      sign: null
+      sign: null,
+      baseURL: null      
     }
   },
-  created () {
-    this.getRole ()
-  },  
   mounted () {
+    this.baseURL = process.env.API_BASE_URL    
     this.getRole ()  
   },  
   methods: {
     getRole () {
       this.id = this.$route.params.id
       axios
-        .get('http://localhost:8000/api/role/' + this.id, { crossdomain: true })
+        .get(this.baseURL + '/role/' + this.id, { crossdomain: true })
         .then(response => {
           this.role = response.data.data
           this.title = 'Role: ' + this.role.name          
@@ -82,7 +76,7 @@ export default {
         creator_id: this.role.creator_id
       }
       axios
-        .put('http://localhost:8000/api/role', oldRole, { crossdomain: true })
+        .put(this.baseURL + '/role', oldRole, { crossdomain: true })
         .then(response => {
           this.$router.push({path:'/roles'})
         })

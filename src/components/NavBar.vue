@@ -19,7 +19,8 @@
           <div class="navbar-item has-dropdown is-hoverable">
             <div class="navbar-link">Admin</div>
             <div class="navbar-dropdown is-boxed">
-              <router-link class="navbar-item" :class="activeClass('Users')" :to="{ name:'Users' }" >Users</router-link>
+              <router-link class="navbar-item" :class="activeClass('Users')" :to="{ name:'Users' }">Users</router-link>
+              <router-link class="navbar-item" :class="activeClass('Roles')" :to="{ name:'Roles' }">Roles</router-link>
             </div>
           </div>
 

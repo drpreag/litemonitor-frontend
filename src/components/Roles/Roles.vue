@@ -19,7 +19,6 @@
           <th class="has-text-right">Id</th>
           <th>Name</th>
           <th>Description</th>
-          <th class="has-text-centered">Active</th>
           <th></th>
         </thead>
         <tbody>          
@@ -27,9 +26,6 @@
             <td class="has-text-right">{{ role.id }}</td>
             <td>{{ role.name }}</td>
             <td>{{ role.description }}</td>
-            <td class="has-text-centered">
-              <drawing :sign="role.active" origin="yesno"></drawing>
-            </td>
             <td>
               <router-link :to="{ name: 'Role', params: { id: role.id }}">
                 <button type="button" class="button is-light is-small is-rounded">View</button>
@@ -54,19 +50,18 @@ export default {
       roles: [],
       errors: [],
       title: 'Roles',
-      sign: null      
+      sign: null,
+      baseURL: null,
     }
   },
-  created () {
-    this.getRoles()
-  },
   mounted () {
+    this.baseURL = process.env.API_BASE_URL     
     this.getRoles()
   },
   methods: {
     getRoles () {
       axios
-        .get('http://localhost:8000/api/roles', { crossdomain: true })
+        .get(this.baseURL+'/roles', { crossdomain: true })
         .then(response => {
           this.roles = response.data.data
         })

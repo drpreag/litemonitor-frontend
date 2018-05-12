@@ -27,16 +27,6 @@
             <input class="form-control" type="text" v-model=role.description>
           </div>
 
-          <div class="control">          
-            <label class="label">Active</label>
-            <input class="form-control" type="checkbox" v-model="role.active">
-          </div>
-
-          <div class="control">          
-            <label class="label">Creator</label>
-            <input class="form-control" type="number" v-model=role.creator_id>
-          </div>
-
           <div align="center">
             <button type="submit" class="button is-small is-primary is-rounded">Submit</button> 
           </div>
@@ -59,19 +49,21 @@ export default {
       role: {},
       errors: [],
       title: 'Add Role',
-      sign: null
+      sign: null,
+      baseURL: null      
     }
+  }, 
+  mounted () {
+    this.baseURL = process.env.API_BASE_URL      
   }, 
   methods: {
     addRole (e) {
       let newRole = {
         name: this.role.name,
-        description: this.role.description,
-        creator_id: this.role.creator_id,        // currently logged in user, tb done yet
-        active: this.role.active,
+        description: this.role.description
       }
       axios
-        .post('http://localhost:8000/api/role', newRole, { crossdomain: true })
+        .post(this.baseURL + '/role', newRole, { crossdomain: true })
         .then(response => {
           this.$router.push({path:'/roles'})
         })
