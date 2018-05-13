@@ -83,7 +83,7 @@ export default {
         name: this.host.name,
         description: this.host.description,
         fqdn: this.host.fqdn,
-        icmp_probe: this.host.icmp_probe.checkedValue === 'true' ? 1 : 0
+        icmp_probe: this.host.icmp_probe.checkedValue === true ? 1 : 0
       } 
       axios
         .post(this.baseURL+'/host', newHost, { crossdomain: true })

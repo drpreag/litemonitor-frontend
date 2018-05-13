@@ -20,6 +20,9 @@ import RoleCreate from '@/components/Roles/RoleCreate'
 import RoleEdit from '@/components/Roles/RoleEdit'
 // Services
 import Services from '@/components/Services/Services'
+import Service from '@/components/Services/Service'
+import ServiceCreate from '@/components/Services/ServiceCreate'
+import ServiceEdit from '@/components/Services/ServiceEdit'
 // Hosts
 import Hosts from '@/components/Hosts/Hosts'
 import Host from '@/components/Hosts/Host'
@@ -52,12 +55,17 @@ const router = new VueRouter ({
     { path: '/user/:id', name: 'User', component: User },    
     { path: '/user_create', name: 'UserCreate', component: UserCreate },
     { path: '/user_edit', name: 'UserEdit', component: UserEdit },    
+
     { path: '/roles', name: 'Roles', component: Roles },
     { path: '/role/:id', name: 'Role', component: Role },
     { path: '/role_create', name: 'RoleCreate', component: RoleCreate },
     { path: '/role_edit', name: 'RoleEdit', component: RoleEdit },
-//    { path: '/helloworld', name: 'HelloWorld', component: HelloWorld },
+
     { path: '/services', name: 'Services', component: Services },
+    { path: '/service/:id', name: 'Service', component: Service },
+    { path: '/service_create', name: 'ServiceCreate', component: ServiceCreate },
+    { path: '/service_edit', name: 'ServiceEdit', component: ServiceEdit },
+
     { path: '/hosts', name: 'Hosts', component: Hosts },
     { path: '/host/:id', name: 'Host', component: Host },
     { path: '/host_create', name: 'HostCreate', component: HostCreate },

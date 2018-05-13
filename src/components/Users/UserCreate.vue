@@ -78,7 +78,7 @@ export default {
       let newUser = {
         name: this.user.name,
         email: this.user.email,
-        active: this.user.active,
+        active: this.user.active === true ? 1 : 0,
         role_id: this.user.role_id,
       }
       axios

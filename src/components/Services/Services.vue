@@ -7,7 +7,7 @@
         <h3>{{ title }}</h3>      
       </div>
       <div class="column is-one-quarters add-new-resource">
-        <router-link :to="{ name:'Dashboard' }">
+        <router-link :to="{ name:'ServiceCreate' }">
           <button class="button is-primary is-small is-rounded">Add new Service</button>
         </router-link>
       </div>
@@ -39,7 +39,9 @@
               <drawing :sign="service.status" origin="updown"></drawing> 
             </td>
             <td>
-              <button type="button" class="button is-light is-small is-rounded">View</button>
+              <router-link :to="{ name: 'Service', params: { id: service.id }}">
+                <button type="button" class="button is-light is-small is-rounded">View</button>
+              </router-link>
             </td>
           </tr>
         </tbody>
@@ -66,7 +68,7 @@ export default {
   },
   created () {
     this.baseURL = process.env.API_BASE_URL
-    this.getServices()
+    this.getServices ()
   },
   methods: {
     getServices() {
