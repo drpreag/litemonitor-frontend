@@ -57,18 +57,17 @@ export default {
     }
   },
   created () {
-    //this.getFlappings();
     this.timer = setInterval(this.getFlappings, 10000);
   },
   destroyed () {
     clearInterval(this.timer)
   },
   mounted () {
+    this.baseURL = process.env.API_BASE_URL  
     this.getFlappings ()
   },
   methods: {
     getFlappings () {
-      this.baseURL = process.env.API_BASE_URL
       axios  
         .get(this.baseURL+'/flappings', { crossdomain: true })
         .then(response => {

@@ -67,9 +67,15 @@ export default {
     }
   },
   created () {
-    this.baseURL = process.env.API_BASE_URL
-    this.getServices ()
+    this.timer = setInterval(this.getServices, 10000);
   },
+  destroyed () {
+    clearInterval(this.timer)
+  },
+  mounted () {
+    this.baseURL = process.env.API_BASE_URL
+    this.getServices ()  
+  },  
   methods: {
     getServices() {
       axios

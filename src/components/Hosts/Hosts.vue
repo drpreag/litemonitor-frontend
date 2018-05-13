@@ -63,6 +63,12 @@ export default {
       baseURL: null      
     }
   },
+  created () {
+    this.timer = setInterval(this.getHosts, 10000);
+  },
+  destroyed () {
+    clearInterval(this.timer)
+  },  
   mounted () {
     this.baseURL = process.env.API_BASE_URL
     this.getHosts ()
