@@ -19,7 +19,7 @@
 
           <div class="control">          
             <label class="label">Name</label>
-            <input class="form-control" type="text" minlength=5 v-model=service.name>
+            <input class="form-control" type="text" minlength=3 v-model=service.name>
           </div>
 
           <div class="control">          
