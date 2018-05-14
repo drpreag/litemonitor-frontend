@@ -1,6 +1,5 @@
 <script>
 import axios from 'axios'
-import VueCharts from 'vue-chartjs'
 import { Line } from 'vue-chartjs'
 
 export default {
@@ -12,7 +11,7 @@ export default {
         labels: [],
         datasets: [
           {
-            label: ["Speed ms"],
+            label: ["Speed [ms]"],
             data: [],            
             backgroundColor: '#f87979',
             backgroundColor: [

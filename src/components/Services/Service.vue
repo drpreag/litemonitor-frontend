@@ -108,7 +108,7 @@
           </div>
         </div>
         <div v-if="loadedObservations==true && service.probe_id!=5" class="column field is-half">   
-          Line graph
+          Speed graph
           <line-observations-chart v-bind:observationData="observationData" :width="600" :height="400"></line-observations-chart>
         </div>
       </div>

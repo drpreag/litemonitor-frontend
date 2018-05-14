@@ -32,7 +32,8 @@
               <drawing :sign="host.icmp_probe" origin="yesno"></drawing>
             </td>
             <td class="has-text-centered">
-              <drawing :sign="host.icmp_status" origin="updown"></drawing>
+              <drawing :sign="host.icmp_status" origin="updown"></drawing>&nbsp
+              <timeago :since="host.status_change"></timeago>
             </td>
             <td>
               <router-link :to="{ name: 'Host', params: { id: host.id }}">

@@ -1,6 +1,5 @@
 <script>
 import axios from 'axios'
-//import VueCharts from 'vue-chartjs'
 import { Line } from 'vue-chartjs'
 
 export default {

@@ -30,7 +30,7 @@
             <td class="has-text-centered">
               <drawing :sign="flapping.status" origin="updown"></drawing>
             </td>
-            <td>{{ flapping.created_at | timeago }}</td>
+            <td><timeago :since="flapping.created_at"></timeago></td>
           </tr>
         </tbody>
       </table>
@@ -57,7 +57,7 @@ export default {
     }
   },
   created () {
-    this.timer = setInterval(this.getFlappings, 10000);
+    this.timer = setInterval(this.getFlappings, 30000);
   },
   destroyed () {
     clearInterval(this.timer)

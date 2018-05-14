@@ -110,7 +110,7 @@
           </div>
         </div>
         <div v-if="loadedPings==true" class="column field is-half">   
-          Line graph
+          Speed graph
           <line-pings-chart v-bind:pingData="pingData" :width="600" :height="400"></line-pings-chart>
         </div>
       </div>

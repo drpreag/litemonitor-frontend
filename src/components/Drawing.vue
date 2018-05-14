@@ -5,9 +5,7 @@
  */
 
 <template>
-  <div id="drawing">
     <i :class="drawing" :style="style"></i>
-  </div>
 </template>
 
 <script>

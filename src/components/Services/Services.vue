@@ -36,7 +36,8 @@
               <drawing :sign="service.active" origin="yesno"></drawing>
             </td>
             <td class="has-text-centered">
-              <drawing :sign="service.status" origin="updown"></drawing> 
+              <drawing :sign="service.status" origin="updown"></drawing>&nbsp
+              <timeago :since="service.status_change"></timeago>
             </td>
             <td>
               <router-link :to="{ name: 'Service', params: { id: service.id }}">
