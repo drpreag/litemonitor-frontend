@@ -107,9 +107,9 @@
             </table>
           </div>
         </div>
-        <div v-if="service.probe_id!=5" class="column field is-half">   
+        <div v-if="loadedObservations==true && service.probe_id!=5" class="column field is-half">   
           Line graph
-          <line-observations-chart v-bind:passedData="passedData" :width="600" :height="400"></line-observations-chart>
+          <line-observations-chart v-bind:observationData="observationData" :width="600" :height="400"></line-observations-chart>
         </div>
       </div>
 
@@ -133,23 +133,24 @@ export default {
       title: 'Service',
       sign: null,
       baseURL: null,
-      passedData: []
+      observationData: [],
+      loadedObservations: false
     }
   },
   created () {
-    this.timer = setInterval(this.getObservations, 10000);
+    this.timer = setInterval(this.getObservations, 30000);
   },
   destroyed () {
     clearInterval(this.timer)
   },    
   mounted () {
     this.baseURL = process.env.API_BASE_URL   
+    this.id = this.$route.params.id    
     this.getObservations ()
     this.getService ()
   },
   methods: {
     getService () {
-      this.id = this.$route.params.id
       axios
         .get(this.baseURL+'/service/' + this.id, { crossdomain: true })
         .then(response => {
@@ -166,12 +167,13 @@ export default {
     },
     getObservations () {
       axios
-        .get(this.baseURL+'/service/' + this.$route.params.id + /observations/, { crossdomain: true })
+        .get(this.baseURL+'/service/' + this.id + /observations/, { crossdomain: true })
         .then(response => {
           this.observations = response.data.data
           for (var i in this.observations) {
-            this.passedData[i]=[this.observations[i]['created_at'],this.observations[i]['speed']];
+            this.observationData[i]=[this.observations[i]['created_at'],this.observations[i]['speed']];
           }
+          this.loadedObservations = true;
         })
     }
   }

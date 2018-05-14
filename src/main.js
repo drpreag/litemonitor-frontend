@@ -2,7 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import vueResource from 'vue-resource'
+//import vueResource from 'vue-resource'
 import VueMoment from 'vue-moment'
 import moment from 'moment'
 
@@ -41,7 +41,7 @@ import 'bulma/css/bulma.css'
 import '@/assets/bulma_restyle.css'
 
 Vue.use(VueRouter)
-Vue.use(vueResource)
+//Vue.use(vueResource)
 
 //Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('content')
 Vue.config.productionTip = false

@@ -109,9 +109,9 @@
             </table>
           </div>
         </div>
-        <div class="column field is-half">   
+        <div v-if="loadedPings==true" class="column field is-half">   
           Line graph
-          <line-pings-chart v-bind:passedData="passedData" :width="600" :height="400"></line-pings-chart>
+          <line-pings-chart v-bind:pingData="pingData" :width="600" :height="400"></line-pings-chart>
         </div>
       </div>
 
@@ -135,11 +135,13 @@ export default {
       title: 'Host',
       sign: null,
       baseURL: null,
-      passedData: []
+      passedData: [],
+      pingData: [],
+      loadedPings: false
     }
   },
   created () {
-    this.timer = setInterval(this.getPings, 10000);
+    this.timer = setInterval(this.getPings, 30000);
   },
   destroyed () {
     clearInterval(this.timer)
@@ -174,6 +176,9 @@ export default {
           for (var i in this.pings) {
             this.passedData[i]=[this.pings[i]['created_at'],this.pings[i]['avg_speed']];
           }
+          this.pingData = this.passedData.reverse();
+          this.loadedPings = true;
+          //console.log (this.pingData);
         })
     }
   }

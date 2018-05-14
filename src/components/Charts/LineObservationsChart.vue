@@ -5,14 +5,14 @@ import { Line } from 'vue-chartjs'
 
 export default {
   extends: Line,
-  props: ['passedData'],
+  props: ['observationData'],
   data () {
     return {
       chartData: {
         labels: [],
         datasets: [
           {
-            label: ["Ping Avg speed"],
+            label: ["Speed ms"],
             data: [],            
             backgroundColor: '#f87979',
             backgroundColor: [
@@ -25,26 +25,26 @@ export default {
       chartOptions: {
         responsive: false,
         maintainAspectRatio: false
-      }    
+      }
     }
   },  
   watch: {
     passedData () {
-      var totalItems = this.passedData.length - 1;
-      for (var i in this.passedData) {
-        this.chartData.labels[totalItems-i] = this.passedData [i][0];
-        this.chartData.datasets[0].data[totalItems-i] = this.passedData [i][1];
-        console.log (this.chartData.labels[totalItems-i] , this.chartData.datasets[0].data[totalItems-i])
+      var totalItems = this.observationData.length - 1;
+      for (var i in this.observationData) {
+        this.chartData.labels[totalItems-i] = this.observationdData [i][0];
+        this.chartData.datasets[0].data[totalItems-i] = this.observationData [i][1];
+        //console.log (this.chartData.labels[totalItems-i] , this.chartData.datasets[0].data[totalItems-i])
       }
       this.renderChart(this.chartData, this.chartOptions);
     }
   },
   mounted () {
-    var totalItems = this.passedData.length - 1;
-    for (var i in this.passedData) {
-      this.chartData.labels[totalItems-i] = this.passedData [i][0];
-      this.chartData.datasets[0].data[totalItems-i] = this.passedData [i][1];
-      console.log (this.chartData.labels[totalItems-i] , this.chartData.datasets[0].data[totalItems-i])
+    var totalItems = this.observationData.length - 1;
+    for (var i in this.observationData) {
+      this.chartData.labels[totalItems-i] = this.observationData [i][0];
+      this.chartData.datasets[0].data[totalItems-i] = this.observationData [i][1];
+      //console.log (this.chartData.labels[totalItems-i] , this.chartData.datasets[0].data[totalItems-i])
     }
     this.renderChart(this.chartData, this.chartOptions);
   }

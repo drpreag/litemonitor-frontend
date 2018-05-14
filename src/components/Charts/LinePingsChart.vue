@@ -1,19 +1,19 @@
 <script>
 import axios from 'axios'
-import VueCharts from 'vue-chartjs'
+//import VueCharts from 'vue-chartjs'
 import { Line } from 'vue-chartjs'
 
 export default {
   extends: Line,
-  props: ['passedData'],
+  props: ['pingData'],
   data () {
     return {
       chartData: {
         labels: [],
         datasets: [
           {
-            label: ["Ping Avg speed"],
-            data: [],            
+            label: ["Ping Avg speed [ms]"],
+            data: [],     
             backgroundColor: '#f87979',
             backgroundColor: [
                 'rgba(255,99,132,1)',
@@ -29,21 +29,20 @@ export default {
     }
   },  
   watch: {
-    passedData () {
-      var totalItems = this.passedData.length - 1;
-      for (var i in this.passedData) {
-        this.chartData.labels[totalItems-i-1] = this.passedData [i][0];
-        this.chartData.datasets[0].data[totalItems-i-1] = this.passedData [i][1];
-      }
+    pingData () {
+      var totalItems = this.pingData.length - 1;
+      for (var i in this.pingData) {
+        this.chartData.labels[totalItems-i] = this.pingData [i][0];
+        this.chartData.datasets[0].data[totalItems-i] = this.pingData [i][1];
+      }    
       this.renderChart(this.chartData, this.chartOptions);
     }
   },
   mounted () {
-    var totalItems = this.passedData.length - 1;
-    for (var i in this.passedData) {
-      this.chartData.labels[totalItems-i] = this.passedData [i][0];
-      this.chartData.datasets[0].data[totalItems-i] = this.passedData [i][1];
-      //console.log (this.chartData.labels[totalItems-i] , this.chartData.datasets[0].data[totalItems-i])
+    var totalItems = this.pingData.length - 1;
+    for (var i in this.pingData) {
+      this.chartData.labels[totalItems-i] = this.pingData [i][0];
+      this.chartData.datasets[0].data[totalItems-i] = this.pingData [i][1];
     }
     this.renderChart(this.chartData, this.chartOptions);
   }
