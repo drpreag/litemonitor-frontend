@@ -138,6 +138,12 @@ export default {
       passedData: []
     }
   },
+  created () {
+    this.timer = setInterval(this.getPings, 10000);
+  },
+  destroyed () {
+    clearInterval(this.timer)
+  },  
   mounted () {
     this.baseURL = process.env.API_BASE_URL   
     this.getPings ()

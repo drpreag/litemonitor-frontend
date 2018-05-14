@@ -107,7 +107,7 @@
             </table>
           </div>
         </div>
-        <div class="column field is-half">   
+        <div v-if="service.probe_id!=5" class="column field is-half">   
           Line graph
           <line-observations-chart v-bind:passedData="passedData" :width="600" :height="400"></line-observations-chart>
         </div>
@@ -136,13 +136,19 @@ export default {
       passedData: []
     }
   },
+  created () {
+    this.timer = setInterval(this.getObservations, 10000);
+  },
+  destroyed () {
+    clearInterval(this.timer)
+  },    
   mounted () {
     this.baseURL = process.env.API_BASE_URL   
     this.getObservations ()
-    this.getHost ()
+    this.getService ()
   },
   methods: {
-    getHost () {
+    getService () {
       this.id = this.$route.params.id
       axios
         .get(this.baseURL+'/service/' + this.id, { crossdomain: true })
@@ -164,7 +170,7 @@ export default {
         .then(response => {
           this.observations = response.data.data
           for (var i in this.observations) {
-            this.passedData[i]=[this.observations[i]['created_at'],this.observations[i]['avg_speed']];
+            this.passedData[i]=[this.observations[i]['created_at'],this.observations[i]['speed']];
           }
         })
     }

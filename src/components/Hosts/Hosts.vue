@@ -80,9 +80,9 @@ export default {
         .get(this.baseURL+'/hosts', { crossdomain: true })
         .then(response => {
           this.hosts = response.data.data;
-          this.total = response.data.meta.total
-          this.page = this.current = response.data.meta.current_page
-          this.itemsPerPage = response.data.meta.per_page          
+          //this.total = response.data.meta.total
+          //this.page = this.current = response.data.meta.current_page
+          //this.itemsPerPage = response.data.meta.per_page          
         });
     }    
   }

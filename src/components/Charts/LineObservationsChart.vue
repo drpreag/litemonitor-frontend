@@ -30,19 +30,21 @@ export default {
   },  
   watch: {
     passedData () {
-      var totalItems = this.passedData.length;
+      var totalItems = this.passedData.length - 1;
       for (var i in this.passedData) {
-        this.chartData.labels[totalItems-i-1] = this.passedData [i][0];
-        this.chartData.datasets[0].data[totalItems-i-1] = this.passedData [i][1];
+        this.chartData.labels[totalItems-i] = this.passedData [i][0];
+        this.chartData.datasets[0].data[totalItems-i] = this.passedData [i][1];
+        console.log (this.chartData.labels[totalItems-i] , this.chartData.datasets[0].data[totalItems-i])
       }
       this.renderChart(this.chartData, this.chartOptions);
     }
   },
   mounted () {
-    var totalItems = this.passedData.length;
+    var totalItems = this.passedData.length - 1;
     for (var i in this.passedData) {
-      this.chartData.labels[totalItems-i-1] = this.passedData [i][0];
-      this.chartData.datasets[0].data[totalItems-i-1] = this.passedData [i][1];
+      this.chartData.labels[totalItems-i] = this.passedData [i][0];
+      this.chartData.datasets[0].data[totalItems-i] = this.passedData [i][1];
+      console.log (this.chartData.labels[totalItems-i] , this.chartData.datasets[0].data[totalItems-i])
     }
     this.renderChart(this.chartData, this.chartOptions);
   }
