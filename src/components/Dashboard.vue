@@ -30,7 +30,7 @@
             <td class="has-text-centered">
               <drawing :sign="flapping.status" origin="updown"></drawing>
             </td>
-            <td><timeago :since="flapping.created_at"></timeago></td>
+            <td>{{ flapping.created_at | time-ago }}</td>
           </tr>
         </tbody>
       </table>

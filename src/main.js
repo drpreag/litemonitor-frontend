@@ -39,16 +39,6 @@ import Dashboard from '@/components/Dashboard'
 
 import 'bulma/css/bulma.css'
 import '@/assets/bulma_restyle.css'
-import VueTimeago from 'vue-timeago'
-
-Vue.use(VueTimeago, {
-  name: 'Timeago', // Component name, `Timeago` by default
-  locale: "RS", // Default locale
-  locales: {
-    'zh-CN': require('date-fns/locale/zh_cn'),
-    'ja': require('date-fns/locale/ja'),
-  }
-});
 
 Vue.use(VueRouter)
 //Vue.use(vueResource)
