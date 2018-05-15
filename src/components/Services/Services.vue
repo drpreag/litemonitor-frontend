@@ -36,7 +36,9 @@
               <drawing :sign="service.active" origin="yesno"></drawing>
             </td>
             <td class="has-text-centered">
-              <drawing :sign="service.status" origin="updown"></drawing>&nbsp{{ service.status_change | time-ago }}
+              <selection v-if="service.active">
+                <drawing :sign="service.status" origin="updown"></drawing>&nbsp{{ service.status_change | time-ago }}
+              </selection>
             </td>
             <td>
               <router-link :to="{ name: 'Service', params: { id: service.id }}">

@@ -48,7 +48,7 @@
             <drawing :sign="host.icmp_probe" origin="yesno"></drawing>
           </div>
 
-          <div class="control">          
+          <div v-if="host.icmp_probe" class="control">          
             <label class="label">ICMP status</label>
             <drawing :sign="host.icmp_status" origin="yesno"></drawing>
           </div>
@@ -111,12 +111,13 @@
           </div>
         </div>
 
-        <div v-if="loadedPings==true && host.icmp_probe==true" class="column field is-half">   
-          <div>
+        <div class="column field is-half">   
+          <div v-if="loadedPings==true">
             Speed graph
             <line-pings-chart v-bind:pingData="pingData" :width="600" :height="400"></line-pings-chart>
           </div>
-          <div> 
+          <div v-if="host.icmp_probe==true"> 
+            Google Map
             <google-map v-if="ipLocal" v-bind:center="center" :width="600" :height="400"></google-map>
           </div>
         </div>          
@@ -197,7 +198,7 @@ export default {
         axios
           .get("https://api.ipdata.co/" + ipAddress)
           .then(response => {
-            this.center = { lat: +response.data.latitude, lng: +response.data.longitude} ;
+            this.center = { lat: +response.data.latitude, lng: +response.data.longitude};
           })
       }
     }

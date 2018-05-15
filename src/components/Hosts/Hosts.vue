@@ -32,7 +32,9 @@
               <drawing :sign="host.icmp_probe" origin="yesno"></drawing>
             </td>
             <td class="has-text-centered">
-              <drawing :sign="host.icmp_status" origin="updown"></drawing>&nbsp{{ host.status_change | time-ago }}
+              <selection v-if="host.icmp_probe">
+                <drawing :sign="host.icmp_status" origin="updown"></drawing>&nbsp{{ host.status_change | time-ago }}
+              </selection>
             </td>
             <td>
               <router-link :to="{ name: 'Host', params: { id: host.id }}">

@@ -3,14 +3,28 @@
   <div id="dashboard" class="content">
     
     <div class="columns">
-      <div class="column is-half">
-        Hosts statistics:
-        <donut-hosts-chart v-bind:passedHostChartData="passedHostChartData" :width="300" :height="200"></donut-hosts-chart>
+      <div class="column is-third">
+        <router-link :to="{ name:'Hosts' }">
+          <div>
+            Hosts statistics:
+            <donut-hosts-chart v-bind:passedHostChartData="passedHostChartData" :width="300" :height="200">
+            </donut-hosts-chart>
+          </div>
+        </router-link>
       </div> 
-      <div class="column is-half">
-        Services statistics:
-        <donut-services-chart v-bind:passedServiceChartData="passedServiceChartData" :width="300" :height="200"></donut-services-chart>
+      <div class="column is-third">
+        <router-link :to="{ name:'Services' }">
+          <div>
+            Services statistics:
+            <donut-services-chart v-bind:passedServiceChartData="passedServiceChartData" :width="300" :height="200">
+            </donut-services-chart>
+          </div>
+        </router-link>
       </div>    
+      <div class="column is-third" :width="400" :height="200">
+        Google Map
+        <world-map v-bind:center="center" v-bind:ips="ips"></world-map>
+      </div>
     </div>
 
     <div v-if="flappings">
@@ -44,16 +58,20 @@ import axios from 'axios'
 import Drawing from '@/components/Drawing'
 import DonutHostsChart from '@/components/Charts/DonutHostsChart'
 import DonutServicesChart from '@/components/Charts/DonutServicesChart'
+import WorldMap from '@/components/Charts/WorldMap'
 
 export default {
-  components: { Drawing, DonutHostsChart, DonutServicesChart },
+  components: { Drawing, DonutHostsChart, DonutServicesChart, WorldMap },
   data () {
     return {
       title: 'Dashboard',
       flappings: [],
       passedHostChartData: [],
       passedServiceChartData: [],
-      baseURL: null
+      baseURL: null,
+      markersprops: [ { lat: 0, lng: 0 } ],
+      center: { lat: 0, lng: 0 },
+      ips: []
     }
   },
   created () {
@@ -63,8 +81,12 @@ export default {
     clearInterval(this.timer)
   },
   mounted () {
-    this.baseURL = process.env.API_BASE_URL  
-    this.getFlappings ()
+    this.baseURL = process.env.API_BASE_URL;
+    this.getFlappings ();
+    this.getIps ();   
+    //for (var i=0; i<3; i++) {
+      //console.log (this.ips[i]); 
+    //}
   },
   methods: {
     getFlappings () {
@@ -91,7 +113,39 @@ export default {
             this.passedServiceChartData=[response.data.down, response.data.up, response.data.non_monitored];
           }
         });
-    }
+    },
+    getIps () {
+      axios
+        .get(this.baseURL+'/hosts', { crossdomain: true })
+        .then(response => {
+          var hosts = response.data.data;
+          for (var i = 0; i < hosts.length; i++) {
+            this.ips.push (hosts[i].ip);
+          }
+        }); 
+        //console.log (this.ips);
+    },
+/*    getMarkers () {
+      axios
+        .get(this.baseURL+'/hosts', { crossdomain: true })
+        .then(response => {
+          var hosts = response.data.data;
+          for (var i = 0; i < hosts.length; i++) {
+            this.getGeoData(hosts[i].ip);
+            //console.log (i + " " + hosts[i].ip);
+          }
+        }); 
+    },
+    getGeoData (ipAddress) {
+      if (ipAddress != "127.0.0.1" && ipAddress != "localhost") {
+        axios
+          .get("https://api.ipdata.co/" + ipAddress)
+          .then(response => {
+            //console.log ({ lat: response.data.latitude, lng: response.data.longitude});
+            this.markersprops.push ({ lat: response.data.latitude, lng: response.data.longitude});
+          })
+      }
+    }    */
   }
 }
 </script>

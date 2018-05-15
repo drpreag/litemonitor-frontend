@@ -47,7 +47,7 @@
             <drawing :sign="service.active" origin="yesno"></drawing>
           </div>
 
-          <div class="control">          
+          <div v-if="service.active" class="control">          
             <label class="label">Status</label>
             <drawing :sign="service.status" origin="yesno"></drawing>
           </div>

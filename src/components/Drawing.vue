@@ -33,7 +33,8 @@ export default {
     }
     if (this.origin=="yesno" & this.sign==0) {
       this.drawing = "far fa-times-circle fa-2x" 
-      this.style = "color:#F62817"
+      //this.style = "color:#F62817"
+      this.style = "color:#D3D3D3"
     }
     if (this.origin=="updown" & this.sign==1) {
       this.drawing = "far fa-arrow-alt-circle-up fa-2x" 
