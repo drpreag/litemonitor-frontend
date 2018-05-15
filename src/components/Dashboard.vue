@@ -3,7 +3,7 @@
   <div id="dashboard" class="content">
     
     <div class="columns">
-      <div class="column is-third">
+      <div class="column is-quarter" align="left">
         <router-link :to="{ name:'Hosts' }">
           <div>
             Hosts statistics:
@@ -12,7 +12,7 @@
           </div>
         </router-link>
       </div> 
-      <div class="column is-third">
+      <div class="column is-quarter" align="left">
         <router-link :to="{ name:'Services' }">
           <div>
             Services statistics:
@@ -21,9 +21,9 @@
           </div>
         </router-link>
       </div>    
-      <div class="column is-third" :width="400" :height="200">
+      <div class="column is-half" align="right">
         Google Map
-        <world-map v-bind:center="center" v-bind:ips="ips"></world-map>
+        <world-map v-bind:center="center" v-bind:hosts="hosts"></world-map>
       </div>
     </div>
 
@@ -69,11 +69,16 @@ export default {
       passedHostChartData: [],
       passedServiceChartData: [],
       baseURL: null,
-      markersprops: [ { lat: 0, lng: 0 } ],
       center: { lat: 0, lng: 0 },
-      ips: []
+      hosts: []
     }
   },
+/*  watch: {
+    hosts: function() {
+      console.log ("Hosts: " + this.hosts.length);
+      console.log ("IP:" + this.hosts[this.hosts.length-1].ip + "; Status:" + this.hosts[this.hosts.length-1].icmp_status + "; Hostname:"+ this.hosts[this.hosts.length-1].name);      
+    }
+  },*/
   created () {
     this.timer = setInterval(this.getFlappings, 30000);
   },
@@ -83,10 +88,7 @@ export default {
   mounted () {
     this.baseURL = process.env.API_BASE_URL;
     this.getFlappings ();
-    this.getIps ();   
-    //for (var i=0; i<3; i++) {
-      //console.log (this.ips[i]); 
-    //}
+    this.getHostData ();
   },
   methods: {
     getFlappings () {
@@ -114,38 +116,18 @@ export default {
           }
         });
     },
-    getIps () {
+    getHostData () {
       axios
         .get(this.baseURL+'/hosts', { crossdomain: true })
         .then(response => {
-          var hosts = response.data.data;
-          for (var i = 0; i < hosts.length; i++) {
-            this.ips.push (hosts[i].ip);
+          var axios_hosts = response.data.data;
+          for (var i = 0; i < axios_hosts.length; i++) {
+            //this.hosts.push ( axios_hosts[i].ip );//, status: axios_hosts[i].icmp_status, name: axios_hosts[i].name} );
+            this.hosts.push ( {ip: axios_hosts[i].ip, status: axios_hosts[i].icmp_status, name: axios_hosts[i].name} );
+            // console.log ("IP:" + axios_hosts[i].ip + "; Status:" + axios_hosts[i].icmp_status + "; Hostname:"+ axios_hosts[i].name);
           }
         }); 
-        //console.log (this.ips);
-    },
-/*    getMarkers () {
-      axios
-        .get(this.baseURL+'/hosts', { crossdomain: true })
-        .then(response => {
-          var hosts = response.data.data;
-          for (var i = 0; i < hosts.length; i++) {
-            this.getGeoData(hosts[i].ip);
-            //console.log (i + " " + hosts[i].ip);
-          }
-        }); 
-    },
-    getGeoData (ipAddress) {
-      if (ipAddress != "127.0.0.1" && ipAddress != "localhost") {
-        axios
-          .get("https://api.ipdata.co/" + ipAddress)
-          .then(response => {
-            //console.log ({ lat: response.data.latitude, lng: response.data.longitude});
-            this.markersprops.push ({ lat: response.data.latitude, lng: response.data.longitude});
-          })
-      }
-    }    */
+    }
   }
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
 	<div>
-	    <gmap-map :center="center" :ips="ips" :zoom="0" style="width:400px;  height: 200px;">   
+	    <gmap-map :center="center" :hosts="hosts" :zoom="1" style="width:600px; height: 300px;">
 	        <gmap-marker
 		        :key="index"
 		        v-for="(m, index) in markers"
@@ -16,7 +16,7 @@ import axios from 'axios'
 
 export default {
 	name: "GoogleMap",
-	props: [ "center", "ips" ],
+	props: [ "center", "hosts" ],
 	data() {
 		return {
 			markers: [],
@@ -25,21 +25,28 @@ export default {
 		};
 	},
 	watch: {
-		ips () {
-	     	for (var i = 0; i < this.ips.length; i++) {
-				this.getGeoData (this.ips[i]);
+		hosts () {
+			//console.log ("Hosts: " + this.hosts.length);
+	     	for (var i = 0; i < this.hosts.length; i++) {	
+				this.getGeoData (this.hosts[i]);
 	    	}			
-		}
+		},
+		center () {
+			this.markers.push ({ position: this.center });
+		}		
 	},
 	methods: {
-	    getGeoData (ipAddress) {
-	      if (ipAddress != "127.0.0.1" && ipAddress != "localhost") {
+	    getGeoData (host) {
+	      	if (host.ip != "127.0.0.1" && host.ip != "localhost") {
 	        axios
-				.get("https://api.ipdata.co/" + ipAddress)
+				.get("https://api.ipdata.co/" + host.ip)
 				.then(response => {
-					this.markers.push ({ position: {lat: +response.data.latitude, lng: +response.data.longitude}});
+					this.markers.push ({ position: {lat: +response.data.latitude, lng: +response.data.longitude}, 
+						label: host.status, title: host.name });
+					this.places.push ({ position: {lat: +response.data.latitude, lng: +response.data.longitude}, 
+						label: host.status, title: host.name });
 				})
-	      }
+			}
 	    }
 	}
 };

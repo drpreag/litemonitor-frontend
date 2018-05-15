@@ -14,7 +14,7 @@
 <script>
 export default {
 	name: "GoogleMap",
-	props: ["center"],
+	props: [ "center" ],
 	data() {
 		return {
 			markers: [],
