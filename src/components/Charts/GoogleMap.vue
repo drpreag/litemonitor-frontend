@@ -1,0 +1,41 @@
+<template>
+	  <div>
+	  	Google Map
+		    <gmap-map :center="center" :zoom="4" style="width:600px;  height: 400px;">   
+		         <gmap-marker
+			        :key="index"
+			        v-for="(m, index) in markers"
+			        :position="m.position"
+			        @click="center=m.position">
+      			</gmap-marker>    
+		    </gmap-map>
+	  </div>
+</template>
+
+<script>
+export default {
+	name: "GoogleMap",
+	props: ["center"],
+	data() {
+		return {
+		  markers: [],
+		  places: [],
+		  currentPlace: null
+		};
+	},
+	mounted() {
+		this.addMarker ();
+	},
+	watch: {
+		center () {
+			this.addMarker ();
+		}
+	},	
+	methods: {
+		addMarker() {
+		    this.markers.push({ position: this.center });
+		    this.places.push({ position: this.center });
+		}
+	}
+};
+</script>

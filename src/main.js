@@ -40,8 +40,15 @@ import Dashboard from '@/components/Dashboard'
 import 'bulma/css/bulma.css'
 import '@/assets/bulma_restyle.css'
 
+import * as VueGoogleMaps from "vue2-google-maps";
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: "AIzaSyCHBxwgAWq_QPjn7mRpKAvLvgSs6e71M3A",
+    libraries: "places" //necessary for places input
+  }
+});
+
 Vue.use(VueRouter)
-//Vue.use(vueResource)
 
 //Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('content')
 Vue.config.productionTip = false

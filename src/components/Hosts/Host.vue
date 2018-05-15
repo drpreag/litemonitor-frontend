@@ -38,6 +38,7 @@
           <div class="control">          
             <label class="label">FQDN</label>
             <input class="input" type="text" readonly="readonly" v-model=host.fqdn>
+            IP address: {{ host.ip }}
           </div>
         </div>
 
@@ -109,10 +110,16 @@
             </table>
           </div>
         </div>
+
         <div v-if="loadedPings==true" class="column field is-half">   
-          Speed graph
-          <line-pings-chart v-bind:pingData="pingData" :width="600" :height="400"></line-pings-chart>
-        </div>
+          <div>
+            Speed graph
+            <line-pings-chart v-bind:pingData="pingData" :width="600" :height="400"></line-pings-chart>
+          </div>
+          <div> 
+            <google-map v-if="ipLocal" v-bind:center="center" :width="600" :height="400"></google-map>
+          </div>
+        </div>          
       </div>
 
     </div>
@@ -123,9 +130,10 @@
 import axios from 'axios'
 import Drawing from '@/components/Drawing'
 import LinePingsChart from '@/components/Charts/LinePingsChart'
+import GoogleMap from '@/components/Charts/GoogleMap'
 
 export default {
-  components: { Drawing, LinePingsChart },  
+  components: { Drawing, LinePingsChart, GoogleMap },  
   data () {
     return {
       host: null,
@@ -137,7 +145,9 @@ export default {
       baseURL: null,
       passedData: [],
       pingData: [],
-      loadedPings: false
+      loadedPings: false,
+      center: {},
+      ipLocal: false
     }
   },
   created () {
@@ -157,29 +167,39 @@ export default {
       axios
         .get(this.baseURL+'/host/' + this.id, { crossdomain: true })
         .then(response => {
-          this.host = response.data.data
-          this.title = 'Host: ' + this.host.name
+          this.host = response.data.data;
+          this.title = 'Host: ' + this.host.name;
+          this.getGeoData (this.host.ip);
         })
     },
     deleteHost (id) {
       axios
         .delete(this.baseURL+'/host/' + id, { crossdomain: true })
         .then(response => {
-          this.$router.push({path:'/hosts'})
+          this.$router.push({path:'/hosts'});
         })
     },
     getPings () {
       axios
         .get(this.baseURL+'/host/' + this.$route.params.id + /pings/, { crossdomain: true })
         .then(response => {
-          this.pings = response.data.data
+          this.pings = response.data.data;
           for (var i in this.pings) {
             this.passedData[i]=[this.pings[i]['created_at'],this.pings[i]['avg_speed']];
           }
           this.pingData = this.passedData.reverse();
           this.loadedPings = true;
-          //console.log (this.pingData);
         })
+    },
+    getGeoData (ipAddress) {
+      if (ipAddress != "127.0.0.1" && ipAddress != "localhost") {
+        this.ipLocal = true;
+        axios
+          .get("https://api.ipdata.co/" + ipAddress)
+          .then(response => {
+            this.center = { lat: +response.data.latitude, lng: +response.data.longitude} ;
+          })
+      }
     }
   }
 }
