@@ -85,8 +85,8 @@
       </div>
 
       <div class="columns">
-        <div class="column field is-half">
-          <div v-if="pings">
+        <div v-if="pings && host.icmp_probe==true" class="column field is-half">
+          <div>
             Last 60 pings
             <table class="table is-bordered is-striped is-fullwidth is-hoverable">
               <thead>
@@ -111,7 +111,7 @@
           </div>
         </div>
 
-        <div v-if="loadedPings==true" class="column field is-half">   
+        <div v-if="loadedPings==true && host.icmp_probe==true" class="column field is-half">   
           <div>
             Speed graph
             <line-pings-chart v-bind:pingData="pingData" :width="600" :height="400"></line-pings-chart>
