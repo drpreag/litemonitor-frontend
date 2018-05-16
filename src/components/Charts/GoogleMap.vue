@@ -22,18 +22,9 @@ export default {
 			currentPlace: null
 		};
 	},
-	mounted() {
-		this.addMarker ();
-	},
 	watch: {
 		center () {
-			this.addMarker ();
-		}
-	},	
-	methods: {
-		addMarker() {
-		    this.markers.push({ position: this.center });
-		    this.places.push({ position: this.center });
+			this.markers.push({ position: this.center });
 		}
 	}
 };

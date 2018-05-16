@@ -100,7 +100,7 @@
                     <drawing :sign="observation.status" origin="updown"></drawing>
                   </td>
                   <td class="has-text-right">{{ observation.result }}</td>
-                  <td class="has-text-right">{{ observation.speed }}</td>                  
+                  <td class="has-text-right">{{ observation.speed | two-decimals }}</td>                  
                   <td>{{ observation.created_at }}</td>
                 </tr> 
               </tbody>

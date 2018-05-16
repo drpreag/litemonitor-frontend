@@ -88,6 +88,12 @@ Vue.filter('time-ago', function(value) {
       return moment.utc(value).local().fromNow();
   });
 
+Vue.filter('two-decimals', function(value) {
+    if (value)
+      return value.toFixed(2);
+    return null;
+  });
+
 /* eslint-disable no-new */
 new Vue({
   router,

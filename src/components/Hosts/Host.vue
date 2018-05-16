@@ -85,8 +85,8 @@
       </div>
 
       <div class="columns">
-        <div v-if="pings && host.icmp_probe==true" class="column field is-half">
-          <div>
+        <div class="column field is-half">
+          <div v-if="pings && host.icmp_probe==true">
             Last 60 pings
             <table class="table is-bordered is-striped is-fullwidth is-hoverable">
               <thead>
@@ -101,7 +101,7 @@
                   <td class="has-text-centered">
                     <drawing :sign="ping.status" origin="updown"></drawing>
                   </td>
-                  <td class="has-text-right">{{ ping.avg_speed }}</td>
+                  <td class="has-text-right">{{ ping.avg_speed | two-decimals }}</td>
                   <td class="has-text-right">{{ ping.total_tests }}</td>
                   <td class="has-text-right">{{ ping.failed_tests }}</td>
                   <td>{{ ping.created_at }}</td>
@@ -112,11 +112,11 @@
         </div>
 
         <div class="column field is-half">   
-          <div v-if="loadedPings==true">
+          <div v-if="loadedPings==true && host.icmp_probe==true">
             Speed graph
             <line-pings-chart v-bind:pingData="pingData" :width="600" :height="400"></line-pings-chart>
           </div>
-          <div v-if="host.icmp_probe==true"> 
+          <div> 
             Google Map
             <google-map v-if="ipLocal" v-bind:center="center" :width="600" :height="400"></google-map>
           </div>
@@ -147,7 +147,7 @@ export default {
       passedData: [],
       pingData: [],
       loadedPings: false,
-      center: {},
+      center: { lat: 43.6532, lng: -79.3832 },
       ipLocal: false
     }
   },

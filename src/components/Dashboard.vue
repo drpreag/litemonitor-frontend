@@ -70,15 +70,10 @@ export default {
       passedServiceChartData: [],
       baseURL: null,
       center: { lat: 0, lng: 0 },
-      hosts: []
+      hosts: [],
+      center: { lat: 43.6532, lng: -79.3832 },
     }
   },
-/*  watch: {
-    hosts: function() {
-      console.log ("Hosts: " + this.hosts.length);
-      console.log ("IP:" + this.hosts[this.hosts.length-1].ip + "; Status:" + this.hosts[this.hosts.length-1].icmp_status + "; Hostname:"+ this.hosts[this.hosts.length-1].name);      
-    }
-  },*/
   created () {
     this.timer = setInterval(this.getFlappings, 30000);
   },

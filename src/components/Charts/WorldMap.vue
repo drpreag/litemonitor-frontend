@@ -30,10 +30,10 @@ export default {
 	     	for (var i = 0; i < this.hosts.length; i++) {	
 				this.getGeoData (this.hosts[i]);
 	    	}			
-		},
-		center () {
-			this.markers.push ({ position: this.center });
-		}		
+		}	
+	},
+	mounted() {
+		this.markers.push({ position: this.center });
 	},
 	methods: {
 	    getGeoData (host) {
@@ -42,8 +42,6 @@ export default {
 				.get("https://api.ipdata.co/" + host.ip)
 				.then(response => {
 					this.markers.push ({ position: {lat: +response.data.latitude, lng: +response.data.longitude}, 
-						label: host.status, title: host.name });
-					this.places.push ({ position: {lat: +response.data.latitude, lng: +response.data.longitude}, 
 						label: host.status, title: host.name });
 				})
 			}
