@@ -193,7 +193,7 @@ export default {
         })
     },
     getGeoData (ipAddress) {
-      if (ipAddress != "127.0.0.1" && ipAddress != "localhost") {
+      if (ipAddress != null && ipAddress != "127.0.0.1" && ipAddress != "localhost") {
         this.ipLocal = true;
         axios
           .get("https://api.ipdata.co/" + ipAddress)

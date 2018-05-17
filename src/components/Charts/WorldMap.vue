@@ -1,6 +1,6 @@
 <template>
 	<div>
-	    <gmap-map :center="center" :hosts="hosts" :zoom="1" style="width:600px; height: 300px;">
+	    <gmap-map :center="center" :hosts="hosts" :zoom="2" style="width:600px; height: 300px;">
 	        <gmap-marker
 		        :key="index"
 		        v-for="(m, index) in markers"
@@ -33,7 +33,7 @@ export default {
 		}	
 	},
 	mounted() {
-		this.markers.push({ position: this.center });
+		//this.markers.push({ position: this.center });
 	},
 	methods: {
 	    getGeoData (host) {

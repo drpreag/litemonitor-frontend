@@ -1,0 +1,62 @@
+/* eslint-disable */
+<template>
+  <div>
+  </div>
+</template>
+
+<script>
+import axios from 'axios'
+
+export default {
+  data () {
+    return {
+      id: 0,
+      flapping: {}
+    }
+  },
+  watch: {
+    id () {
+      //console.log ("Hosts: " + this.hosts.length);
+      if (this.flapping.status == false) {  // play down music
+        this.playSound ("down");
+      }
+      if (this.flapping.status == true) {  // play up music
+        this.playSound ("up");
+      }     
+    } 
+  },  
+  created () {
+    this.timer = setInterval(this.getNextId, 10000);
+  },
+  destroyed () {
+    clearInterval(this.timer)
+  },  
+  mounted () {
+    this.baseURL = process.env.API_BASE_URL   
+    this.getLastId ()
+  },
+  methods: {
+    getLastId () {
+      axios
+        .get(this.baseURL+'/flappings/last', { crossdomain: true })
+        .then(response => {
+          this.id = response.data.data.id;
+        })
+    },
+    getNextId () {
+      axios
+        .get(this.baseURL+'/flappings/' + this.id + '/next', { crossdomain: true })
+        .then(response => {
+            this.flapping = response.data.data;
+            this.id = response.data.data.id;
+        })
+        .catch(error => {
+        });
+    },
+    playSound (sound) {
+        var audio = new Audio('/static/audio/'+sound+'.mp3');
+        audio.play();
+    }     
+  }
+}
+</script>

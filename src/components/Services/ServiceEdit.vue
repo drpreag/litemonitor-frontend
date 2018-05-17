@@ -42,12 +42,12 @@
 
           <div class="control">          
             <label class="label">Port</label>
-            <input class="form-control" type="text" minlength=2 v-model=service.port>
+            <input class="form-control" type="text" v-model=service.port>
           </div>
 
           <div class="control">          
             <label class="label">URI</label>
-            <input class="form-control" type="text" minlength=5 v-model="service.uri">
+            <input class="form-control" type="text" v-model="service.uri">
           </div>
 
           <div class="control">          

@@ -69,13 +69,12 @@ export default {
       passedHostChartData: [],
       passedServiceChartData: [],
       baseURL: null,
-      center: { lat: 0, lng: 0 },
       hosts: [],
-      center: { lat: 43.6532, lng: -79.3832 },
+      center: { lat: 47.527278, lng: -38.314444 },
     }
   },
   created () {
-    this.timer = setInterval(this.getFlappings, 30000);
+    this.timer = setInterval(this.getFlappings, 10000);
   },
   destroyed () {
     clearInterval(this.timer)
@@ -117,9 +116,12 @@ export default {
         .then(response => {
           var axios_hosts = response.data.data;
           for (var i = 0; i < axios_hosts.length; i++) {
-            //this.hosts.push ( axios_hosts[i].ip );//, status: axios_hosts[i].icmp_status, name: axios_hosts[i].name} );
+            if (axios_hosts[i].ip != null) {
+              // valid IP address
+//            this.hosts.push ( {ip: axios_hosts[i].ip, status: axios_hosts[i].icmp_status, name: axios_hosts[i].name} );
             this.hosts.push ( {ip: axios_hosts[i].ip, status: axios_hosts[i].icmp_status, name: axios_hosts[i].name} );
-            // console.log ("IP:" + axios_hosts[i].ip + "; Status:" + axios_hosts[i].icmp_status + "; Hostname:"+ axios_hosts[i].name);
+//            var c = ((a < b) ? 'minor' : 'major');
+            }
           }
         }); 
     }

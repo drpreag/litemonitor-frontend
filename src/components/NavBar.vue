@@ -23,7 +23,7 @@
               <router-link class="navbar-item" :class="activeClass('Roles')" :to="{ name:'Roles' }">Roles</router-link>
             </div>
           </div>
-
+          <flapping></flapping>
         </div>
 <!--
         <div class="navbar-end">
@@ -38,8 +38,17 @@
 </template>
 
 <script type="text/javascript">
+
+import Flapping from '@/components/Flappings/Flapping'
+
 export default {
   name: 'NavBar',
+  components: { Flapping },
+  data () { 
+    return {
+      lastFlappingId: 0
+    }
+  },
   methods: {
     activeClass: function (...names) {
       for (let name of names) {
