@@ -40,7 +40,7 @@
                 <drawing :sign="service.status" origin="updown" size="2"></drawing>&nbsp{{ service.status_change | time-ago }}
               </div>
             </td>
-            <td>
+            <td class="has-text-centered">
               <router-link :to="{ name: 'Service', params: { id: service.id }}">
                 <button type="button" class="view_button">View</button>                
               </router-link>
