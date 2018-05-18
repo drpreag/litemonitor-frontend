@@ -22,8 +22,6 @@
   is-6
 }
 
-
-
 .container {
   padding-top: 0px;
   margin-top: 0px;
@@ -47,20 +45,23 @@
   max-width: 1600px;
   width: 100%;
   font-size:12px;
+  padding: 0px;
 }
 
 .table-striped  {
   max-width: 1600px;
   width: 100%;
   font-size:12px;
+  padding: 0px;
 }
 
 .table-striped>thead, .table-condensed>thead  {
   font-size:14px;
+  padding: 0px;
 }
 
-.table-condensed>thead>tr>th, .table-condensed>tbody>tr>th, .table-condensed>tfoot>tr>th, .table-condensed>thead>tr>td, .table-condensed>tbody>tr>td, .table-condensed>tfoot>tr>td{
-  padding: 3px;
+.table-condensed>thead>tr>th, .table-condensed>tbody>tr>th, .table-condensed>tfoot>tr>th, .table-condensed>thead>tr>td, .table-condensed>tbody>tr>td, .table-condensed>tfoot>tr>td {
+  padding: 0px;
 }
 
 .thead-inverse th {

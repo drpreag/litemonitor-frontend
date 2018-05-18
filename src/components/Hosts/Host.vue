@@ -45,12 +45,12 @@
         <div class="column field">
           <div class="control">          
             <label class="label">ICMP probe</label>
-            <drawing :sign="host.icmp_probe" origin="yesno"></drawing>
+            <drawing :sign="host.icmp_probe" origin="yesno" size="2"></drawing>
           </div>
 
           <div v-if="host.icmp_probe" class="control">          
             <label class="label">ICMP status</label>
-            <drawing :sign="host.icmp_status" origin="yesno"></drawing>
+            <drawing :sign="host.icmp_status" origin="yesno" size="2"></drawing>
           </div>
         </div>
 
@@ -90,7 +90,7 @@
             Last 60 pings
             <table class="table is-bordered is-striped is-fullwidth is-hoverable">
               <thead>
-                <th>Status</th>
+                <th class="has-text-centered">Status</th>
                 <th class="has-text-right">Avg speed</th>
                 <th class="has-text-right">Total tests</th>
                 <th class="has-text-right">Failed tests</th>
@@ -129,7 +129,7 @@
 
 <script>
 import axios from 'axios'
-import Drawing from '@/components/Drawing'
+import Drawing from '@/components/Charts/Drawing'
 import LinePingsChart from '@/components/Charts/LinePingsChart'
 import GoogleMap from '@/components/Charts/GoogleMap'
 

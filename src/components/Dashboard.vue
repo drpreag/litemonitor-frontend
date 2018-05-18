@@ -55,7 +55,7 @@
 
 <script>
 import axios from 'axios'
-import Drawing from '@/components/Drawing'
+import Drawing from '@/components/Charts/Drawing'
 import DonutHostsChart from '@/components/Charts/DonutHostsChart'
 import DonutServicesChart from '@/components/Charts/DonutServicesChart'
 import WorldMap from '@/components/Charts/WorldMap'

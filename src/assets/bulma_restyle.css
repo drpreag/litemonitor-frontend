@@ -33,19 +33,13 @@
 	font-size:14px;
 }
 
-.button-active {
-
+.view_button {
+    background-color: #f2f2f2;
+    border: none;
+    color: black;
+    padding: 3px 12px;
+    margin: 0px 0px;
+    text-align: center;
+    font-size: 12px;
+    border-radius: 8px;
 }
-
-.button-inactive {
-	
-}
-
-.button-up {
-	
-}
-
-.button-down {
-	
-}
-

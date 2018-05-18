@@ -37,12 +37,12 @@
             </td>
             <td class="has-text-centered">
               <div v-if="service.active">
-                <drawing :sign="service.status" origin="updown"></drawing>&nbsp{{ service.status_change | time-ago }}
+                <drawing :sign="service.status" origin="updown" size="2"></drawing>&nbsp{{ service.status_change | time-ago }}
               </div>
             </td>
             <td>
               <router-link :to="{ name: 'Service', params: { id: service.id }}">
-                <button type="button" class="button is-light is-small is-rounded">View</button>
+                <button type="button" class="view_button">View</button>                
               </router-link>
             </td>
           </tr>
@@ -55,7 +55,7 @@
 
 <script>
 import axios from 'axios'
-import Drawing from '@/components/Drawing'
+import Drawing from '@/components/Charts/Drawing'
 
 export default {
   components: { Drawing },

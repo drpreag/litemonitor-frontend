@@ -44,12 +44,12 @@
         <div class="column field">
           <div class="control">          
             <label class="label">Active probe</label>
-            <drawing :sign="service.active" origin="yesno"></drawing>
+            <drawing :sign="service.active" origin="yesno" size="2"></drawing>
           </div>
 
           <div v-if="service.active" class="control">          
             <label class="label">Status</label>
-            <drawing :sign="service.status" origin="yesno"></drawing>
+            <drawing :sign="service.status" origin="yesno" size="2"></drawing>
           </div>
         </div>
 
@@ -89,7 +89,7 @@
             Last 60 observations
             <table class="table is-bordered is-striped is-fullwidth is-hoverable">
               <thead>
-                <th class="has-text-right">Status</th>
+                <th class="has-text-centered">Status</th>
                 <th class="has-text-right">Result</th>                
                 <th class="has-text-right">Speed [ms]</th>
                 <th>Timestamp</th>
@@ -119,7 +119,7 @@
 
 <script>
 import axios from 'axios'
-import Drawing from '@/components/Drawing'
+import Drawing from '@/components/Charts/Drawing'
 import LineObservationsChart from '@/components/Charts/LineObservationsChart'
 
 export default {

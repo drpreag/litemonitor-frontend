@@ -15,7 +15,7 @@
  
           <router-link class="navbar-item" :class="activeClass('Hosts')" :to="{ name:'Hosts' }">Hosts</router-link>
           <router-link class="navbar-item" :class="activeClass('Services')" :to="{ name:'Services' }">Services</router-link>
-          
+<!--          
           <div class="navbar-item has-dropdown is-hoverable">
             <div class="navbar-link">Admin</div>
             <div class="navbar-dropdown is-boxed">
@@ -23,7 +23,7 @@
               <router-link class="navbar-item" :class="activeClass('Roles')" :to="{ name:'Roles' }">Roles</router-link>
             </div>
           </div>
-          <flapping></flapping>
+-->            
         </div>
 <!--
         <div class="navbar-end">
@@ -34,6 +34,7 @@
       </div>
     </nav>
     <br/> 
+    <flapping></flapping>    
   </div>
 </template>
 

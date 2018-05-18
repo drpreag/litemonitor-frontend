@@ -33,13 +33,13 @@
             </td>
             <td class="has-text-centered">
               <div v-if="host.icmp_probe">
-                <drawing :sign="host.icmp_status" origin="updown"></drawing>&nbsp{{ host.status_change | time-ago }}
+                <drawing :sign="host.icmp_status" origin="updown" size="2"></drawing>&nbsp{{ host.status_change | time-ago }}
               </div>
             </td>
-            <td>
+            <td class="has-text-centered">
               <router-link :to="{ name: 'Host', params: { id: host.id }}">
-                <button type="button" class="button is-light is-small is-rounded">View</button>
-              </router-link>
+                  <button type="button" class="view_button">View</button>
+              </router-link>              
             </td>
           </tr> 
         </tbody>
@@ -51,7 +51,7 @@
 
 <script>
 import axios from 'axios'
-import Drawing from '@/components/Drawing'
+import Drawing from '@/components/Charts/Drawing'
 
 export default {
   components: { Drawing },
