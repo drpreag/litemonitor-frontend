@@ -56,6 +56,45 @@
             <label class="label">Updated</label>
             <input class="input" type="text" readonly="readonly" v-model=host.updated_at>
           </div>   
+
+          <div v-if="services">
+            <div> 
+              <h4>Services</h4>
+              <table class="table is-bordered is-striped is-fullwidth is-hoverable">
+                <thead>
+                  <th>Name</th>
+                  <th>Probe</th>
+                  <th>Port</th>
+                  <th>Uri</th>
+                  <th class="has-text-centered">Active probe</th>
+                  <th class="has-text-centered">Status</th>
+                  <th></th>
+                </thead>
+                <tbody>          
+                  <tr v-for="service in services" :key="service.id">
+                    <td>{{ service.name }}</td>
+                    <td>{{ service.probe_name }}</td>
+                    <td>{{ service.port }}</td>
+                    <td>{{ service.uri }}</td>
+                    <td class="has-text-centered">
+                      <drawing :sign="service.active" origin="yesno"></drawing>
+                    </td>
+                    <td class="has-text-centered">
+                      <div v-if="service.active">
+                        <drawing :sign="service.status" origin="updown"></drawing>&nbsp{{ service.status_change | time-ago }}
+                      </div>
+                    </td>
+                    <td class="has-text-centered">
+                      <router-link :to="{ name: 'Service', params: { id: service.id }}">
+                        <button type="button" class="view_button">View</button>                
+                      </router-link>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>              
+            </div>
+          </div>
+
         </div>
 
         <div class="column is-half">   
@@ -93,6 +132,7 @@ export default {
   mounted () {
     this.baseURL = process.env.API_BASE_URL   
     this.getHost ()
+    this.getServices ()
   },
   methods: {
     getHost () {
