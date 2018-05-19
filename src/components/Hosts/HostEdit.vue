@@ -33,24 +33,9 @@
           </div>
 
           <div class="control">          
-            <label class="label">ICMP probe</label>
-            <input class="form-control" type="checkbox" v-model="host.icmp_probe" @change="changeHandler">
+            <label class="label">Active</label>
+            <input class="form-control" type="checkbox" v-model="host.active" @change="changeHandler">
           </div>
-        
-          <div class="control">          
-            <label class="label">Status change</label>
-            <input class="input" type="text" readonly="readonly" v-model=host.status_change>
-          </div>
-
-          <div class="control">          
-            <label class="label">Last status down</label>
-            <input class="input" type="text" readonly="readonly" v-model=host.last_status_down>
-          </div>
-
-          <div class="control">          
-            <label class="label">Last status up</label>
-            <input class="input" type="text" readonly="readonly" v-model=host.last_status_up>
-          </div>   
 
           <div class="control">          
             <label class="label">Created</label>
@@ -87,7 +72,7 @@ export default {
         name: "",
         description: "",
         fqdn: "",
-        icmp_probe: false
+        active: true
       },      
       errors: [],
       title: 'Edit Host',
@@ -118,7 +103,7 @@ export default {
         name: this.host.name,
         description: this.host.description,
         fqdn: this.host.fqdn,
-        icmp_probe: this.host.icmp_probe == true ? 1 : 0        
+        active: this.host.active == true ? 1 : 0        
       }
       axios
         .put(this.baseURL+'/host/', oldHost, { crossdomain: true })

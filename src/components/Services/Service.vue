@@ -107,7 +107,7 @@
             </table>
           </div>
         </div>
-        <div v-if="loadedObservations==true && service.probe_id!=5" class="column field is-half">   
+        <div v-if="loadedObservations==true && service.draw_graph==true" class="column field is-half">   
           Speed graph
           <line-observations-chart v-bind:observationData="observationData" :width="600" :height="400"></line-observations-chart>
         </div>
@@ -146,8 +146,9 @@ export default {
   mounted () {
     this.baseURL = process.env.API_BASE_URL   
     this.id = this.$route.params.id    
-    this.getObservations ()
     this.getService ()
+    this.getObservations ()
+//    console.log ("Graph: " + this.service.draw_graph);
   },
   methods: {
     getService () {

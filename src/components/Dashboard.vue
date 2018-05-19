@@ -94,16 +94,15 @@ export default {
       axios
         .get(this.baseURL+'/host-stats', { crossdomain: true })
         .then(response => {
-          if (this.passedHostChartData[0]!=response.data.down || 
-              this.passedHostChartData[1]!=response.data.up || 
-              this.passedHostChartData[2]!=response.data.non_monitored) {
-            this.passedHostChartData=[response.data.down, response.data.up, response.data.non_monitored];
+          if (this.passedHostChartData[0]!=response.data.monitored || 
+              this.passedHostChartData[1]!=response.data.non_monitored) {
+            this.passedHostChartData=[response.data.monitored, response.data.non_monitored];
           }
         });       
       axios
         .get(this.baseURL+'/service-stats', { crossdomain: true })
         .then(response => {
-          if (this.passedServiceChartData[0]!=response.data.down || 
+          if (this.passedServiceChartData[0]!=response.data.monitored || 
               this.passedServiceChartData[1]!=response.data.up || 
               this.passedServiceChartData[2]!=response.data.non_monitored) {
             this.passedServiceChartData=[response.data.down, response.data.up, response.data.non_monitored];

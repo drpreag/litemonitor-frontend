@@ -24,7 +24,8 @@
       </div>  
 
       <div class="columns">
-        <div class="column field is-one-third">
+        <div class="column field is-half">
+
           <div class="control">          
             <label class="label">Name</label>
             <input class="input" type="text" readonly="readonly" v-model=host.name>
@@ -40,38 +41,12 @@
             <input class="input" type="text" readonly="readonly" v-model=host.fqdn>
             IP address: {{ host.ip }}
           </div>
-        </div>
-
-        <div class="column field">
-          <div class="control">          
-            <label class="label">ICMP probe</label>
-            <drawing :sign="host.icmp_probe" origin="yesno" size="2"></drawing>
-          </div>
-
-          <div v-if="host.icmp_probe" class="control">          
-            <label class="label">ICMP status</label>
-            <drawing :sign="host.icmp_status" origin="yesno" size="2"></drawing>
-          </div>
-        </div>
-
-        <div class="column field is-quarter">
-          <div class="control">          
-            <label class="label">Status change</label>
-            <input class="input" type="text" readonly="readonly" v-model=host.status_change>
-          </div>
 
           <div class="control">          
-            <label class="label">Last status down</label>
-            <input class="input" type="text" readonly="readonly" v-model=host.last_status_down>
+            <label class="label">Active</label>
+            <drawing :sign="host.active" origin="yesno" size="2"></drawing>
           </div>
 
-          <div class="control">          
-            <label class="label">Last status up</label>
-            <input class="input" type="text" readonly="readonly" v-model=host.last_status_up>
-          </div>
-        </div>
-
-        <div class="column field is-quarter">
           <div class="control">          
             <label class="label">Created</label>
             <input class="input" type="text" readonly="readonly" v-model=host.created_at>
@@ -82,45 +57,14 @@
             <input class="input" type="text" readonly="readonly" v-model=host.updated_at>
           </div>   
         </div>
-      </div>
 
-      <div class="columns">
-        <div class="column field is-half">
-          <div v-if="pings && host.icmp_probe==true">
-            Last 60 pings
-            <table class="table is-bordered is-striped is-fullwidth is-hoverable">
-              <thead>
-                <th class="has-text-centered">Status</th>
-                <th class="has-text-right">Avg speed</th>
-                <th class="has-text-right">Total tests</th>
-                <th class="has-text-right">Failed tests</th>
-                <th>Timestamp</th>
-              </thead>
-              <tbody> 
-                <tr v-for="ping in pings" :key="ping.id">
-                  <td class="has-text-centered">
-                    <drawing :sign="ping.status" origin="updown"></drawing>
-                  </td>
-                  <td class="has-text-right">{{ ping.avg_speed | two-decimals }}</td>
-                  <td class="has-text-right">{{ ping.total_tests }}</td>
-                  <td class="has-text-right">{{ ping.failed_tests }}</td>
-                  <td>{{ ping.created_at }}</td>
-                </tr> 
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <div class="column field is-half">   
-          <div v-if="loadedPings==true && host.icmp_probe==true">
-            Speed graph
-            <line-pings-chart v-bind:pingData="pingData" :width="600" :height="400"></line-pings-chart>
-          </div>
+        <div class="column is-half">   
           <div> 
             Google Map
             <google-map v-if="ipLocal" v-bind:center="center" :width="600" :height="400"></google-map>
           </div>
-        </div>          
+        </div>
+
       </div>
 
     </div>
@@ -130,36 +74,24 @@
 <script>
 import axios from 'axios'
 import Drawing from '@/components/Charts/Drawing'
-import LinePingsChart from '@/components/Charts/LinePingsChart'
 import GoogleMap from '@/components/Charts/GoogleMap'
 
 export default {
-  components: { Drawing, LinePingsChart, GoogleMap },  
+  components: { Drawing, GoogleMap },  
   data () {
     return {
       host: null,
+      services: [],
       id: null,
-      errors: [],
-      pings: [],
       title: 'Host',
       sign: null,
       baseURL: null,
-      passedData: [],
-      pingData: [],
-      loadedPings: false,
       center: { lat: 43.6532, lng: -79.3832 },
       ipLocal: false
     }
-  },
-  created () {
-    this.timer = setInterval(this.getPings, 30000);
-  },
-  destroyed () {
-    clearInterval(this.timer)
-  },  
+  }, 
   mounted () {
     this.baseURL = process.env.API_BASE_URL   
-    this.getPings ()
     this.getHost ()
   },
   methods: {
@@ -180,18 +112,6 @@ export default {
           this.$router.push({path:'/hosts'});
         })
     },
-    getPings () {
-      axios
-        .get(this.baseURL+'/host/' + this.$route.params.id + /pings/, { crossdomain: true })
-        .then(response => {
-          this.pings = response.data.data;
-          for (var i in this.pings) {
-            this.passedData[i]=[this.pings[i]['created_at'],this.pings[i]['avg_speed']];
-          }
-          this.pingData = this.passedData.reverse();
-          this.loadedPings = true;
-        })
-    },
     getGeoData (ipAddress) {
       if (ipAddress != null && ipAddress != "127.0.0.1" && ipAddress != "localhost") {
         this.ipLocal = true;
@@ -201,7 +121,15 @@ export default {
             this.center = { lat: +response.data.latitude, lng: +response.data.longitude};
           })
       }
-    }
+    },
+    getServices () {
+      this.id = this.$route.params.id
+      axios
+        .get(this.baseURL+'/host/' + this.id + '/services', { crossdomain: true })
+        .then(response => {
+          this.services = response.data.data;
+        })
+    },    
   }
 }
 </script>

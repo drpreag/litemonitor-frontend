@@ -19,8 +19,7 @@
           <th>Name</th>
           <th>Description</th>
           <th>FQDN</th>
-          <th class="has-text-centered">ICMP probes</th>
-          <th class="has-text-centered">ICMP status</th>
+          <th class="has-text-centered">Active</th>
           <th></th>
         </thead>
         <tbody> 
@@ -29,12 +28,7 @@
             <td>{{ host.description }}</td>
             <td>{{ host.fqdn }}</td>
             <td class="has-text-centered">
-              <drawing :sign="host.icmp_probe" origin="yesno"></drawing>
-            </td>
-            <td class="has-text-centered">
-              <div v-if="host.icmp_probe">
-                <drawing :sign="host.icmp_status" origin="updown" size="2"></drawing>&nbsp{{ host.status_change | time-ago }}
-              </div>
+              <drawing :sign="host.active" origin="yesno"></drawing>
             </td>
             <td class="has-text-centered">
               <router-link :to="{ name: 'Host', params: { id: host.id }}">

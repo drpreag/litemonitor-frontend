@@ -9,15 +9,15 @@ export default {
   data () {
     return {
       chartData: {
-        labels: ['Down', 'Up', "Non-monitored"],
+        labels: ['Monitored', "Non-monitored"],
         datasets: [
           {
             label: 'Hosts',
             backgroundColor: '#f87979',
             data: [],
             backgroundColor: [
-                'rgba(255,99,132,1)',
-                'rgba(54, 162, 235, 1)'
+                'rgba(54,162,235,1)',
+                'rgba(255,99,132,1)'
             ]
           }       
         ]    

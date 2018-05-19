@@ -33,8 +33,8 @@
           </div>
 
           <div class="control">          
-            <label class="label">ICMP probe</label>
-            <input class="form-control" type="checkbox" v-model="host.icmp_probe" @change="changeHandler">
+            <label class="label">Active</label>
+            <input class="form-control" type="checkbox" v-model="host.active" @change="changeHandler">
           </div>
 
           <div align="center">
@@ -61,7 +61,7 @@ export default {
         name: "",
         description: "",
         fqdn: "",
-        icmp_probe: false
+        active: true
       },
       id: null,
       errors: [],
@@ -83,7 +83,7 @@ export default {
         name: this.host.name,
         description: this.host.description,
         fqdn: this.host.fqdn,
-        icmp_probe: this.host.icmp_probe.checkedValue === true ? 1 : 0
+        active: this.host.active.checkedValue === true ? 1 : 0
       } 
       axios
         .post(this.baseURL+'/host', newHost, { crossdomain: true })
