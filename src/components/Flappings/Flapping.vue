@@ -15,7 +15,7 @@ export default {
     }
   },
   watch: {
-    id () {
+    id: function (newVal, oldVal) {
       //console.log ("Hosts: " + this.hosts.length);
       if (this.flapping.status == false) {  // play down music
         this.playSound ("down");

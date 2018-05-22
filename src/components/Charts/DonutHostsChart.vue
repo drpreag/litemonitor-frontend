@@ -31,7 +31,7 @@ export default {
   watch: { 
     passedHostChartData: function (newVal, oldVal) {
       this.chartData.datasets[0].data=this.passedHostChartData;
-      this.renderChart(this.chartData, this.chartOptions);
+      this.$data._chart.update();
     }
   }, 
   mounted () {

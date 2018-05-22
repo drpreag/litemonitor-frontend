@@ -13,8 +13,8 @@ export default {
         datasets: [
           {
             label: 'Services',
+            data: [],            
             backgroundColor: '#f87979',
-            data: [],
             backgroundColor: [
                 'rgba(255,99,132,1)',
                 'rgba(54, 162, 235, 1)'
@@ -30,12 +30,12 @@ export default {
   },  
   watch: { 
     passedServiceChartData: function(newVal, oldVal) { 
-      this.chartData.datasets[0].data=this.passedServiceChartData;
-      this.renderChart(this.chartData, this.chartOptions);
+      this.chartData.datasets[0].data = this.passedServiceChartData;
+      this.$data._chart.update();      
     }
   }, 
   mounted () {
-    this.chartData.datasets[0].data=this.passedServiceChartData;
+    this.chartData.datasets[0].data = this.passedServiceChartData;
     this.renderChart(this.chartData, this.chartOptions);
   }
 }

@@ -143,8 +143,8 @@ export default {
       title: 'Service',
       sign: null,
       baseURL: null,
-      observationData: [],
-      loadedObservations: false
+      loadedObservations: false,
+      observationData: []
     }
   },
   created () {
@@ -158,7 +158,6 @@ export default {
     this.id = this.$route.params.id    
     this.getService ()
     this.getObservations ()
-//    console.log ("Graph: " + this.service.draw_graph);
   },
   methods: {
     getService () {
@@ -180,10 +179,10 @@ export default {
       axios
         .get(this.baseURL+'/service/' + this.id + /observations/, { crossdomain: true })
         .then(response => {
-          this.observations = response.data.data
-          for (var i in this.observations) {
-            this.observationData[i]=[this.observations[i]['created_at'],this.observations[i]['speed']];
-          }
+          this.observations = response.data.data;
+          this.observationData = [];
+          for (var i in this.observations) 
+            this.observationData[i]=[this.observations[i]['created_at'],this.observations[i]['speed']];     
           this.loadedObservations = true;
         })
     }

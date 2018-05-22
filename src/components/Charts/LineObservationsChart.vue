@@ -26,16 +26,15 @@ export default {
         maintainAspectRatio: false
       }
     }
-  },  
+  },   
   watch: {
-    passedData () {
+    observationData: function (newVal, oldVal) {
       var totalItems = this.observationData.length - 1;
       for (var i in this.observationData) {
-        this.chartData.labels[totalItems-i] = this.observationdData [i][0];
+        this.chartData.labels[totalItems-i] = this.observationData [i][0];
         this.chartData.datasets[0].data[totalItems-i] = this.observationData [i][1];
-        //console.log (this.chartData.labels[totalItems-i] , this.chartData.datasets[0].data[totalItems-i])
       }
-      this.renderChart(this.chartData, this.chartOptions);
+      this.$data._chart.update();
     }
   },
   mounted () {
@@ -43,7 +42,6 @@ export default {
     for (var i in this.observationData) {
       this.chartData.labels[totalItems-i] = this.observationData [i][0];
       this.chartData.datasets[0].data[totalItems-i] = this.observationData [i][1];
-      //console.log (this.chartData.labels[totalItems-i] , this.chartData.datasets[0].data[totalItems-i])
     }
     this.renderChart(this.chartData, this.chartOptions);
   }
