@@ -24,7 +24,7 @@
       </div>  
 
       <div class="columns">
-        <div class="column field is-one-third">
+        <div class="column field is-one-quarter">
           <div class="control">          
             <label class="label">Name</label>
             <input class="input" type="text" readonly="readonly" v-model=service.name>
@@ -41,7 +41,7 @@
           </div>
         </div>
 
-        <div class="column field">
+        <div class="column field is-narrow">
           <div class="control">          
             <label class="label">Active probe</label>
             <drawing :sign="service.active" origin="yesno" size="2"></drawing>
@@ -53,7 +53,7 @@
           </div>
         </div>
 
-        <div class="column field is-quarter">
+        <div class="column field is-quarter is-narrow">
           <div class="control">          
             <label class="label">Port</label>
             <input class="input" type="text" readonly="readonly" v-model=service.port>
@@ -63,14 +63,24 @@
             <label class="label">Uri</label>
             <input class="input" type="text" readonly="readonly" v-model=service.uri>
           </div>
+        </div>
 
+        <div class="column field is-quarter is-narrow">        
+          <div class="control">          
+            <label class="label">Last status change</label>
+            <input class="input" type="text" readonly="readonly" v-model=service.status_change>
+          </div>
+          <div class="control">          
+            <label class="label">Last status down</label>
+            <input class="input" type="text" readonly="readonly" v-model=service.last_status_down>
+          </div>
           <div class="control">          
             <label class="label">Last status up</label>
             <input class="input" type="text" readonly="readonly" v-model=service.last_status_up>
-          </div>
+          </div>          
         </div>
 
-        <div class="column field is-quarter">
+        <div class="column field is-quarter is-narrow">
           <div class="control">          
             <label class="label">Created</label>
             <input class="input" type="text" readonly="readonly" v-model=service.created_at>

@@ -34,7 +34,7 @@
 
           <div class="control">          
             <label class="label">Active</label>
-            <input class="form-control" type="checkbox" v-model="host.active" @change="changeHandler">
+            <input class="form-control" type="checkbox" v-model="host.active" @change="changeHandler">            
           </div>
 
           <div align="center">
@@ -61,7 +61,7 @@ export default {
         name: "",
         description: "",
         fqdn: "",
-        active: true
+        active: false
       },
       id: null,
       errors: [],
@@ -83,8 +83,9 @@ export default {
         name: this.host.name,
         description: this.host.description,
         fqdn: this.host.fqdn,
-        active: this.host.active.checkedValue === true ? 1 : 0
+        active: this.host.active === true ? 1 : 0
       } 
+      //console.log (newHost);
       axios
         .post(this.baseURL+'/host', newHost, { crossdomain: true })
         .then(response => {

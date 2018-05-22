@@ -5,8 +5,9 @@
   "author": "Predrag Vlajkovic drPreAG <predrag.vlajkovic@gmail.com>",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --inline --progress --watch --watch-poll --config build/webpack.dev.conf.js",
-    "watch": "NODE_ENV=development webpack-dev-server --watch --watch-poll --progress --config=build/webpack.dev.conf.js",
+    "dev": "webpack-dev-server --inline --progress --watch --config build/webpack.dev.conf.js",
+    "watch": "cross-env NODE_ENV=development webpack-dev-server --watch --watch-poll --progress --config=build/webpack.dev.conf.js",
+    "watch-poll": "node node_modules/cross-env/dist/bin/cross-env.js NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --watch-poll --progress --hide-modules --config=build/webpack.dev.conf.js",
     "start": "npm run dev",
     "build": "node build/build.js"
   },
@@ -39,6 +40,7 @@
     "babel-preset-stage-2": "^6.22.0",
     "chalk": "^2.4.1",
     "copy-webpack-plugin": "^4.5.1",
+    "cross-env": "^5.1.5",
     "css-loader": "^0.28.11",
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^1.1.11",

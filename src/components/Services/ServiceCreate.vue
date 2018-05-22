@@ -123,9 +123,8 @@ export default {
         uri: this.service.uri,
         active: this.service.active === true ? 1 : 0,
         user: this.service.user,
-        pass: this.service.pass,        
+        pass: this.service.pass     
       } 
-      //console.log(this.service.active);
       axios
         .post(this.baseURL+'/service', newService, { crossdomain: true })
         .then(response => {
