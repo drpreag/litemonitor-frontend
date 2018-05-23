@@ -57,12 +57,12 @@
 
           <div class="control">          
             <label class="label">Username</label>
-            <input class="form-control" type="text" minlength=5 v-model=service.user>
+            <input class="form-control" type="text" minlength=3 v-model=service.user>
           </div>
 
           <div class="control">          
             <label class="label">Password</label>
-            <input class="form-control" type="text" minlength=10 v-model="service.pass">
+            <input class="form-control" type="text" minlength=6 v-model="service.pass">
           </div>
 
           <div align="center">
