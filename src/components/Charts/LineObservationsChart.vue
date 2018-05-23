@@ -9,26 +9,19 @@ export default {
     return {
       chartData: {
         labels: [],
-        datasets: [
-          // {
-          //   label: ["Speed [ms]"],
-          //   data: [],            
-          //   backgroundColor: '#f87979',
-          //   backgroundColor: [
-          //       'rgba(255,99,132,1)',
-          //       'rgba(54, 162, 235, 1)'
-          //   ]
-          // }       
+        datasets: [    
           {
             label: ['Down'],
             borderColor: '#ff6384',
             fill: false,
+            lineTension: 0,
             data: []
           },
           {
             label: ['Up'],
             borderColor: '#36a2eb',
             fill: false,
+            lineTension: 0,
             data: []
           }          
         ]    
@@ -41,6 +34,8 @@ export default {
   },   
   watch: {
     observationData: function (newVal, oldVal) {
+      this.chartData.datasets[0].data = [];
+      this.chartData.datasets[1].data = [];
       var totalItems = this.observationData.length - 1;
       for (var i in this.observationData) {
         this.chartData.labels[totalItems-i] = this.observationData [i][0];
