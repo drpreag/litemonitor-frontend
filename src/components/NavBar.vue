@@ -4,7 +4,7 @@
       <div class="navbar-brand">
         <a class="navbar-item">
           <router-link :class="activeClass('Dashboard')" :to="{ name:'Dashboard' }" exact>
-            <img src="@/assets/logo.png" alt="LiteMonitor" width="75">
+            <img src="/static/logo.png" alt="LiteMonitor" width="75">
           </router-link>
         </a>
       </div>
