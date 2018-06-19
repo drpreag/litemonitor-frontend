@@ -25,27 +25,25 @@ export default {
 		};
 	},
 	watch: {
-		hosts () {
-			//console.log ("Hosts: " + this.hosts.length);
-	     	for (var i = 0; i < this.hosts.length; i++) {	
+		hosts () {		
+	     	for (var i = 0; i < this.hosts.length-1; i++) {
 				this.getGeoData (this.hosts[i]);
-	    	}			
-		}	
-	},
-	mounted() {
-		//this.markers.push({ position: this.center });
+	    	}
+		}
 	},
 	methods: {
 	    getGeoData (host) {
-	      	if (host.ip != "127.0.0.1" && host.ip != "localhost") {
-	        axios
-				.get("https://api.ipdata.co/" + host.ip)
-				.then(response => {
-					this.markers.push ({ position: {lat: +response.data.latitude, lng: +response.data.longitude}, 
-						label: host.status, title: host.name });
-				})
+	      	if (host.active!=0 && host.ip!="" && host.ip!=null && host.ip!="127.0.0.1" && host.ip!="localhost") {
+	      		this.markers.push ({ 
+	      			position: {
+	      				lat: host.latitude, 
+	      				lng: host.longitude
+	      			}, 
+					label: host.active, 
+					title: host.name 
+				});
 			}
 	    }
 	}
-};
+}
 </script>

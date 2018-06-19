@@ -82,7 +82,7 @@ export default {
   mounted () {
     this.baseURL = process.env.API_BASE_URL;
     this.getFlappings ();
-    this.getHostData ();
+    this.getHostsData ();
   },
   methods: {
     getFlappings () {
@@ -109,17 +109,15 @@ export default {
           }
         });
     },
-    getHostData () {
+    getHostsData () {
       axios
         .get(this.baseURL+'/hosts', { crossdomain: true })
         .then(response => {
           var axios_hosts = response.data.data;
-          for (var i = 0; i < axios_hosts.length; i++) {
-            if (axios_hosts[i].ip != null) {
+          for (var i = 0; i < axios_hosts.length-1; i++) {          
+            if (axios_hosts[i].ip != "" && axios_hosts[i].ip != null) {
               // valid IP address
-//            this.hosts.push ( {ip: axios_hosts[i].ip, status: axios_hosts[i].icmp_status, name: axios_hosts[i].name} );
-            this.hosts.push ( {ip: axios_hosts[i].ip, status: axios_hosts[i].icmp_status, name: axios_hosts[i].name} );
-//            var c = ((a < b) ? 'minor' : 'major');
+              this.hosts.push ( {ip: axios_hosts[i].ip, latitude: parseFloat(axios_hosts[i].latitude), longitude: parseFloat(axios_hosts[i].longitude), active: axios_hosts[i].active, name: axios_hosts[i].name} );
             }
           }
         }); 
