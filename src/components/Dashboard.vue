@@ -115,7 +115,8 @@ export default {
         .then(response => {
           var axios_hosts = response.data.data;
           for (var i = 0; i < axios_hosts.length-1; i++) {          
-            if (axios_hosts[i].ip != "" && axios_hosts[i].ip != null) {
+            // if (axios_hosts[i].ip != "" && axios_hosts[i].ip != null) {
+            if (axios_hosts[i].active!=0 && axios_hosts[i].ip!="" && axios_hosts[i].ip!=null && axios_hosts[i].ip!="127.0.0.1" && axios_hosts[i].ip!="localhost") {            
               // valid IP address
               this.hosts.push ( {ip: axios_hosts[i].ip, latitude: parseFloat(axios_hosts[i].latitude), longitude: parseFloat(axios_hosts[i].longitude), active: axios_hosts[i].active, name: axios_hosts[i].name} );
             }

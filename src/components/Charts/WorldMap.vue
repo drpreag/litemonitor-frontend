@@ -12,10 +12,9 @@
 </template>
 
 <script>
-import axios from 'axios'
 
 export default {
-	name: "GoogleMap",
+	name: "WorldMap",
 	props: [ "center", "hosts" ],
 	data() {
 		return {
@@ -27,23 +26,16 @@ export default {
 	watch: {
 		hosts () {		
 	     	for (var i = 0; i < this.hosts.length-1; i++) {
-				this.getGeoData (this.hosts[i]);
+				this.markers.push ({ 
+	      			position: {
+	      				lat: this.hosts[i].latitude, 
+	      				lng: this.hosts[i].longitude
+	      			}, 
+					label: this.hosts[i].active, 
+					title: this.hosts[i].name 
+				});
 	    	}
 		}
-	},
-	methods: {
-	    getGeoData (host) {
-	      	if (host.active!=0 && host.ip!="" && host.ip!=null && host.ip!="127.0.0.1" && host.ip!="localhost") {
-	      		this.markers.push ({ 
-	      			position: {
-	      				lat: host.latitude, 
-	      				lng: host.longitude
-	      			}, 
-					label: host.active, 
-					title: host.name 
-				});
-			}
-	    }
 	}
 }
 </script>

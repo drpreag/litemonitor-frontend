@@ -12,6 +12,7 @@
 </template>
 
 <script>
+
 export default {
 	name: "GoogleMap",
 	props: [ "center" ],
@@ -26,6 +27,10 @@ export default {
 		center () {
 			this.markers.push({ position: this.center });
 		}
+	},
+  	mounted () {
+		this.markers.push({ position: this.center });
 	}
+
 };
 </script>

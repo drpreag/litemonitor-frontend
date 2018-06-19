@@ -126,7 +126,8 @@ export default {
       sign: null,
       baseURL: null,
       center: { lat: 43.6532, lng: -79.3832 },
-      ipLocal: false
+      ipLocal: false,
+      markers: []
     }
   }, 
   mounted () {
@@ -142,7 +143,19 @@ export default {
         .then(response => {
           this.host = response.data.data;
           this.title = 'Host: ' + this.host.name;
-          this.getGeoData (this.host.ip);
+          if (this.host.active!=0 && this.host.ip!="" && this.host.ip!=null && this.host.ip!="127.0.0.1" && this.host.ip!="localhost") {
+            this.ipLocal = true;
+            this.center = { lat: parseFloat(this.host.latitude), lng: parseFloat(this.host.longitude) };
+            console.log (this.center.lat, this.center.lng);          
+            // this.markers.push ({ 
+            //   position: {
+            //     lat: parseFloat(this.host.latitude), 
+            //     lng: parseFloat(this.host.longitude)
+            //   }, 
+            //   label: this.host.active, 
+            //   title: this.host.name 
+            // });
+          }          
         })
     },
     deleteHost (id) {
@@ -151,16 +164,6 @@ export default {
         .then(response => {
           this.$router.push({path:'/hosts'});
         })
-    },
-    getGeoData (ipAddress) {
-      if (ipAddress != null && ipAddress != "127.0.0.1" && ipAddress != "localhost") {
-        this.ipLocal = true;
-        axios
-          .get("https://api.ipdata.co/" + ipAddress)
-          .then(response => {
-            this.center = { lat: +response.data.latitude, lng: +response.data.longitude};
-          })
-      }
     },
     getServices () {
       this.id = this.$route.params.id
