@@ -1,12 +1,13 @@
 <template>
 	<div>
-	    <gmap-map :center="center" :zoom="5" style="width:600px;  height: 400px;">   
+	    <gmap-map :center="marker.position" :zoom="5" style="width:600px;  height: 400px;">   
 	        <gmap-marker
-		        :key="index"
-		        v-for="(m, index) in markers"
-		        :position="m.position"
-		        @click="center=m.position">
-			</gmap-marker>    
+		        :key=0
+		        :position="marker.position"
+		        :title="marker.title"
+		        :icon="marker.icon"		        
+		        @click="center=marker.position">
+			</gmap-marker>  			
 	    </gmap-map>
 	</div>
 </template>
@@ -15,21 +16,19 @@
 
 export default {
 	name: "GoogleMap",
-	props: [ "center" ],
+	props: [ "marker" ],
 	data() {
 		return {
-			markers: [],
-			places: [],
-			currentPlace: null
+			markers: []
 		};
 	},
 	watch: {
 		center () {
-			this.markers.push({ position: this.center });
+			this.markers.push({ position: this.marker.position });
 		}
 	},
   	mounted () {
-		this.markers.push({ position: this.center });
+		this.markers.push({ position: this.marker.position, icon: this.marker.icon, title: this.marker.title });
 	}
 
 };

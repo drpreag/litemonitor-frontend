@@ -100,7 +100,7 @@
         <div class="column is-half">   
           <div> 
             Google Map
-            <google-map v-if="ipLocal" v-bind:center="center" :width="600" :height="400"></google-map>
+            <google-map v-if="ipLocal" v-bind:marker="marker" :width="600" :height="400"></google-map>            
           </div>
         </div>
 
@@ -123,11 +123,13 @@ export default {
       services: [],
       id: null,
       title: 'Host',
+      icon: null,
       sign: null,
       baseURL: null,
       center: { lat: 43.6532, lng: -79.3832 },
       ipLocal: false,
-      markers: []
+      markers: [],
+      marker: {}
     }
   }, 
   mounted () {
@@ -142,20 +144,15 @@ export default {
         .get(this.baseURL+'/host/' + this.id, { crossdomain: true })
         .then(response => {
           this.host = response.data.data;
-          this.title = 'Host: ' + this.host.name;
+          this.title = this.host.name;
           if (this.host.active!=0 && this.host.ip!="" && this.host.ip!=null && this.host.ip!="127.0.0.1" && this.host.ip!="localhost") {
             this.ipLocal = true;
             this.center = { lat: parseFloat(this.host.latitude), lng: parseFloat(this.host.longitude) };
-            console.log (this.center.lat, this.center.lng);          
-            // this.markers.push ({ 
-            //   position: {
-            //     lat: parseFloat(this.host.latitude), 
-            //     lng: parseFloat(this.host.longitude)
-            //   }, 
-            //   label: this.host.active, 
-            //   title: this.host.name 
-            // });
-          }          
+
+            this.marker.icon = '/static/icons/blue_pin_small.png'
+            this.marker.title = this.title;
+            this.marker.position = this.center;
+          }   
         })
     },
     deleteHost (id) {

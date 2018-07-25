@@ -5,6 +5,8 @@
 		        :key="index"
 		        v-for="(m, index) in markers"
 		        :position="m.position"
+		        :title="m.title"
+		        :icon="m.icon"
 		        @click="center=m.position">
 			</gmap-marker>    
 	    </gmap-map>
@@ -26,14 +28,25 @@ export default {
 	watch: {
 		hosts () {		
 	     	for (var i = 0; i < this.hosts.length-1; i++) {
-				this.markers.push ({ 
-	      			position: {
-	      				lat: this.hosts[i].latitude, 
-	      				lng: this.hosts[i].longitude
-	      			}, 
-					label: this.hosts[i].active, 
-					title: this.hosts[i].name 
-				});
+	     		if (this.hosts[i].active) {
+					this.markers.push ({ 
+		      			position: {
+		      				lat: this.hosts[i].latitude, 
+		      				lng: this.hosts[i].longitude
+		      			},
+						title: this.hosts[i].name,
+						icon: '/static/icons/blue_pin_small.png',
+					});
+				} else {
+					this.markers.push ({ 
+		      			position: {
+		      				lat: this.hosts[i].latitude, 
+		      				lng: this.hosts[i].longitude
+		      			},  
+						title: this.hosts[i].name,
+						icon: '/static/icons/red_pin_small.png',
+					});					
+				}
 	    	}
 		}
 	}
