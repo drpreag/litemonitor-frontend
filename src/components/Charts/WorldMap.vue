@@ -26,8 +26,8 @@ export default {
 		};
 	},
 	watch: {
-		hosts () {		
-	     	for (var i = 0; i < this.hosts.length-1; i++) {
+		hosts () {
+	     	for (var i = 0; i < this.hosts.length; i++) {
 	     		if (this.hosts[i].active) {
 					this.markers.push ({ 
 		      			position: {
@@ -37,16 +37,7 @@ export default {
 						title: this.hosts[i].name,
 						icon: '/static/icons/blue_pin_small.png',
 					});
-				} else {
-					this.markers.push ({ 
-		      			position: {
-		      				lat: this.hosts[i].latitude, 
-		      				lng: this.hosts[i].longitude
-		      			},  
-						title: this.hosts[i].name,
-						icon: '/static/icons/red_pin_small.png',
-					});					
-				}
+				} 
 	    	}
 		}
 	}

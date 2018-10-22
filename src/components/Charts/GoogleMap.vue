@@ -30,6 +30,5 @@ export default {
   	mounted () {
 		this.markers.push({ position: this.marker.position, icon: this.marker.icon, title: this.marker.title });
 	}
-
 };
 </script>
