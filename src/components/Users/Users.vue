@@ -47,7 +47,7 @@
 
 <script>
 import axios from 'axios'
-import Drawing from '@/components/Drawing'
+import Drawing from '@/components/Charts/Drawing'
 
 export default {
   components: { Drawing },  

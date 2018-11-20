@@ -87,7 +87,7 @@ export default {
       } 
       //console.log (newHost);
       axios
-        .post(this.baseURL+'/host', newHost, { crossdomain: true })
+        .post(this.baseURL+'/hosts', newHost, { crossdomain: true })
         .then(response => {
           this.$router.push({path:'/hosts'})
         })

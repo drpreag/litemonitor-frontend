@@ -1,28 +1,28 @@
 /* eslint-disable */
 <template>
-  <div id="services" class="content">
+  <div id="services">
 
-    <div class="columns">
-      <div class="column is-three-quarters">
+    <div class="row">
+      <div class="col-lg-9">
         <h3>{{ title }}</h3>      
       </div>
-      <div class="column is-one-quarters add-new-resource">
+      <div class="col-lg-1">
         <router-link :to="{ name:'ServiceCreate' }">
-          <button class="button is-primary is-small is-rounded">Add new Service</button>
+          <button class="btn btn-sm btn-primary">Add new Service</button>
         </router-link>
       </div>
     </div>
   
     <div v-if="services">
-      <table class="table is-bordered is-striped is-fullwidth is-hoverable">
+      <table class="table table-bordered table-striped table-condensed">
         <thead>
           <th>Name</th>
           <th>Host</th>
           <th>Probe</th>
           <th>Port</th>
           <th>Uri</th>
-          <th class="has-text-centered">Active probe</th>
-          <th class="has-text-centered">Status</th>
+          <th>Active probe</th>
+          <th>Status</th>
           <th></th>
         </thead>
         <tbody>          
@@ -32,15 +32,15 @@
             <td>{{ service.probe_name }}</td>
             <td>{{ service.port }}</td>
             <td>{{ service.uri }}</td>
-            <td class="has-text-centered">
-              <drawing :sign="service.active" origin="yesno"></drawing>
+            <td align="center">
+              <drawing :sign="service.active" origin="yesno" size="2"></drawing>
             </td>
-            <td class="has-text-centered">
+            <td align="center">
               <div v-if="service.active">
                 <drawing :sign="service.status" origin="updown" size="2"></drawing>&nbsp{{ service.status_change | time-ago }}
               </div>
             </td>
-            <td class="has-text-centered">
+            <td align="center">
               <router-link :to="{ name: 'Service', params: { id: service.id }}">
                 <button type="button" class="view_button">View</button>                
               </router-link>

@@ -91,7 +91,7 @@ export default {
     getHost () {
       this.id = this.$route.params.id
       axios
-        .get(this.baseURL+'/host/' + this.id, { crossdomain: true })
+        .get(this.baseURL+'/hosts/' + this.id, { crossdomain: true })
         .then(response => {
           this.host = response.data.data
           this.title = 'Host: ' + this.host.name
@@ -106,7 +106,7 @@ export default {
         active: this.host.active == true ? 1 : 0        
       }
       axios
-        .put(this.baseURL+'/host/', oldHost, { crossdomain: true })
+        .put(this.baseURL+'/hosts/', oldHost, { crossdomain: true })
         .then(response => {
           this.$router.push({path:'/hosts'})
         })

@@ -141,7 +141,7 @@ export default {
     getHost () {
       this.id = this.$route.params.id
       axios
-        .get(this.baseURL+'/host/' + this.id, { crossdomain: true })
+        .get(this.baseURL+'/hosts/' + this.id, { crossdomain: true })
         .then(response => {
           this.host = response.data.data;
           this.title = this.host.name;
@@ -157,7 +157,7 @@ export default {
     },
     deleteHost (id) {
       axios
-        .delete(this.baseURL+'/host/' + id, { crossdomain: true })
+        .delete(this.baseURL+'/hosts/' + id, { crossdomain: true })
         .then(response => {
           this.$router.push({path:'/hosts'});
         })
@@ -165,7 +165,7 @@ export default {
     getServices () {
       this.id = this.$route.params.id
       axios
-        .get(this.baseURL+'/host/' + this.id + '/services', { crossdomain: true })
+        .get(this.baseURL+'/hosts/' + this.id + '/services', { crossdomain: true })
         .then(response => {
           this.services = response.data.data;
         })

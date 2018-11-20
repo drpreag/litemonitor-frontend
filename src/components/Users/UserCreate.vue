@@ -55,7 +55,7 @@
 
 <script>
 import axios from 'axios'
-import Drawing from '@/components/Drawing'
+import Drawing from '@/components/Charts/Drawing'
 
 export default {
   components: { Drawing },  
@@ -82,7 +82,7 @@ export default {
         role_id: this.user.role_id,
       }
       axios
-        .post(this.baseURL+'/user', newUser, { crossdomain: true })
+        .post(this.baseURL+'/users', newUser, { crossdomain: true })
         .then(response => {
           this.$router.push({path:'/users'})
         })

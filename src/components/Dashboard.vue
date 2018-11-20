@@ -1,9 +1,9 @@
 /* eslint-disable */
 <template>
-  <div id="dashboard" class="content">
+  <div id="dashboard">
     
-    <div class="columns">
-      <div class="column is-quarter" align="left">
+    <div class="row">
+      <div class="col-lg-3" align="left">
         <router-link :to="{ name:'Hosts' }">
           <div>
             Hosts statistics:
@@ -12,7 +12,7 @@
           </div>
         </router-link>
       </div> 
-      <div class="column is-quarter" align="left">
+      <div class="col-lg-3" align="left">
         <router-link :to="{ name:'Services' }">
           <div>
             Services statistics:
@@ -21,19 +21,19 @@
           </div>
         </router-link>
       </div>    
-      <div class="column is-half" align="right">
+      <div class="col-lg-6" align="right">
         Google Map
         <world-map v-bind:center="center" v-bind:hosts="hosts"></world-map>
       </div>
     </div>
 
     <div v-if="flappings">
-      <table class="table is-bordered is-striped is-hoverable is-narrow">
+      <table class="table table-striped table-condensed table-bordered">
         <thead>
           <th>Host</th>
           <th>Service</th>
           <th>Comment</th>
-          <th class="has-text-centered">Status change</th>
+          <th align="center">Status change</th>
           <th>Changed at</th>
         </thead>
         <tbody>
@@ -41,8 +41,8 @@
             <td>{{ flapping.host_name }}</td>
             <td>{{ flapping.service_name }}</td>
             <td>{{ flapping.comment }}</td>            
-            <td class="has-text-centered">
-              <drawing :sign="flapping.status" origin="updown"></drawing>
+            <td align="center">
+              <drawing :sign="flapping.status" origin="updown" size="2"></drawing>
             </td>
             <td>{{ flapping.created_at | time-ago }}</td>
           </tr>

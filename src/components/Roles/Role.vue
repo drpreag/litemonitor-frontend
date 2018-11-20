@@ -59,7 +59,7 @@
 
 <script>
 import axios from 'axios'
-import Drawing from '@/components/Drawing'
+import Drawing from '@/components/Charts/Drawing'
 
 export default {
   components: { Drawing },
@@ -81,7 +81,7 @@ export default {
     getRole () {
       this.id = this.$route.params.id
       axios
-        .get(this.baseURL + '/role/' + this.id, { crossdomain: true })
+        .get(this.baseURL + '/roles/' + this.id, { crossdomain: true })
         .then(response => {
           this.role = response.data.data
           this.title = 'Role: ' + this.role.name
@@ -89,7 +89,7 @@ export default {
     },
     deleteRole (id) {
       axios
-        .delete(this.baseURL + '/role/' + id, { crossdomain: true })
+        .delete(this.baseURL + '/roles/' + id, { crossdomain: true })
         .then(response => {
           this.$router.push({path:'/roles'})
         })

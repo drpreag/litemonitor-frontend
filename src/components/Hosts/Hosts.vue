@@ -1,25 +1,25 @@
 /* eslint-disable */
 <template>
-  <div id="hosts" class="content">
+  <div id="hosts">
     
-    <div class="columns">
-      <div class="column is-three-quarters">
+    <div class="row">
+      <div class="col-lg-9">
         <h3>{{ title }}</h3>      
       </div>
-      <div class="column is-one-quarters add-new-resource">
+      <div class="col-lg-1">
         <router-link :to="{ name:'HostCreate' }">
-          <button class="button is-primary is-small is-rounded">Add new Host</button>
+          <button class="btn btn-sm btn-primary">Add new Host</button>
         </router-link>
       </div>
     </div>
   
     <div v-if="hosts">
-      <table class="table is-bordered is-striped is-fullwidth is-hoverable">
+      <table class="table table-bordered table-striped table-condensed">
         <thead>
           <th>Name</th>
           <th>Description</th>
           <th>FQDN</th>
-          <th class="has-text-centered">Active</th>
+          <th>Active</th>
           <th></th>
         </thead>
         <tbody> 
@@ -27,8 +27,8 @@
             <td>{{ host.name }}</td>
             <td>{{ host.description }}</td>
             <td>{{ host.fqdn }}</td>
-            <td class="has-text-centered">
-              <drawing :sign="host.active" origin="yesno"></drawing>
+            <td align="center">
+              <drawing :sign="host.active" origin="yesno" size="2"></drawing>
             </td>
             <td class="has-text-centered">
               <router-link :to="{ name: 'Host', params: { id: host.id }}">

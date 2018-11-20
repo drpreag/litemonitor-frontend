@@ -1,8 +1,8 @@
 <template>
-  <div id="app">
-    <top-menu-bar></top-menu-bar>  
-    <router-view/>
-  </div>
+	<div id-"app" class="container-fluid">
+    	<top-menu-bar></top-menu-bar>  
+    	<router-view/>
+	</div>
 </template>
 
 <script>

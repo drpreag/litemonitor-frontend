@@ -9,15 +9,15 @@ import moment from 'moment'
 // Navigation bar
 import NavBar from './components/NavBar'
 // Users
-//import Users from '@/components/Users/Users'
-//import User from '@/components/Users/User'
-//import UserCreate from '@/components/Users/UserCreate'
-//import UserEdit from '@/components/Users/UserEdit'
+import Users from '@/components/Users/Users'
+import User from '@/components/Users/User'
+import UserCreate from '@/components/Users/UserCreate'
+import UserEdit from '@/components/Users/UserEdit'
 // Roles
-//import Roles from '@/components/Roles/Roles'
-//import Role from '@/components/Roles/Role'
-//import RoleCreate from '@/components/Roles/RoleCreate'
-//import RoleEdit from '@/components/Roles/RoleEdit'
+import Roles from '@/components/Roles/Roles'
+import Role from '@/components/Roles/Role'
+import RoleCreate from '@/components/Roles/RoleCreate'
+import RoleEdit from '@/components/Roles/RoleEdit'
 // Services
 import Services from '@/components/Services/Services'
 import Service from '@/components/Services/Service'
@@ -32,14 +32,15 @@ import HostEdit from '@/components/Hosts/HostEdit'
 
 // Common pages
 import Dashboard from '@/components/Dashboard'
+import Login from '@/components/Auth/Login'
+import Register from '@/components/Auth/Register'
 import Drawing from '@/components/Charts/Drawing'
 //import HelloWorld from '@/components/HelloWorld'
 // alert
 // 404
 // about
 
-import 'bulma/css/bulma.css'
-import '@/assets/bulma_restyle.css'
+import "../src/assets/style.css";
 
 import * as VueGoogleMaps from "vue2-google-maps";
 Vue.use(VueGoogleMaps, {
@@ -59,15 +60,20 @@ const router = new VueRouter ({
   base: __dirname,
   routes: [
     { path: '/', name: 'Dashboard', component: Dashboard },
-    // { path: '/users', name: 'Users', component: Users },
-    // { path: '/user/:id', name: 'User', component: User },    
-    // { path: '/user_create', name: 'UserCreate', component: UserCreate },
-    // { path: '/user_edit', name: 'UserEdit', component: UserEdit },    
 
-    // { path: '/roles', name: 'Roles', component: Roles },
-    // { path: '/role/:id', name: 'Role', component: Role },
-    // { path: '/role_create', name: 'RoleCreate', component: RoleCreate },
-    // { path: '/role_edit', name: 'RoleEdit', component: RoleEdit },
+    { path: '/login', name: 'Login', component: Login },
+    { path: '/register', name: 'Register', component: Register },
+    // { path: '/logout', name: 'Logout', component: Logout },
+
+    { path: '/users', name: 'Users', component: Users },
+    { path: '/users/:id', name: 'User', component: User },    
+    { path: '/users_create', name: 'UserCreate', component: UserCreate },
+    { path: '/users_edit', name: 'UserEdit', component: UserEdit },    
+
+    { path: '/roles', name: 'Roles', component: Roles },
+    { path: '/roles/:id', name: 'Role', component: Role },
+    { path: '/role_create', name: 'RoleCreate', component: RoleCreate },
+    { path: '/role_edit', name: 'RoleEdit', component: RoleEdit },
 
     { path: '/services', name: 'Services', component: Services },
     { path: '/service/:id', name: 'Service', component: Service },
