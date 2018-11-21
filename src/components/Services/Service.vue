@@ -1,123 +1,122 @@
 /* eslint-disable */
 <template>
-  <div id="service" class="content">
+  <div id="service">
 
-    <div v-if="service" class="box">
+    <div v-if="service">
 
-      <div class="columns">
-        <div class="column is-three-quarters">
+      <div class="row">
+        <div class="col-lg-9">
           <h3>{{ title }}</h3>      
         </div>
-        <div class="column is-one-quarters add-new-resource">
+        <div class="col-lg-3 text-right">
           <router-link :to="{ name:'Services' }">
-            <button class="button is-primary is-small is-rounded">Back</button>
+            <button class="btn btn-sm btn-info">Back</button>
           </router-link>
           &nbsp
           <router-link :to="{ name:'ServiceEdit', params: { id: service.id }}">
-            <button class="button is-warning is-small is-rounded">Edit</button>
+            <button class="btn btn-sm btn-info">Edit</button>
           </router-link>          
           &nbsp
-          <button class="button is-danger is-small is-rounded" v-on:click="deleteService(service.id)">
+          <button class="btn btn-sm btn-info" v-on:click="deleteService(service.id)">
             Delete
           </button>
         </div>
       </div>  
 
-      <div class="columns">
-        <div class="column field is-one-quarter">
-          <div class="control">          
-            <label class="label">Name</label>
-            <input class="input" type="text" readonly="readonly" v-model=service.name>
+      <div class="row">
+
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label class="control-label">Name</label>
+            <input class="form-control" type="text" v-model="service.name" readonly="readonly">
           </div>
 
-          <div class="control">          
-            <label class="label">Host</label>
-            <input class="input" type="text" readonly="readonly" v-model=service.host_name>
+          <div class="form-group">
+            <label class="control-label">Host</label>
+            <input class="form-control" type="text" v-model="service.host_name" readonly="readonly">
           </div>
 
-          <div class="control">          
-            <label class="label">Probe</label>
-            <input class="input" type="text" readonly="readonly" v-model=service.probe_name>
-          </div>
-        </div>
-
-        <div class="column field is-narrow">
-          <div class="control">          
-            <label class="label">Active probe</label>
-            <drawing :sign="service.active" origin="yesno" size="2"></drawing>
+          <div class="form-group">
+            <label class="control-label">Probe</label>
+            <input class="form-control" type="text" v-model="service.probe_name" readonly="readonly">
           </div>
 
-          <div v-if="service.active" class="control">          
-            <label class="label">Status</label>
-            <drawing :sign="service.status" origin="yesno" size="2"></drawing>
-          </div>
-        </div>
-
-        <div class="column field is-quarter is-narrow">
-          <div class="control">          
-            <label class="label">Port</label>
-            <input class="input" type="text" readonly="readonly" v-model=service.port>
+          <div class="form-group">    
+            <label class="control-label">Port</label>
+            <input class="form-control" type="text" readonly="readonly" v-model="service.port">
           </div>
 
-          <div class="control">          
-            <label class="label">Uri</label>
-            <input class="input" type="text" readonly="readonly" v-model=service.uri>
-          </div>
-        </div>
-
-        <div class="column field is-quarter is-narrow">        
-          <div class="control">          
-            <label class="label">Last status change</label>
-            <input class="input" type="text" readonly="readonly" v-model=service.status_change>
-          </div>
-          <div class="control">          
-            <label class="label">Last status down</label>
-            <input class="input" type="text" readonly="readonly" v-model=service.last_status_down>
-          </div>
-          <div class="control">          
-            <label class="label">Last status up</label>
-            <input class="input" type="text" readonly="readonly" v-model=service.last_status_up>
+          <div class="form-group">       
+            <label class="control-label">Uri</label>
+            <input class="form-control" type="text" readonly="readonly" v-model="service.uri">
           </div>          
         </div>
 
-        <div class="column field is-quarter is-narrow">
-          <div class="control">          
-            <label class="label">Created</label>
-            <input class="input" type="text" readonly="readonly" v-model=service.created_at>
+        <div class="col-lg-3">        
+          <div class="form-group">       
+            <label class="control-label">Last status change</label>
+            <input class="form-control" type="text" readonly="readonly" v-model=service.status_change>
+          </div>
+          <div class="form-group">       
+            <label class="control-label">Last status down</label>
+            <input class="form-control" type="text" readonly="readonly" v-model=service.last_status_down>
+          </div>
+          <div class="form-group">  
+            <label class="control-label">Last status up</label>
+            <input class="form-control" type="text" readonly="readonly" v-model=service.last_status_up>
+          </div>          
+        </div>
+
+        <div class="col-lg-3">
+          <div class="form-group">
+            <label class="control-label">Active probe</label><br>
+            <drawing :sign="service.active" origin="yesno" size="2"></drawing>
           </div>
 
-          <div class="control">          
-            <label class="label">Updated</label>
-            <input class="input" type="text" readonly="readonly" v-model=service.updated_at>
+          <div v-if="service.active" class="form-group">
+            <label class="control-label">Status</label><br>
+            <drawing :sign="service.status" origin="yesno" size="2"></drawing>
+          </div>
+
+          <div class="form-group">       
+            <label class="control-label">Created</label>
+            <input class="form-control" type="text" readonly="readonly" v-model=service.created_at>
+          </div>
+
+          <div class="form-group">       
+            <label class="control-label">Updated</label>
+            <input class="form-control" type="text" readonly="readonly" v-model=service.updated_at>
           </div>   
         </div>
+
       </div>
 
-      <div class="columns">
-        <div class="column field is-half">
-          <div v-if="observations">
-            Last 60 observations
-            <table class="table is-bordered is-striped is-fullwidth is-hoverable">
+      <div class="row">
+        <div class="col-lg-6">
+          <div v-if="observations" class="table-container">
+            <br>
+            <h4>Last 60 observations</h4>
+            <table class="table table-bordered table-striped table-condensed">
               <thead>
-                <th class="has-text-centered">Status</th>
-                <th class="has-text-right">Result</th>                
-                <th class="has-text-right">Speed [ms]</th>
+                <th class="text-center">Status</th>
+                <th class="text-right">Result</th>                
+                <th class="text-right">Speed [ms]</th>
                 <th>Timestamp</th>
               </thead>
-              <tbody> 
+              <tbody>          
                 <tr v-for="observation in observations" :key="observation.id">
-                  <td class="has-text-centered">
+                  <td class="text-center">
                     <drawing :sign="observation.status" origin="updown"></drawing>
                   </td>
-                  <td class="has-text-right">{{ observation.result }}</td>
-                  <td class="has-text-right">{{ observation.speed | two-decimals }}</td>                  
+                  <td class="text-right">{{ observation.result }}</td>
+                  <td class="text-right">{{ observation.speed | two-decimals }}</td>
                   <td>{{ observation.created_at }}</td>
                 </tr> 
               </tbody>
             </table>
           </div>
         </div>
-        <div v-if="loadedObservations==true && service.draw_graph==true" class="column field is-half">   
+        <div v-if="loadedObservations==true && service.draw_graph==true" class="col-lg-6">   
           Speed graph
           <line-observations-chart v-bind:observationData="observationData" :width="600" :height="400"></line-observations-chart>
         </div>
@@ -162,7 +161,7 @@ export default {
   methods: {
     getService () {
       axios
-        .get(this.baseURL+'/service/' + this.id, { crossdomain: true })
+        .get(this.baseURL+'/services/' + this.id, { crossdomain: true })
         .then(response => {
           this.service = response.data.data
           this.title = 'Service: ' + this.service.name
@@ -170,14 +169,14 @@ export default {
     },
     deleteService (id) {
       axios
-        .delete(this.baseURL+'/service/' + id, { crossdomain: true })
+        .delete(this.baseURL+'/services/' + id, { crossdomain: true })
         .then(response => {
           this.$router.push({path:'/services'})
         })
     },
     getObservations () {
       axios
-        .get(this.baseURL+'/service/' + this.id + /observations/, { crossdomain: true })
+        .get(this.baseURL+'/services/' + this.id + /observations/, { crossdomain: true })
         .then(response => {
           this.observations = response.data.data;
           this.observationData = [];

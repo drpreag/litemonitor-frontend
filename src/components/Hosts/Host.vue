@@ -1,73 +1,81 @@
 /* eslint-disable */
 <template>
-  <div id="host" class="content">
+  <div id="host">
 
-    <div v-if="host" class="box">
+    <div v-if="host">
 
-      <div class="columns">
-        <div class="column is-three-quarters">
+      <div class="row">
+        <div class="col-lg-9">
           <h3>{{ title }}</h3>      
         </div>
-        <div class="column is-one-quarters add-new-resource">
+        <div class="col-lg-3 text-right">
           <router-link :to="{ name:'Hosts' }">
-            <button class="button is-primary is-small is-rounded">Back</button>
+            <button class="btn btn-sm btn-info">Back</button>
           </router-link>
           &nbsp
           <router-link :to="{ name:'HostEdit', params: { id: host.id }}">
-            <button class="button is-warning is-small is-rounded">Edit</button>
+            <button class="btn btn-sm btn-info">Edit</button>
           </router-link>          
           &nbsp
-          <button class="button is-danger is-small is-rounded" v-on:click="deleteHost(host.id)">
+          <button class="btn btn-sm btn-info" v-on:click="deleteHost(host.id)">
             Delete
           </button>
         </div>
       </div>  
 
-      <div class="columns">
-        <div class="column field is-half">
+      <div class="row">
 
-          <div class="control">          
-            <label class="label">Name</label>
-            <input class="input" type="text" readonly="readonly" v-model=host.name>
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label class="control-label">Name</label>
+            <input class="form-control" type="text" v-model="host.name" readonly="readonly">
           </div>
 
-          <div class="control">          
-            <label class="label">Description</label>
-            <input class="input" type="text" readonly="readonly" v-model=host.description>
+          <div class="form-group">
+            <label class="control-label">Description</label>
+            <input class="form-control" type="text" v-model="host.description" readonly="readonly">
           </div>
 
-          <div class="control">          
-            <label class="label">FQDN</label>
-            <input class="input" type="text" readonly="readonly" v-model=host.fqdn>
-            IP address: {{ host.ip }}
+          <div class="form-group">
+            <label class="control-label">FQDN</label>
+            <input class="form-control" type="text" v-model="host.fqdn" readonly="readonly">
+            <label class="control-label">IP address: {{ host.ip }}</label>
           </div>
+        </div>
 
-          <div class="control">          
-            <label class="label">Active</label>
+        <div class="col-lg-6">        
+          <div class="form-group">
+            <label class="control-label">Active</label><br>
             <drawing :sign="host.active" origin="yesno" size="2"></drawing>
           </div>
 
-          <div class="control">          
-            <label class="label">Created</label>
-            <input class="input" type="text" readonly="readonly" v-model=host.created_at>
+          <div class="form-group">
+            <label class="control-label">Created</label>
+            <input class="form-control" type="text" v-model="host.created_at" readonly="readonly">
           </div>
 
-          <div class="control">          
-            <label class="label">Updated</label>
-            <input class="input" type="text" readonly="readonly" v-model=host.updated_at>
-          </div>   
+          <div class="form-group">
+            <label class="control-label">Updated</label>
+            <input class="form-control" type="text" v-model="host.updated_at" readonly="readonly">
+          </div>
+        </div>
 
+      </div>        
+
+      <div class="row">
+        <div class="col-lg-6">           
           <div v-if="services">
+            <br>
             <div> 
               <h4>Services</h4>
-              <table class="table is-bordered is-striped is-fullwidth is-hoverable">
+              <table class="table table-bordered table-striped table-condensed">
                 <thead>
                   <th>Name</th>
                   <th>Probe</th>
                   <th>Port</th>
                   <th>Uri</th>
-                  <th class="has-text-centered">Active probe</th>
-                  <th class="has-text-centered">Status</th>
+                  <th class="text-center">Active probe</th>
+                  <th class="text-center">Status</th>
                   <th></th>
                 </thead>
                 <tbody>          
@@ -76,17 +84,17 @@
                     <td>{{ service.probe_name }}</td>
                     <td>{{ service.port }}</td>
                     <td>{{ service.uri }}</td>
-                    <td class="has-text-centered">
+                    <td class="text-center">
                       <drawing :sign="service.active" origin="yesno"></drawing>
                     </td>
-                    <td class="has-text-centered">
+                    <td class="text-center">
                       <div v-if="service.active">
                         <drawing :sign="service.status" origin="updown"></drawing>&nbsp{{ service.status_change | time-ago }}
                       </div>
                     </td>
-                    <td class="has-text-centered">
+                    <td class="text-center">
                       <router-link :to="{ name: 'Service', params: { id: service.id }}">
-                        <button type="button" class="view_button">View</button>                
+                        <button class="btn btn-sm btn-info">View</button>                
                       </router-link>
                     </td>
                   </tr>
@@ -94,10 +102,9 @@
               </table>              
             </div>
           </div>
-
         </div>
 
-        <div class="column is-half">   
+        <div class="col-lg-6">   
           <div> 
             Google Map
             <google-map v-if="ipLocal" v-bind:marker="marker" :width="600" :height="400"></google-map>            

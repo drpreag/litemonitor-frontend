@@ -3,12 +3,12 @@
   <div id="services">
 
     <div class="row">
-      <div class="col-lg-9">
+      <div class="col-lg-10">
         <h3>{{ title }}</h3>      
       </div>
-      <div class="col-lg-1">
+      <div class="col-lg-2 text-center">
         <router-link :to="{ name:'ServiceCreate' }">
-          <button class="btn btn-sm btn-primary">Add new Service</button>
+          <button class="btn btn-sm btn-info">Add new Service</button>
         </router-link>
       </div>
     </div>
@@ -21,8 +21,8 @@
           <th>Probe</th>
           <th>Port</th>
           <th>Uri</th>
-          <th>Active probe</th>
-          <th>Status</th>
+          <th class="text-center">Active probe</th>
+          <th class="text-center">Status</th>
           <th></th>
         </thead>
         <tbody>          
@@ -32,17 +32,17 @@
             <td>{{ service.probe_name }}</td>
             <td>{{ service.port }}</td>
             <td>{{ service.uri }}</td>
-            <td align="center">
+            <td class="text-center">
               <drawing :sign="service.active" origin="yesno" size="2"></drawing>
             </td>
-            <td align="center">
+            <td class="text-center">
               <div v-if="service.active">
                 <drawing :sign="service.status" origin="updown" size="2"></drawing>&nbsp{{ service.status_change | time-ago }}
               </div>
             </td>
-            <td align="center">
+            <td class="text-center">
               <router-link :to="{ name: 'Service', params: { id: service.id }}">
-                <button type="button" class="view_button">View</button>                
+                <button class="btn btn-xs btn-info">View</button>                
               </router-link>
             </td>
           </tr>

@@ -1,77 +1,76 @@
 /* eslint-disable */
 <template>
-  <div id="servicecreate" class="content">
+  <div id="servicescreate">
 
-    <div class="columns">
-      <div class="column is-three-quarters">
+    <div class="row">
+      <div class="col-lg-9">
         <h3>{{ title }}</h3>      
       </div>
-      <div class="column is-one-quarters add-new-resource">
+      <div class="col-lg-3 text-right">
         <router-link :to="{ name:'Services' }">
-          <button class="button is-primary is-small is-rounded">Back</button>
+          <button class="btn btn-sm btn-info">Back</button>
         </router-link>
       </div>
     </div>  
 
-    <div class="container">
-      <form v-on:submit="addService">
-        <div class="card">
+    <div class="row">
+      <div class="col-lg-9">      
+        <form v-on:submit="addService">
 
-          <div class="control">          
-            <label class="label">Name</label>
+          <div class="form-group">          
+            <label class="control-label">Name</label>
             <input class="form-control" type="text" minlength=3 v-model=service.name>
           </div>
 
-          <div class="control">          
-            <label class="label">Host</label>
-            <select class="input" v-model="service.host_id">
+          <div class="form-group">          
+            <label class="control-label">Host</label>
+            <select class="form-control" v-model="service.host_id">
               <option v-for="host in hosts" :value="host.id">
                 {{ host.name }}
               </option>
-            </select>                
+            </select>
           </div>
 
-          <div class="control">          
-            <label class="label">Probe</label>
-            <select class="input" v-model="service.probe_id">
+          <div class="form-group">          
+            <label class="control-label">Probe</label>
+            <select class="form-control" v-model="service.probe_id">
               <option v-for="probe in probes" :value="probe.id">
                 {{ probe.name }}
               </option>
             </select>                
           </div>
 
-          <div class="control">          
-            <label class="label">Port</label>
+          <div class="form-group">
+            <label class="control-label">Port</label>
             <input class="form-control" type="text" minlength=2 v-model=service.port>
           </div>
 
-          <div class="control">          
-            <label class="label">URI</label>
+          <div class="form-group">          
+            <label class="control-label">URI</label>
             <input class="form-control" type="text" minlength=5 v-model="service.uri">
           </div>
 
-          <div class="control">          
-            <label class="label">Active</label>
-            <input class="form-control" type="checkbox" v-model="service.active" @change="changeHandler">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" v-model="service.active" @change="changeHandler">
+            <label class="control-label">Active</label>
           </div>
 
-          <div class="control">          
-            <label class="label">Username</label>
+          <div class="form-group">          
+            <label class="control-label">Username</label>
             <input class="form-control" type="text" minlength=3 v-model=service.user>
           </div>
 
-          <div class="control">          
-            <label class="label">Password</label>
+          <div class="form-group">          
+            <label class="control-label">Password</label>
             <input class="form-control" type="text" minlength=6 v-model="service.pass">
           </div>
 
           <div align="center">
-            <button type="submit" class="button is-small is-primary is-rounded">Submit</button> 
+            <button type="submit" class="btn btn-sm btn-info">Update</button> 
           </div>
 
-        </div>
-        
-      </form>
+        </form>
+      </div>
     </div>
 
   </div>
@@ -126,7 +125,7 @@ export default {
         pass: this.service.pass     
       } 
       axios
-        .post(this.baseURL+'/service', newService, { crossdomain: true })
+        .post(this.baseURL+'/services', newService, { crossdomain: true })
         .then(response => {
           this.$router.push({path:'/services'})
         });

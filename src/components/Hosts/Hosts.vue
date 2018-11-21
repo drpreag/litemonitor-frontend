@@ -3,12 +3,12 @@
   <div id="hosts">
     
     <div class="row">
-      <div class="col-lg-9">
+      <div class="col-lg-10">
         <h3>{{ title }}</h3>      
       </div>
-      <div class="col-lg-1">
+      <div class="col-lg-2 text-center">
         <router-link :to="{ name:'HostCreate' }">
-          <button class="btn btn-sm btn-primary">Add new Host</button>
+          <button class="btn btn-sm btn-info">Add new Host</button>
         </router-link>
       </div>
     </div>
@@ -19,20 +19,20 @@
           <th>Name</th>
           <th>Description</th>
           <th>FQDN</th>
-          <th>Active</th>
-          <th></th>
+          <th class="text-center">Active</th>
+          <th class="text-center"></th>
         </thead>
         <tbody> 
           <tr v-for="host in hosts" :key="host.id">
             <td>{{ host.name }}</td>
             <td>{{ host.description }}</td>
             <td>{{ host.fqdn }}</td>
-            <td align="center">
+            <td class="text-center">
               <drawing :sign="host.active" origin="yesno" size="2"></drawing>
             </td>
-            <td class="has-text-centered">
+            <td class="text-center">
               <router-link :to="{ name: 'Host', params: { id: host.id }}">
-                  <button type="button" class="view_button">View</button>
+                  <button class="btn btn-xs btn-info">View</button>
               </router-link>              
             </td>
           </tr> 

@@ -1,49 +1,48 @@
 /* eslint-disable */
 <template>
-  <div id="hostcreate" class="content">
+  <div id="hostscreate">
 
-    <div class="columns">
-      <div class="column is-three-quarters">
+    <div class="row">
+      <div class="col-lg-9">
         <h3>{{ title }}</h3>      
       </div>
-      <div class="column is-one-quarters add-new-resource">
+      <div class="col-lg-3 text-right">
         <router-link :to="{ name:'Hosts' }">
-          <button class="button is-primary is-small is-rounded">Back</button>
+          <button class="btn btn-sm btn-info">Back</button>
         </router-link>
       </div>
     </div>  
 
-    <div class="container">
-      <form v-on:submit="addHost">
-        <div class="card">
-
-          <div class="control">          
-            <label class="label">Name</label>
+    <div class="row">
+      <div class="col-lg-9">
+        <form v-on:submit="addHost">
+      
+          <div class="form-group">          
+            <label class="control-label">Name</label>
             <input class="form-control" type="text" minlength=5 v-model=host.name>
           </div>
 
-          <div class="control">          
-            <label class="label">Description</label>
+          <div class="form-group">
+            <label class="control-label">Description</label>
             <input class="form-control" type="text" minlength=5 v-model=host.description>
           </div>
 
-          <div class="control">          
-            <label class="label">FQDN / IP address</label>
+          <div class="form-group">
+            <label class="control-label">FQDN / IP address</label>
             <input class="form-control" type="text" minlength=10 v-model="host.fqdn">
           </div>
 
-          <div class="control">          
-            <label class="label">Active</label>
-            <input class="form-control" type="checkbox" v-model="host.active" @change="changeHandler">            
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" v-model="host.active" @change="changeHandler">
+            <label class="control-label">Active</label>
           </div>
 
           <div align="center">
-            <button type="submit" class="button is-small is-primary is-rounded">Submit</button> 
+            <button type="submit" class="btn btn-sm btn-info">Update</button> 
           </div>
 
-        </div>
-        
-      </form>
+        </form>
+      </div>      
     </div>
 
   </div>

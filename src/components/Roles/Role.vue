@@ -1,53 +1,53 @@
 /* eslint-disable */
 <template>
-  <div id="role" class="content">
+  <div id="role">
 
-      <div v-if="role" class="box">
+      <div v-if="role">
 
-        <div class="columns">
-          <div class="column is-three-quarters">
+        <div class="row">
+          <div class="col-lg-9">
             <h3>{{ title }}</h3>      
           </div>
-          <div class="column is-one-quarters add-new-resource">
+          <div class="col-lg-3">
             <router-link :to="{ name:'Roles' }">
-              <button class="button is-primary is-small is-rounded">Back</button>
+              <button class="btn btn-sm btn-info">Back</button>
             </router-link>
             &nbsp
             <router-link :to="{ name:'RoleEdit', params: { id: role.id }}">
-              <button class="button is-warning is-small is-rounded">Edit</button>
+              <button class="btn btn-sm btn-info">Edit</button>
             </router-link>            
             &nbsp
-            <button class="button is-danger is-small is-rounded" v-on:click="deleteRole(role.id)">
+            <button class="btn btn-sm btn-info" v-on:click="deleteRole(role.id)">
               Delete
             </button>            
           </div>
         </div>  
 
-        <div class="columns">
-          <div class="column field is-three-quarters">
-            <div class="control">
-              <label class="label">Id</label>
-              <input class="input" type="text" readonly="readonly" v-model=role.id>
+        <div class="row">
+          <div class="col-lg-9">
+            <div class="form-group">
+              <label class="control-label">Id</label>
+              <input class="form-control" type="text" readonly="readonly" v-model=role.id>
             </div>
         
-            <div class="control">
-              <label class="label">Name</label>
-              <input class="input" type="text" readonly="readonly" v-model=role.name>
+            <div class="form-group">
+              <label class="control-label">Name</label>
+              <input class="form-control" type="text" readonly="readonly" v-model=role.name>
             </div>
          
-            <div class="control">
-              <label class="label">Description</label>
-              <input class="input" type="text" readonly="readonly" v-model=role.description>
+            <div class="form-group">
+              <label class="control-label">Description</label>
+              <input class="form-control" type="text" readonly="readonly" v-model=role.description>
             </div>
 
-            <div class="control">          
-              <label class="label">Created</label>
-              <input class="input" type="text" readonly="readonly" v-model=role.created_at>
+            <div class="form-group">
+              <label class="control-label">Created</label>
+              <input class="form-control" type="text" readonly="readonly" v-model=role.created_at>
             </div>
 
-            <div class="control">          
-              <label class="label">Updated</label>
-              <input class="input " type="text" readonly="readonly" v-model=role.updated_at>
+            <div class="form-group">
+              <label class="control-label">Updated</label>
+              <input class="form-control" type="text" readonly="readonly" v-model=role.updated_at>
             </div> 
           </div>            
 

@@ -1,70 +1,64 @@
 /* eslint-disable */
 <template>
-  <div id="user" class="content">
+  <div id="user">
 
-    <div class="columns">
-      <div class="column is-three-quarters">
+    <div class="row">
+      <div class="col-lg-9">
         <h3>{{ title }}</h3>      
       </div>
-      <div class="column is-one-quarters add-new-resource">
+      <div class="col-lg-3 text-right">
         <router-link :to="{ name:'Users' }">
-          <button class="button is-primary is-small is-rounded">Back</button>
+          <button class="btn btn-sm btn-info">Back</button>
         </router-link>
+        &nbsp
+        <router-link :to="{ name:'UserEdit', params: { id: user.id }}">
+          <button class="btn btn-sm btn-info">Edit</button>
+        </router-link>            
+        &nbsp
+        <button class="btn btn-sm btn-info" v-on:click="deleteUser(user.id)">
+          Delete
+        </button>
       </div>
-    </div>  
+    </div> 
 
-    <div v-if="user" class="box">
+    <div v-if="user">
 
-      <div class="columns">
-        <div class="column field is-three-quarters">
-          <div class="control">          
-            <label class="label">Name</label>
-            <input class="input" type="text" readonly="readonly" v-model=user.name>
+      <div class="row">
+        <div class="col-lg-9">
+          <div class="form-group">          
+            <label class="control-label">Name</label>
+            <input class="form-control" type="text" readonly="readonly" v-model=user.name>
           </div>
 
-          <div class="control">          
-            <label class="label">Email</label>
-            <input class="input" type="text" readonly="readonly" v-model=user.email>
+          <div class="form-group">          
+            <label class="control-label">Email</label>
+            <input class="form-control" type="text" readonly="readonly" v-model=user.email>
           </div>
 
-          <div class="control">          
-            <label class="label">Active</label>
+          <div class="form-group">
+            <label class="control-label">Active</label>
             <drawing :sign="user.active" origin="yesno"></drawing>
           </div>
 
-          <div class="control">          
-            <label class="label">Role</label>
-              <select class="input" readonly="readonly" disabled="disabled" v-model="user.role_id" >
+          <div class="form-group">
+            <label class="control-label">Role</label>
+              <select class="form-control" readonly="readonly" disabled="disabled" v-model="user.role_id">
                 <option v-for="role in roles" :value="role.id" >
                   {{ role.name }}
                 </option>
               </select>
           </div>
 
-          <div class="control">          
-            <label class="label">Created</label>
-            <input class="input" type="text" readonly="readonly" v-model=user.created_at>
+          <div class="form-group">
+            <label class="control-label">Created</label>
+            <input class="form-control" type="text" readonly="readonly" v-model=user.created_at>
           </div>
 
-          <div class="control">          
-            <label class="label">Updated</label>
-            <input class="input" type="text" readonly="readonly" v-model=user.updated_at>
+          <div class="form-group">          
+            <label class="control-label">Updated</label>
+            <input class="form-control" type="text" readonly="readonly" v-model=user.updated_at>
           </div>   
         </div>
-
-        <div class="column is-one-quarters" align="right">
-          <div class="control has-text-right">
-            <router-link :to="{ name:'UserEdit', params: { id: user.id }}">
-              <button class="button is-warning is-small is-rounded">Edit</button>
-            </router-link>          
-          </div>
-          <div>&nbsp</div> 
-          <div class="control has-text-right" >
-            <button class="button is-danger is-small is-rounded" v-on:click="deleteUser(user.id)">
-              Delete
-            </button>
-          </div>
-        </div>  
 
       </div>
     </div>

@@ -72,18 +72,18 @@ const router = new VueRouter ({
 
     { path: '/roles', name: 'Roles', component: Roles },
     { path: '/roles/:id', name: 'Role', component: Role },
-    { path: '/role_create', name: 'RoleCreate', component: RoleCreate },
-    { path: '/role_edit', name: 'RoleEdit', component: RoleEdit },
+    { path: '/roles_create', name: 'RoleCreate', component: RoleCreate },
+    { path: '/roles_edit', name: 'RoleEdit', component: RoleEdit },
 
     { path: '/services', name: 'Services', component: Services },
-    { path: '/service/:id', name: 'Service', component: Service },
-    { path: '/service_create', name: 'ServiceCreate', component: ServiceCreate },
-    { path: '/service_edit', name: 'ServiceEdit', component: ServiceEdit },
+    { path: '/services/:id', name: 'Service', component: Service },
+    { path: '/services_create', name: 'ServiceCreate', component: ServiceCreate },
+    { path: '/services_edit', name: 'ServiceEdit', component: ServiceEdit },
 
     { path: '/hosts', name: 'Hosts', component: Hosts },
-    { path: '/host/:id', name: 'Host', component: Host },
-    { path: '/host_create', name: 'HostCreate', component: HostCreate },
-    { path: '/host_edit', name: 'HostEdit', component: HostEdit },
+    { path: '/hosts/:id', name: 'Host', component: Host },
+    { path: '/hosts_create', name: 'HostCreate', component: HostCreate },
+    { path: '/hosts_edit', name: 'HostEdit', component: HostEdit },
   ]
 });
 

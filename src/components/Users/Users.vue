@@ -1,40 +1,40 @@
 /* eslint-disable */
 <template>
-  <div id="users" class="content">
+  <div id="users">
 
-    <div class="columns">
-      <div class="column is-three-quarters">
+    <div class="row">
+      <div class="col-lg-10">
         <h3>{{ title }}</h3>      
       </div>
-      <div class="column is-one-quarters add-new-resource">
+      <div class="col-lg-2 text-right">
         <router-link :to="{ name:'UserCreate' }">
-          <button class="button is-primary is-small is-rounded">Add new User</button>
+          <button class="btn btn-sm btn-info">Add new User</button>
         </router-link>
       </div>
     </div>
 
     <div v-if="users">
-      <table class="table is-bordered is-striped is-fullwidth is-hoverable">
+      <table class="table table-bordered table-striped table-condensed">
         <thead>
-          <th class="has-text-right">Id</th>
+          <th class="text-right">Id</th>
           <th>Name</th>
           <th>Email</th>
-          <th class="has-text-centered">Active</th>
+          <th class="text-center">Active</th>
           <th>Role</th>
           <th></th>
         </thead>
         <tbody>
           <tr v-for="user in users" :key="user.id">
-            <td class="has-text-right">{{ user.id }}</td>
+            <td class="text-right">{{ user.id }}</td>
             <td>{{ user.name }}</td>
             <td>{{ user.email }}</td>
-            <td class="has-text-centered">
+            <td class="text-center">
               <drawing :sign="user.active" origin="yesno"></drawing>
             </td>
             <td>{{ user.role_name }}</td>
-            <td>
+            <td class="text-center">
               <router-link :to="{ name: 'User', params: { id: user.id }}">
-                <button type="button" class="button is-light is-small is-rounded">View</button>
+                <button class="btn btn-xs btn-info">View</button>
               </router-link>
             </td>
           </tr>

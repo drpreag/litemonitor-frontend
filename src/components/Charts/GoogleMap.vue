@@ -1,6 +1,6 @@
 <template>
 	<div>
-	    <gmap-map :center="marker.position" :zoom="5" style="width:600px;  height: 400px;">   
+	    <gmap-map :center="marker.position" :zoom="5" style="width:450px; height: 300px;">   
 	        <gmap-marker
 		        :key=0
 		        :position="marker.position"

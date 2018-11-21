@@ -2,38 +2,38 @@
 <template>
   <div id="dashboard">
     
-    <div class="row">
-      <div class="col-lg-3" align="left">
+    <div class="row small-container">
+      <div class="col-lg-4 text-center">
         <router-link :to="{ name:'Hosts' }">
+          <div class="text-left">Hosts statistics:</div>
           <div>
-            Hosts statistics:
             <donut-hosts-chart v-bind:passedHostChartData="passedHostChartData" :width="300" :height="200">
             </donut-hosts-chart>
           </div>
         </router-link>
       </div> 
-      <div class="col-lg-3" align="left">
+      <div class="col-lg-4 text-center">
         <router-link :to="{ name:'Services' }">
+          <div class="text-left">Services statistics:</div>
           <div>
-            Services statistics:
             <donut-services-chart v-bind:passedServiceChartData="passedServiceChartData" :width="300" :height="200">
             </donut-services-chart>
           </div>
         </router-link>
       </div>    
-      <div class="col-lg-6" align="right">
+      <div class="col-lg-4 text-center">
         Google Map
         <world-map v-bind:center="center" v-bind:hosts="hosts"></world-map>
       </div>
     </div>
 
-    <div v-if="flappings">
+    <div class="small-container" v-if="flappings">
       <table class="table table-striped table-condensed table-bordered">
         <thead>
           <th>Host</th>
           <th>Service</th>
           <th>Comment</th>
-          <th align="center">Status change</th>
+          <th class="text-center">Status change</th>
           <th>Changed at</th>
         </thead>
         <tbody>
@@ -41,7 +41,7 @@
             <td>{{ flapping.host_name }}</td>
             <td>{{ flapping.service_name }}</td>
             <td>{{ flapping.comment }}</td>            
-            <td align="center">
+            <td class="text-center">
               <drawing :sign="flapping.status" origin="updown" size="2"></drawing>
             </td>
             <td>{{ flapping.created_at | time-ago }}</td>
@@ -92,7 +92,7 @@ export default {
           this.flappings = response.data.data;
         });
       axios
-        .get(this.baseURL+'/host-stats', { crossdomain: true })
+        .get(this.baseURL+'/hosts-stats', { crossdomain: true })
         .then(response => {
           if (this.passedHostChartData[0]!=response.data.monitored || 
               this.passedHostChartData[1]!=response.data.non_monitored) {
@@ -100,7 +100,7 @@ export default {
           }
         });       
       axios
-        .get(this.baseURL+'/service-stats', { crossdomain: true })
+        .get(this.baseURL+'/services-stats', { crossdomain: true })
         .then(response => {
           if (this.passedServiceChartData[0]!=response.data.monitored || 
               this.passedServiceChartData[1]!=response.data.up || 

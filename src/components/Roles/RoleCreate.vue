@@ -1,38 +1,38 @@
 /* eslint-disable */
 <template>
-  <div id="rolecreate" class="content">
+  <div id="rolescreate">
 
-    <div class="columns">
-      <div class="column is-three-quarters">
+    <div class="row">
+      <div class="col-lg-9">
         <h3>{{ title }}</h3>      
       </div>
-      <div class="column is-one-quarters add-new-resource">
+      <div class="col-lg-3 text-right">
         <router-link :to="{ name:'Roles' }">
-          <button class="button is-primary is-small is-rounded">Back</button>
+          <button class="btn btn-sm btn-info">Back</button>
         </router-link>
       </div>
     </div>
 
-    <div class="container">
-      <form v-on:submit="addRole">
-        <div class="card">
+    <div class="row">
+      <div class="col-lg-9">      
+        <form v-on:submit="addRole">
 
-          <div class="control">          
-            <label class="label">Name</label>
+          <div class="form-group">
+            <label class="control-label">Name</label>
             <input class="form-control" type="text" v-model=role.name>
           </div>
 
-          <div class="control">          
-            <label class="label">Description</label>
+          <div class="form-group">
+            <label class="control-label">Description</label>
             <input class="form-control" type="text" v-model=role.description>
           </div>
 
           <div align="center">
-            <button type="submit" class="button is-small is-primary is-rounded">Submit</button> 
+            <button type="submit" class="btn btn-sm btn-info">Update</button> 
           </div>
 
-        </div>   
-      </form>
+        </form>
+      </div>   
     </div>
 
   </div>
@@ -63,7 +63,7 @@ export default {
         description: this.role.description
       }
       axios
-        .post(this.baseURL + '/role', newRole, { crossdomain: true })
+        .post(this.baseURL + '/roles', newRole, { crossdomain: true })
         .then(response => {
           this.$router.push({path:'/roles'})
         })

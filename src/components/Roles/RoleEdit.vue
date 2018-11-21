@@ -1,38 +1,38 @@
 /* eslint-disable */
 <template>
-  <div id="roleedit" class="content">
+  <div id="roleedit">
 
-    <div class="columns">
-      <div class="column is-three-quarters">
+    <div class="row">
+      <div class="col-lg-9">
         <h3>{{ title }}</h3>      
       </div>
-      <div class="column is-one-quarters add-new-resource">
+      <div class="col-lg-3 text-right">
         <router-link :to="{ name:'Roles' }">
-          <button class="button is-primary is-small is-rounded">Back</button>
+          <button class="btn btn-sm btn-info">Back</button>
         </router-link>
       </div>
     </div>
 
-    <div class="container">
-      <form v-on:submit="updateRole">
-        <div class="card">
+    <div class="row">
+      <div class="col-lg-9">
+        <form v-on:submit="updateRole">
 
-            <div class="control">          
-              <label class="label">Name</label>
-              <input class="form-control" type="text" v-model=role.name>
-            </div>
+          <div class="form-group">          
+            <label class="control-label">Name</label>
+            <input class="form-control" type="text" v-model=role.name>
+          </div>
 
-            <div class="control">          
-              <label class="label">Description</label>
-              <input class="form-control" type="text" v-model=role.description>
-            </div>
+          <div class="form-group">
+            <label class="control-label">Description</label>
+            <input class="form-control" type="text" v-model=role.description>
+          </div>
 
-            <div align="center">
-              <button type="submit" class="button is-small is-primary is-rounded">Update</button> 
-            </div>
-        </div>
-        
-      </form>
+          <div align="center">
+            <button type="submit" class="btn btn-sm btn-info">Update</button> 
+          </div>
+
+        </form>
+      </div>
     </div>
 
   </div>
@@ -50,7 +50,7 @@ export default {
       errors: [],
       title: 'Edit Role',
       sign: null,
-      baseURL: null      
+      baseURL: null
     }
   },
   mounted () {
@@ -61,7 +61,7 @@ export default {
     getRole () {
       this.id = this.$route.params.id
       axios
-        .get(this.baseURL + '/role/' + this.id, { crossdomain: true })
+        .get(this.baseURL + '/roles/' + this.id, { crossdomain: true })
         .then(response => {
           this.role = response.data.data
           this.title = 'Role: ' + this.role.name          
@@ -76,7 +76,7 @@ export default {
         creator_id: this.role.creator_id
       }
       axios
-        .put(this.baseURL + '/role', oldRole, { crossdomain: true })
+        .put(this.baseURL + '/roles', oldRole, { crossdomain: true })
         .then(response => {
           this.$router.push({path:'/roles'})
         })

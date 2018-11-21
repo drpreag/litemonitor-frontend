@@ -1,40 +1,40 @@
 /* eslint-disable */
 <template>
-  <div id="usercreate" class="content">
+  <div id="usercreate">
 
-    <div class="columns">
-      <div class="column is-three-quarters">
+    <div class="row">
+      <div class="col-lg-9">
         <h3>{{ title }}</h3>      
       </div>
-      <div class="column is-one-quarters add-new-resource">
+      <div class="col-lg-3 text-right">
         <router-link :to="{ name:'Users' }">
-          <button class="button is-primary is-small is-rounded">Back</button>
+          <button class="btn btn-sm btn-info">Back</button>
         </router-link>
       </div>
     </div>
 
-    <div class="container">
-      <form v-on:submit="addUser">
-        <div class="card">
+    <div class="row">
+      <div class="col-lg-9">
+        <form v-on:submit="addUser">
 
-          <div class="control">          
-            <label class="label">Name</label>
+          <div class="form-group">          
+            <label class="control-label">Name</label>
             <input class="form-control" type="text" v-model=user.name>
           </div>
 
-          <div class="control">          
-            <label class="label">Email</label>
+          <div class="form-group">          
+            <label class="control-label">Email</label>
             <input class="form-control" type="email" v-model=user.email>
           </div>
 
-          <div class="control">          
-            <label class="label">Active</label>
-            <input class="form-control" type="checkbox" v-model="user.active">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" v-model=user.active @change="changeHandler">
+            <label class="control-label">Active</label>
           </div>
 
-          <div class="control">          
-            <label class="label">Role</label>
-            <select class="input" v-model="user.role_id">
+          <div class="form-group">          
+            <label class="control-label">Role</label>
+            <select class="form-control" v-model="user.role_id">
               <option v-for="role in roles" :value="role.id">
                 {{ role.name }}
               </option>
@@ -42,12 +42,11 @@
           </div>
 
           <div align="center">
-            <button type="submit" class="button is-small is-primary is-rounded">Submit</button> 
+            <button type="submit" class="btn btn-sm btn-info">Update</button> 
           </div>
-
-        </div>
-        
-      </form>
+       
+        </form>
+      </div>
     </div>
 
   </div>
