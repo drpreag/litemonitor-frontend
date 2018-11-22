@@ -5,13 +5,12 @@
                 <div class="card card-default">
                     <div class="card-header">Login</div>
                     <div class="card-body">
-                        <form class="form-horizontal" role="form" method="POST" action="https://softwarepieces.com/login">
+                        <form v-on:submit="handleSubmit">
                             <div class="form-group">
                                 <label for="username" class="col-lg-4 control-label">Username</label>
                                 <div class="col-lg-6">
                                     <input id="username" type="email" class="form-control" name="username" placeholder="Username" v-model="username" required autofocus>
                                 </div>
-                                <div v-show="submitted && !username" class="invalid-feedback">Password is required</div>
                             </div>
 
                             <div class="form-group">
@@ -19,7 +18,6 @@
                                 <div class="col-lg-6">
                                     <input id="password" type="password" class="form-control" name="password" required v-model="password" placeholder="Your password">
                                 </div>
-                                <div v-show="submitted && !password" class="invalid-feedback">Password is required</div>
                             </div>
 
                             <div class="form-group">
@@ -42,23 +40,35 @@
     </div>
 </template>
 
-
 <script>
+import axios from 'axios';
+// import Auth from '../../../packages/auth/Auth.js';
+
 export default {
     data () {
         return {
             username: '',
             password: '',
-            submitted: false
+            baseURL: null
         }
     },
+    mounted () {
+        this.baseURL = process.env.API_BASE_URL
+    },     
     methods: {
-
         handleSubmit (e) {
-            this.submitted = true;
-            const { username, password } = this;
-            if (username && password) {
-                // this.login({ username, password })
+            if (this.username && this.password) {
+                var data = {
+                    username: this.username,
+                    password: this.password
+                }
+                axios
+                     .post(this.baseURL+'/login', data, { crossdomain: true })
+                    .then(response => {
+                        this.$auth.setToken(response.data.access_token, response.data.expires_in + Date.now());
+                        this.$router.push({path:'/'})
+                    })
+                    e.preventDefault()                
             }
         }
     }
