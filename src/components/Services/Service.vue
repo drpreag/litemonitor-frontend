@@ -93,9 +93,9 @@
 
       <div class="row">
         <div class="col-lg-6">
-          <div v-if="observations" class="table-container">
+          <div v-if="loadedObservations" class="table-container">
             <br>
-            <h4>Last 60 observations</h4>
+            <h4>Last 10 failed observations</h4>
             <table class="table table-bordered table-striped table-condensed">
               <thead>
                 <th class="text-center">Status</th>
@@ -104,7 +104,7 @@
                 <th>Timestamp</th>
               </thead>
               <tbody>          
-                <tr v-for="observation in observations" :key="observation.id">
+                <tr v-for="observation in observationData" :key="observation.id">
                   <td class="text-center">
                     <drawing :sign="observation.status" origin="updown"></drawing>
                   </td>
@@ -116,9 +116,9 @@
             </table>
           </div>
         </div>
-        <div v-if="loadedObservations==true && service.draw_graph==true" class="col-lg-6">   
-          Speed graph
-          <line-observations-chart v-bind:observationData="observationData" :width="600" :height="400"></line-observations-chart>
+        <div v-if="loadedLastHourObservations==true && service.draw_graph==true" class="col-lg-6">   
+          Speed graph, last hour
+          <line-observations-chart v-bind:lastHourObservationData="lastHourObservationData" :width="600" :height="400"></line-observations-chart>
         </div>
       </div>
 
@@ -138,12 +138,14 @@ export default {
       service: null,
       id: null,
       errors: [],
-      observations: [],
+      // observations: [],
       title: 'Service',
       sign: null,
       baseURL: null,
       loadedObservations: false,
-      observationData: []
+      observationData: [],
+      loadedLastHourObservations: false,
+      lastHourObservationData: []
     }
   },
   created () {
@@ -157,6 +159,7 @@ export default {
     this.id = this.$route.params.id    
     this.getService ()
     this.getObservations ()
+    this.getLastHourObservations ()
   },
   methods: {
     getService () {
@@ -175,16 +178,30 @@ export default {
         })
     },
     getObservations () {
+      var observations = [];
       axios
         .get(this.baseURL+'/services/' + this.id + /observations/, { crossdomain: true })
         .then(response => {
-          this.observations = response.data.data;
+          observations = response.data.data;
           this.observationData = [];
-          for (var i in this.observations) 
-            this.observationData[i]=[this.observations[i]['created_at'],this.observations[i]['speed']];     
+          for (var i in observations) 
+            this.observationData[i]=observations[i];     
           this.loadedObservations = true;
         })
+    },
+    getLastHourObservations () {
+      var observations = [];      
+      axios
+        .get(this.baseURL+'/services/' + this.id + /lasthourobservations/, { crossdomain: true })
+        .then(response => {
+          observations = response.data.data;
+          this.lastHourObservationData = [];
+          for (var i in observations) 
+            this.lastHourObservationData[i]=[observations[i]['created_at'],observations[i]['speed']];     
+          this.loadedLastHourObservations = true;
+        })
     }
+
   }
 }
 </script>
