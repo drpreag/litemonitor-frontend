@@ -46,7 +46,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import Drawing from '@/components/Charts/Drawing'
 
 export default {
@@ -60,13 +59,12 @@ export default {
     }
   },
   mounted () {
-    this.baseURL = process.env.API_BASE_URL  
     this.getUsers ()
   },
   methods: {
     getUsers () {
-      axios
-        .get(this.baseURL+'/users', { crossdomain: true })
+      this.$http
+        .get('/users')
         .then(response => {
           this.users = response.data.data
         })

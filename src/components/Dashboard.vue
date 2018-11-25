@@ -54,11 +54,12 @@
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 import Drawing from '@/components/Charts/Drawing'
 import DonutHostsChart from '@/components/Charts/DonutHostsChart'
 import DonutServicesChart from '@/components/Charts/DonutServicesChart'
 import WorldMap from '@/components/Charts/WorldMap'
+// import Flapping from '@/components/Flappings/Flapping'
 
 export default {
   components: { Drawing, DonutHostsChart, DonutServicesChart, WorldMap },
@@ -80,27 +81,26 @@ export default {
     clearInterval(this.timer)
   },
   mounted () {
-    this.baseURL = process.env.API_BASE_URL;
     this.getFlappings ();
     this.getHostsData ();
   },
   methods: {
     getFlappings () {
-      axios  
-        .get(this.baseURL+'/flappings', { crossdomain: true })
+      this.$http  
+        .get('/flappings')
         .then(response => {
           this.flappings = response.data.data;
         });
-      axios
-        .get(this.baseURL+'/hosts-stats', { crossdomain: true })
+      this.$http
+        .get('/hosts-stats')
         .then(response => {
           if (this.passedHostChartData[0]!=response.data.monitored || 
               this.passedHostChartData[1]!=response.data.non_monitored) {
             this.passedHostChartData=[response.data.monitored, response.data.non_monitored];
           }
         });       
-      axios
-        .get(this.baseURL+'/services-stats', { crossdomain: true })
+      this.$http
+        .get('/services-stats')
         .then(response => {
           if (this.passedServiceChartData[0]!=response.data.monitored || 
               this.passedServiceChartData[1]!=response.data.up || 
@@ -110,8 +110,8 @@ export default {
         });
     },
     getHostsData () {
-      axios
-        .get(this.baseURL+'/hosts', { crossdomain: true })
+      this.$http
+        .get('/hosts')
         .then(response => {
           var axios_hosts = response.data.data;
           for (var i = 0; i < axios_hosts.length; i++) {          

@@ -68,9 +68,6 @@ export default {
       sign: null,
       baseURL: null  
     }
-  },
-  mounted () {
-    this.baseURL = process.env.API_BASE_URL
   },    
   methods: {
     changeHandler () {
@@ -85,8 +82,8 @@ export default {
         active: this.host.active === true ? 1 : 0
       } 
       //console.log (newHost);
-      axios
-        .post(this.baseURL+'/hosts', newHost, { crossdomain: true })
+      this.$http
+        .post('/hosts', newHost)
         .then(response => {
           this.$router.push({path:'/hosts'})
         })

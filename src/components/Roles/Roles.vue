@@ -40,7 +40,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import Drawing from '@/components/Charts/Drawing'
 
 export default {
@@ -55,13 +54,12 @@ export default {
     }
   },
   mounted () {
-    this.baseURL = process.env.API_BASE_URL     
     this.getRoles()
   },
   methods: {
     getRoles () {
-      axios
-        .get(this.baseURL+'/roles', { crossdomain: true })
+      this.$http
+        .get('/roles')
         .then(response => {
           this.roles = response.data.data
         })

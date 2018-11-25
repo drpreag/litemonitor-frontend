@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 
 export default {
   data () {
@@ -37,15 +36,15 @@ export default {
   },
   methods: {
     getLastId () {
-      axios
-        .get(this.baseURL+'/flappings/last', { crossdomain: true })
+      this.$http
+        .get('/flappings/last')
         .then(response => {
           this.id = response.data.data.id;
         })
     },
     getNextId () {
-      axios
-        .get(this.baseURL+'/flappings/' + this.id + '/next', { crossdomain: true })
+      this.$http
+        .get('/flappings/' + this.id + '/next')
         .then(response => {
             this.flapping = response.data.data;
             this.id = response.data.data.id;

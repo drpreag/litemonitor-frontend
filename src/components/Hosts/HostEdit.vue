@@ -57,7 +57,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import Drawing from '@/components/Charts/Drawing'
 
 export default {
@@ -65,7 +64,6 @@ export default {
   data () {
     return {
       id: null,
-      //host: {},
       host: {
         name: "",
         description: "",
@@ -79,7 +77,6 @@ export default {
     }
   },  
   mounted () {
-    this.baseURL = process.env.API_BASE_URL   
     this.getHost () 
   },  
   methods: {
@@ -88,8 +85,8 @@ export default {
     },  
     getHost () {
       this.id = this.$route.params.id
-      axios
-        .get(this.baseURL+'/hosts/' + this.id, { crossdomain: true })
+      this.$http
+        .get('/hosts/' + this.id)
         .then(response => {
           this.host = response.data.data
           this.title = 'Host: ' + this.host.name
@@ -103,8 +100,8 @@ export default {
         fqdn: this.host.fqdn,
         active: this.host.active == true ? 1 : 0        
       }
-      axios
-        .put(this.baseURL+'/hosts/', oldHost, { crossdomain: true })
+      this.$http
+        .put('/hosts/', oldHost)
         .then(response => {
           this.$router.push({path:'/hosts'})
         })

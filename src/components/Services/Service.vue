@@ -154,8 +154,7 @@ export default {
   destroyed () {
     clearInterval(this.timer)
   },    
-  mounted () {
-    this.baseURL = process.env.API_BASE_URL   
+  mounted () { 
     this.id = this.$route.params.id    
     this.getService ()
     this.getObservations ()
@@ -163,24 +162,24 @@ export default {
   },
   methods: {
     getService () {
-      axios
-        .get(this.baseURL+'/services/' + this.id, { crossdomain: true })
+      this.$http
+        .get('/services/' + this.id)
         .then(response => {
           this.service = response.data.data
           this.title = 'Service: ' + this.service.name
         })
     },
     deleteService (id) {
-      axios
-        .delete(this.baseURL+'/services/' + id, { crossdomain: true })
+      this.$http
+        .delete('/services/' + id)
         .then(response => {
           this.$router.push({path:'/services'})
         })
     },
     getObservations () {
       var observations = [];
-      axios
-        .get(this.baseURL+'/services/' + this.id + /observations/, { crossdomain: true })
+      this.$http
+        .get('/services/' + this.id + /observations/)
         .then(response => {
           observations = response.data.data;
           this.observationData = [];
@@ -191,8 +190,8 @@ export default {
     },
     getLastHourObservations () {
       var observations = [];      
-      axios
-        .get(this.baseURL+'/services/' + this.id + /lasthourobservations/, { crossdomain: true })
+      this.$http
+        .get('/services/' + this.id + /lasthourobservations/)
         .then(response => {
           observations = response.data.data;
           this.lastHourObservationData = [];

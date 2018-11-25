@@ -44,8 +44,14 @@
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
+// import auth from '../../../modules/Auth.js'
 import Drawing from '@/components/Charts/Drawing'
+// import Vue from 'vue'
+// import auth from '../../../modules/Auth.js'
+// Vue.use(auth)
+// import http from '../../../modules/Axios.js'
+// Vue.use(http)
 
 export default {
   components: { Drawing },
@@ -71,14 +77,13 @@ export default {
   },  
   methods: {
     getHosts () {
-      axios  
-        //.get(this.baseURL+'/hosts?page=${page}&per_page=${itemsPerPage}', { crossdomain: true })
-        .get(this.baseURL+'/hosts', { crossdomain: true })
+      this.$http  
+        .get('/hosts') 
         .then(response => {
           this.hosts = response.data.data;
-          //this.total = response.data.meta.total
-          //this.page = this.current = response.data.meta.current_page
-          //this.itemsPerPage = response.data.meta.per_page          
+        })
+        .catch(error => {
+            console.log(error)
         });
     }    
   }

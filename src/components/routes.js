@@ -4,9 +4,10 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter);
 
 // Common pages
+import Home from '@/components/Home';
 import Dashboard from '@/components/Dashboard';
 import Login from '@/components/Auth/Login';
-// import Logout from '@/components/Auth/Logout';
+import Logout from '@/components/Auth/Logout';
 import Register from '@/components/Auth/Register';
 // alert
 // 404
@@ -38,11 +39,13 @@ const router = new VueRouter ({
     mode: 'history',
     base: __dirname,    
     routes: [
-        { path: '/', name: 'Dashboard', component: Dashboard },
+        { path: '/', name: 'Home', component: Home, meta: { public: true } },
+        { path: '/home', name: 'Home2', component: Home, meta: { public: true } },
+        { path: '/dashboard', name: 'Dashboard', component: Dashboard },
 
         { path: '/login', name: 'Login', component: Login, meta: { public: true } },
         { path: '/register', name: 'Register', component: Register, meta: { public: true } },
-        // { path: '/logout', name: 'Logout', component: Logout },
+        { path: '/logout', name: 'Logout', component: Logout },
 
         { path: '/users', name: 'Users', component: Users },
         { path: '/users/:id', name: 'User', component: User },    

@@ -51,7 +51,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import Drawing from '@/components/Charts/Drawing'
 
 export default {
@@ -68,7 +67,6 @@ export default {
     }
   },
   mounted () {
-    this.baseURL = process.env.API_BASE_URL    
     this.getRoles ()   
     this.getUser ()
   },  
@@ -78,8 +76,8 @@ export default {
     }, 
     getUser () {
       this.id = this.$route.params.id
-      axios
-        .get(this.baseURL+'/users/' + this.id, { crossdomain: true })
+      this.$http
+        .get('/users/' + this.id, { crossdomain: true })
         .then(response => {
           this.user = response.data.data
           this.title = 'User: ' + this.user.name
@@ -93,16 +91,16 @@ export default {
         active: this.user.active == true ? 1 : 0,
         role_id: this.user.role_id == true ? 1 : 0,
       }
-      axios
-        .put(this.baseURL+'/users/', oldUser, { crossdomain: true })
+      this.$http
+        .put('/users/', oldUser, { crossdomain: true })
         .then(response => {
           this.$router.push({path:'/users'})
         })
       e.preventDefault()
     },
     getRoles () {
-      axios
-        .get(this.baseURL+'/roles', { crossdomain: true })
+      this.$http
+        .get('/roles', { crossdomain: true })
         .then(response => {
           this.roles = response.data.data;
         });

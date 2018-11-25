@@ -39,7 +39,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import Drawing from '@/components/Charts/Drawing'
 
 export default {
@@ -53,17 +52,14 @@ export default {
       baseURL: null      
     }
   }, 
-  mounted () {
-    this.baseURL = process.env.API_BASE_URL      
-  }, 
   methods: {
     addRole (e) {
       let newRole = {
         name: this.role.name,
         description: this.role.description
       }
-      axios
-        .post(this.baseURL + '/roles', newRole, { crossdomain: true })
+      this.$http
+        .post('/roles', newRole)
         .then(response => {
           this.$router.push({path:'/roles'})
         })

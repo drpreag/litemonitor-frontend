@@ -118,7 +118,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import Drawing from '@/components/Charts/Drawing'
 import GoogleMap from '@/components/Charts/GoogleMap'
 
@@ -147,8 +146,8 @@ export default {
   methods: {
     getHost () {
       this.id = this.$route.params.id
-      axios
-        .get(this.baseURL+'/hosts/' + this.id, { crossdomain: true })
+      this.$http
+        .get('/hosts/' + this.id)
         .then(response => {
           this.host = response.data.data;
           this.title = this.host.name;
@@ -163,16 +162,16 @@ export default {
         })
     },
     deleteHost (id) {
-      axios
-        .delete(this.baseURL+'/hosts/' + id, { crossdomain: true })
+      this.$http
+        .delete('/hosts/' + id, { crossdomain: true })
         .then(response => {
           this.$router.push({path:'/hosts'});
         })
     },
     getServices () {
       this.id = this.$route.params.id
-      axios
-        .get(this.baseURL+'/hosts/' + this.id + '/services', { crossdomain: true })
+      this.$http
+        .get('/hosts/' + this.id + '/services', { crossdomain: true })
         .then(response => {
           this.services = response.data.data;
         })

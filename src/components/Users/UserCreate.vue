@@ -69,7 +69,6 @@ export default {
     }
   },
   mounted () {
-    this.baseURL = process.env.API_BASE_URL    
     this.getRoles ()   
   },   
   methods: {
@@ -80,16 +79,16 @@ export default {
         active: this.user.active === true ? 1 : 0,
         role_id: this.user.role_id,
       }
-      axios
-        .post(this.baseURL+'/users', newUser, { crossdomain: true })
+      this.$http
+        .post('/users', newUser, { crossdomain: true })
         .then(response => {
           this.$router.push({path:'/users'})
         })
       e.preventDefault()
     },
     getRoles () {
-      axios
-        .get(this.baseURL+'/roles', { crossdomain: true })
+      this.$http
+        .get('/roles', { crossdomain: true })
         .then(response => {
           this.roles = response.data.data;
         });

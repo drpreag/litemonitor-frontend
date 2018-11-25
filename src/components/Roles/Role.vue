@@ -58,7 +58,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import Drawing from '@/components/Charts/Drawing'
 
 export default {
@@ -74,22 +73,21 @@ export default {
     }
   },
   mounted () {
-    this.baseURL = process.env.API_BASE_URL   
     this.getRole ()
   },
   methods: {
     getRole () {
       this.id = this.$route.params.id
-      axios
-        .get(this.baseURL + '/roles/' + this.id, { crossdomain: true })
+      this.$http
+        .get('/roles/' + this.id)
         .then(response => {
           this.role = response.data.data
           this.title = 'Role: ' + this.role.name
         })       
     },
     deleteRole (id) {
-      axios
-        .delete(this.baseURL + '/roles/' + id, { crossdomain: true })
+      this.$http
+        .delete('/roles/' + id)
         .then(response => {
           this.$router.push({path:'/roles'})
         })

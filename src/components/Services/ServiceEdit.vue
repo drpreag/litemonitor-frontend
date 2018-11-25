@@ -77,7 +77,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import Drawing from '@/components/Charts/Drawing'
 
 export default {
@@ -95,7 +94,6 @@ export default {
     }
   },
   mounted () {
-    this.baseURL = process.env.API_BASE_URL
     this.getHosts ()
     this.getProbes ()
     this.getService ()
@@ -106,8 +104,8 @@ export default {
     },  
     getService () {
       this.id = this.$route.params.id    
-      axios  
-        .get(this.baseURL+'/services/' + this.id, { crossdomain: true })
+      this.$http
+        .get('/services/' + this.id)
         .then(response => {
           this.service = response.data.data;          
           this.title = 'Service: ' + this.service.name
@@ -126,23 +124,23 @@ export default {
         user: this.service.user,
         pass: this.service.pass,        
       } 
-      axios
-        .put(this.baseURL+'/services', oldService, { crossdomain: true })
+      this.$http
+        .put('/services', oldService)
         .then(response => {
           this.$router.push({path:'/services'})
         });
       e.preventDefault()
     },
     getHosts () {
-      axios  
-        .get(this.baseURL+'/hosts', { crossdomain: true })
+      this.$http
+        .get('/hosts')
         .then(response => {
           this.hosts = response.data.data;
         });
     },
     getProbes () {
-      axios  
-        .get(this.baseURL+'/probes', { crossdomain: true })
+      this.$http
+        .get('/probes')
         .then(response => {
           this.probes = response.data.data;
         });

@@ -7,12 +7,13 @@ import moment from 'moment'
 // Navigation bar
 import NavBar from '@/components/NavBar'
 
+// custom css restyle
 import "../src/assets/style.css";
-
-import Auth from '../packages/auth/Auth.js';
-Vue.use (Auth);
-// var VueAuth = require('vue-auth')
-// Vue.use(VueAuth)
+// custom modules
+import auth from '../modules/Auth.js';
+Vue.use (auth);
+import http from '../modules/Axios.js';
+Vue.use (http);
 
 import * as VueGoogleMaps from "vue2-google-maps";
 Vue.use(VueGoogleMaps, {
@@ -29,7 +30,7 @@ router.beforeEach (
     if (! to.matched.some(record => record.meta.public)) {
       if (! Vue.auth.isAuthenticated()) {
         next ({
-          path: "/login"
+          path: "/"
         })
       } else {
         next()
@@ -63,6 +64,8 @@ Vue.filter('two-decimals', function(value) {
 
 /* eslint-disable no-new */
 new Vue({
+  // auth,
+  // http,
   router,
   template: `
 	  <div id="app" class="container">

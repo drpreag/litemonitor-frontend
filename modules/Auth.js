@@ -1,16 +1,27 @@
-// custom auth package
+/** Custom auth module 
+ *
+ * usage:
+ *
+ * import auth from '../modules/Auth.js';
+ * Vue.use (auth);
+ * 
+ * this.$auth
+ * or
+ * Vue.auth
+ *
+ */
+
 export default function(Vue) {
 
-	let setAuthenticatedUser = {};
+	let authenticatedUser = {};
 
 	Vue.auth = {
-		// set token
+
 		setToken (token, expiration) {
 			localStorage.setItem('token', token);
 			localStorage.setItem('expiration', expiration);
 		},
 
-		// get token
 		getToken () {
 			var token 	   = localStorage.getItem('token');
 			var expiration = localStorage.getItem('expiration');
@@ -18,7 +29,6 @@ export default function(Vue) {
 			if(!token || !expiration) {
 				return null;
 			}
-
 			if(Date.now() > parseInt(expiration)) {
 				this.destroyToken();
 				return null;
@@ -27,13 +37,11 @@ export default function(Vue) {
 			}
 		},
 
-		// destroy token
 		destroyToken () {
 			localStorage.removeItem('token');
 			localStorage.removeItem('expiration');
 		},
 
-		// isAuthenticated
 		isAuthenticated () {
 			if(this.getToken()) {
 				return true;
@@ -43,12 +51,12 @@ export default function(Vue) {
 		},
 
 		setAuthenticatedUser(data) {
-			setAuthenticatedUser = data;
+			authenticatedUser = data;
 		},
 
 
 		getAuthenticatedUser() {
-			return setAuthenticatedUser;
+			return authenticatedUser;
 		}
 	} // Vue.auth
 

@@ -67,7 +67,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import Drawing from '@/components/Charts/Drawing'
 
 export default {
@@ -84,7 +83,6 @@ export default {
     }
   },
   mounted () {
-    this.baseURL = process.env.API_BASE_URL  
     this.getRoles ()    
     this.getUser ()
   },
@@ -92,23 +90,23 @@ export default {
     getUser () {
       this.errors = this.user = this.id = null
       this.id = this.$route.params.id
-      axios
-        .get(this.baseURL+'/users/' + this.id, { crossdomain: true })
+      this.$http
+        .get('/users/' + this.id, { crossdomain: true })
         .then(response => {
           this.user = response.data.data
           this.title = 'User: ' + this.user.name
         })
     },
     deleteUser (id) {
-      axios
-        .delete(this.baseURL+'/users/' + id, { crossdomain: true })
+      this.$http
+        .delete('/users/' + id, { crossdomain: true })
         .then(response => {
           this.$router.push({path:'/users'})
         })
     },
     getRoles () {
-      axios
-        .get(this.baseURL+'/roles', { crossdomain: true })
+      this.$http
+        .get('/roles', { crossdomain: true })
         .then(response => {
           this.roles = response.data.data;
         });

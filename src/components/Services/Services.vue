@@ -54,7 +54,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import Drawing from '@/components/Charts/Drawing'
 
 export default {
@@ -65,7 +64,6 @@ export default {
       errors: [],      
       title: 'Services',
       sign: null,
-      baseURL: null  
     }
   },
   created () {
@@ -75,13 +73,12 @@ export default {
     clearInterval(this.timer)
   },
   mounted () {
-    this.baseURL = process.env.API_BASE_URL
     this.getServices ()  
   },  
   methods: {
     getServices() {
-      axios
-        .get(this.baseURL+'/services', { crossdomain: true })
+      this.$http
+        .get('/services')
         .then(response => {
           this.services = response.data.data;
         });
