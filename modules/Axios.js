@@ -17,8 +17,8 @@ import auth  from './Auth'
 Vue.use (auth);
 
 export default Vue.http = axios.create({
-	// baseURL: process.env.API_URL,
-	baseURL: "http://backend.litemonitor.profidata/api",
+	baseURL: process.env.API_BASE_URL,
+	// baseURL: "http://backend.litemonitor.profidata/api",
 	timeout: 3000,
 	crossdomain: true 
 });
