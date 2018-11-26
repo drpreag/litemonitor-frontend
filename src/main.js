@@ -25,6 +25,25 @@ Vue.use(VueGoogleMaps, {
 
 import router from '@/components/routes.js';
 
+
+//Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('content')
+Vue.config.productionTip = false
+
+Vue.filter('customFormat', function(value) {
+      return moment.utc(value).local().format("MM/DD/YYYY hh:mm");
+  });
+
+Vue.filter('time-ago', function(value) {
+      return moment.utc(value).local().fromNow();
+  });
+
+Vue.filter('two-decimals', function(value) {
+    if (value)
+      return value.toFixed(2);
+    return null;
+  });
+
+
 router.beforeEach (
   (to, from, next) => {
     if (! to.matched.some(record => record.meta.public)) {
@@ -45,27 +64,11 @@ router.beforeEach (
   }
 )
 
-//Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('content')
-Vue.config.productionTip = false
-
-Vue.filter('customFormat', function(value) {
-      return moment.utc(value).local().format("MM/DD/YYYY hh:mm");
-  });
-
-Vue.filter('time-ago', function(value) {
-      return moment.utc(value).local().fromNow();
-  });
-
-Vue.filter('two-decimals', function(value) {
-    if (value)
-      return value.toFixed(2);
-    return null;
-  });
 
 /* eslint-disable no-new */
 new Vue({
-  // auth,
-  // http,
+  auth,
+  http,
   router,
   template: `
 	  <div id="app" class="container">

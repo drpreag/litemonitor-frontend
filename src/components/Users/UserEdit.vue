@@ -63,7 +63,6 @@ export default {
       errors: [],
       title: 'Edit User',
       sign: null,
-      baseURL: null  
     }
   },
   mounted () {
@@ -89,7 +88,7 @@ export default {
         name: this.user.name,
         email: this.user.email,
         active: this.user.active == true ? 1 : 0,
-        role_id: this.user.role_id == true ? 1 : 0,
+        role_id: this.user.role_id
       }
       this.$http
         .put('/users/', oldUser, { crossdomain: true })

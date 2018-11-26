@@ -2,26 +2,26 @@
 <template>
   <div id="user">
 
-    <div class="row">
-      <div class="col-lg-9">
-        <h3>{{ title }}</h3>      
-      </div>
-      <div class="col-lg-3 text-right">
-        <router-link :to="{ name:'Users' }">
-          <button class="btn btn-sm btn-info">Back</button>
-        </router-link>
-        &nbsp
-        <router-link :to="{ name:'UserEdit', params: { id: user.id }}">
-          <button class="btn btn-sm btn-info">Edit</button>
-        </router-link>            
-        &nbsp
-        <button class="btn btn-sm btn-info" v-on:click="deleteUser(user.id)">
-          Delete
-        </button>
-      </div>
-    </div> 
-
     <div v-if="user">
+
+      <div class="row">
+        <div class="col-lg-9">
+          <h3>{{ title }}</h3>      
+        </div>
+        <div class="col-lg-3 text-right">
+          <router-link :to="{ name:'Users' }">
+            <button class="btn btn-sm btn-info">Back</button>
+          </router-link>
+          &nbsp
+          <router-link :to="{ name:'UserEdit', params: { id: user.id }}">
+            <button class="btn btn-sm btn-info">Edit</button>
+          </router-link>            
+          &nbsp
+          <button class="btn btn-sm btn-info" v-on:click="deleteUser(user.id)">
+            Delete
+          </button>
+        </div>
+      </div> 
 
       <div class="row">
         <div class="col-lg-9">
@@ -79,17 +79,15 @@ export default {
       title: 'User',
       sign: null,
       roles: [],
-      baseURL: null
     }
   },
   mounted () {
+    this.id = this.$route.params.id     
     this.getRoles ()    
     this.getUser ()
   },
   methods: {
     getUser () {
-      this.errors = this.user = this.id = null
-      this.id = this.$route.params.id
       this.$http
         .get('/users/' + this.id, { crossdomain: true })
         .then(response => {

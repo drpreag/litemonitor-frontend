@@ -139,7 +139,6 @@ export default {
     }
   }, 
   mounted () {
-    this.baseURL = process.env.API_BASE_URL   
     this.getHost ()
     this.getServices ()
   },

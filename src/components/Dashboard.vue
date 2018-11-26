@@ -75,14 +75,12 @@ export default {
     }
   },
   created () {
+    this.getFlappings ();
+    this.getHostsData ();    
     this.timer = setInterval(this.getFlappings, 10000);
   },
   destroyed () {
     clearInterval(this.timer)
-  },
-  mounted () {
-    this.getFlappings ();
-    this.getHostsData ();
   },
   methods: {
     getFlappings () {

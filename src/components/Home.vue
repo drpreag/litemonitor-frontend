@@ -2,10 +2,9 @@
 <template>
   <div class="container text-center" id="homepage">
     <br>
-    <h4>Welcome to Lite Monitor</h4>
+    <h3>Welcome to Lite Monitor</h3>
     <br>
     simple agent-less remote monitoring tool
-
   </div>
 </template>
 

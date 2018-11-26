@@ -1,53 +1,61 @@
 <template>
     <div class="d-flex justify-content-center">
         
-            <div class="col-lg-6 col-lg-offset-3">
-                <div class="card card-default">
+        <div class="col-lg-6 col-lg-offset-3">
+            <div class="card card-default">
+                <form v-on:submit="handleSubmit">                    
                     <div class="card-header">Register new account</div>
                     <div class="card-body">
-                        <form class="form-horizontal" role="form" method="POST" action="https://softwarepieces.com/login">
 
-                            <div class="form-group">
-                                <label for="username" class="control-label">Full name</label>
-                                <div>
-                                    <input id="username" type="email" class="form-control" name="fullname" placeholder="Full name" v-model="fullname" required autofocus>
-                                </div>
-                                <div v-show="submitted && !fullname" class="invalid-feedback">Full name is required</div>
+                        <div class="form-group">
+                            <label for="name" class="control-label">Full name</label>
+                            <div>
+                                <input id="name" type="text" class="form-control" name="name" placeholder="Full name" v-model="name" required autofocus>
                             </div>
-
-                            <div class="form-group">
-                                <label for="username" class="control-label">E-mail</label>
-                                <div>
-                                    <input id="username" type="email" class="form-control" name="username" placeholder="E-mail" v-model="username" required autofocus>
-                                </div>
-                                <div v-show="submitted && !username" class="invalid-feedback">Password is required</div>
+                            <div v-show="submitted && !name" class="invalid-feedback">
+                                Full name is required
                             </div>
+                        </div>
 
-                            <div class="form-group">
-                                <label for="password" class="control-label">Password</label>
-                                <div>
-                                    <input id="password" type="password" class="form-control" name="password" required v-model="password" placeholder="Your password">
-                                </div>
-                                <div v-show="submitted && !password" class="invalid-feedback">Password is required</div>
+                        <div class="form-group">
+                            <label for="email" class="control-label">E-mail</label>
+                            <div>
+                                <input id="email" type="email" class="form-control" name="email" placeholder="E-mail" v-model="email" required autofocus>
                             </div>
-
-                            <div class="form-group">
-                                <label for="password" class="control-label">Password</label>
-                                <div>
-                                    <input id="password" type="password" class="form-control" name="password" required v-model="passwordtwo" placeholder="Your password">
-                                </div>
-                                <div v-show="submitted && !passwordtwo" class="invalid-feedback">Password is required</div>
+                            <div v-show="submitted && !email" class="invalid-feedback">
+                                E-mail (email) is required
                             </div>
+                        </div>
 
-                        </form>
+                        <div class="form-group">
+                            <label for="password" class="control-label">Password</label>
+                            <div>
+                                <input id="password" type="password" class="form-control" name="password" required v-model="password" placeholder="Password">
+                            </div>
+                            <div v-show="submitted && !password" class="invalid-feedback">
+                                Password is required
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password" class="control-label">Repeated password</label>
+                            <div>
+                                <input id="password" type="password" class="form-control" name="password" required v-model="passwordtwo" placeholder="Repeated password">
+                            </div>
+                            <div v-show="submitted && !passwordtwo" class="invalid-feedback">
+                                Password is required, and must be equal as first password
+                            </div>
+                        </div>
+
                     </div>
-
+                    
                     <div class="card-footer text-center">
                         <button type="submit" class="btn btn-primary">Register</button>
                     </div>
 
-                </div>
+                </form>
             </div>
+        </div>
     </div>
 </template>
 
@@ -56,8 +64,8 @@
 export default {
     data () {
         return {
-            fullname: '',
-            username: '',
+            name: '',
+            email: '',
             password: '',
             passwordtwo: '',
             submitted: false
@@ -66,11 +74,26 @@ export default {
     methods: {
         handleSubmit (e) {
             this.submitted = true;
-            const { username, password } = this;
-            if (fullname && username && password && (password == passwordtwo)) {
-                // this.login({ username, password })
+            // if (this.password != this.passwordtwo)
+            //     return false;
+            // if (! (this.name && this.email && this.password) ) {
+            //     return false;
+            
+            var data = {
+                name: this.name,
+                email: this.email,
+                password: this.password
             }
+            this.$http
+                .post('register', data)
+                .then(response => {
+                    this.$router.push({ name: 'Login'})
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+            e.preventDefault();
         }
     }
-};
+}
 </script>

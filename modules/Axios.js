@@ -18,19 +18,19 @@ Vue.use (auth);
 
 export default Vue.http = axios.create({
 	baseURL: process.env.API_BASE_URL,
-	// baseURL: "http://backend.litemonitor.profidata/api",
 	timeout: 3000,
 	crossdomain: true 
 });
 
 let token = Vue.auth.getToken();
 
-Vue.http.interceptors.request.use(config => {
-	config.headers['Accept']= `application/json`;
-	config.headers['Authorization'] = `Bearer ${token}`;
-	return config;
-});
-
+if (token) {
+	Vue.http.interceptors.request.use(config => {
+		config.headers['Accept']=`application/json`;
+		config.headers['Authorization']=`Bearer ${token}`;
+		return config;
+	});
+}
 Object.defineProperties(Vue.prototype, {
 	$http: {
 		get () {

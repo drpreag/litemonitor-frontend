@@ -18,26 +18,28 @@
       <li class="nav-item">
         <router-link class="nav-link" :class="activeClass('Services')" :to="{ name:'Services' }">Services</router-link>
       </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Admin
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <router-link class="dropdown-item" :class="activeClass('Users')" :to="{ name:'Users' }">Users</router-link>
-              <li>
-                <router-link class="dropdown-item" :class="activeClass('Roles')" :to="{ name:'Roles' }">Roles</router-link>
-              </li>
-          <!-- div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Something else here</a> -->
-          </div>
-      </li>
+      <div v-if="authUser.user_role_id==9">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Admin
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <router-link class="dropdown-item" :class="activeClass('Users')" :to="{ name:'Users' }">Users</router-link>
+                <li>
+                  <router-link class="dropdown-item" :class="activeClass('Roles')" :to="{ name:'Roles' }">Roles</router-link>
+                </li>
+            <!-- div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Something else here</a> -->
+            </div>
+        </li>
+      </div>
     </ul>
     <ul v-if="!isAuth" class="navbar-nav ml-auto">
-      <router-link class="nav-link" :class="activeClass('Login')" :to="{ name:'Login' }" exact>Login</router-link>
-      <router-link class="nav-link" :class="activeClass('Register')" :to="{ name:'Register' }" exact>Register</router-link>
+      <router-link class="nav-link" :class="activeClass('Login')" :to="{ name:'Login' }">Login</router-link>
+      <router-link class="nav-link" :class="activeClass('Register')" :to="{ name:'Register' }">Register</router-link>
     </ul>
         <ul v-if="isAuth" class="navbar-nav ml-auto">
-          <router-link class="nav-link" :class="activeClass('Logout')" :to="{ name:'Logout' }" exact>Logout</router-link>
+          <router-link class="nav-link" :class="activeClass('Logout')" :to="{ name:'Logout' }">{{ authUser.user_fullname }} Logout</router-link>
         </ul>
 
     </div>
@@ -51,25 +53,37 @@ export default {
   components: { },
   data () { 
     return {
-      authenticatedUser: {},
+      authUser: {},
       isAuth: true,
-      baseURL: null,
       showNavBar: true
     }
   },
   created () {
     var currentRoute = this.$router;
     this.isAuth = this.$auth.isAuthenticated();
+    this.$auth.setAuthUser();    
+    if (this.isAuth) {
+      this.authUser = this.$auth.getAuthUser();
+    }
   },
   methods: {
     activeClass: function (...names) {
       for (let name of names) {
-        if (name == this.$route.name) {
+        if (name == this.$router.name) {
           // alert (name)          
-          return 'link-active'
+          return 'router-link-active'
         }
+        else
+          return ''
       }
     },
   }
 }
 </script>
+
+<style scoped>
+.router-link-active {
+  background-color: lightgray;
+  color: white;
+}
+</style>

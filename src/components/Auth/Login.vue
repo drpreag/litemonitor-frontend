@@ -8,7 +8,7 @@
                     <div class="card-body">
                     
                         <div class="form-group">
-                            <label for="username" class="control-label">Username</label>
+                            <label for="username" class="control-label">Username (e-mail)</label>
                             <div class="col-lg-8">
                                 <input id="username" type="email" class="form-control" name="username" placeholder="Username" v-model="username" required autofocus>
                             </div>
@@ -38,9 +38,7 @@
 
 <script>
 
-import Vue from 'vue'
-// import auth from '../../../modules/Auth.js'
-// Vue.use(auth)
+// import Vue from 'vue'
 
 export default {
     data () {
@@ -56,12 +54,13 @@ export default {
                 var data = {
                     username: this.username,
                     password: this.password
-                }
+                }               
                 this.$http
-                    .post('/login', { username: this.username, password: this.password })
+                    .post('login', data)
                     .then(response => {
                         this.$auth.setToken(response.data.access_token, response.data.expires_in + Date.now());
                         this.$auth.setAuthenticatedUser(data);
+                        this.$auth.setAuthUser();                         
                         this.$router.push({ name: 'Dashboard'})
                     })
                     .catch(error => {

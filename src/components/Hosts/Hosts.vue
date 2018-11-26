@@ -44,14 +44,7 @@
 </template>
 
 <script>
-// import axios from 'axios'
-// import auth from '../../../modules/Auth.js'
 import Drawing from '@/components/Charts/Drawing'
-// import Vue from 'vue'
-// import auth from '../../../modules/Auth.js'
-// Vue.use(auth)
-// import http from '../../../modules/Axios.js'
-// Vue.use(http)
 
 export default {
   components: { Drawing },
@@ -72,7 +65,6 @@ export default {
     clearInterval(this.timer)
   },  
   mounted () {
-    this.baseURL = process.env.API_BASE_URL
     this.getHosts ()
   },  
   methods: {

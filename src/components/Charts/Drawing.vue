@@ -28,13 +28,13 @@ export default {
 
     if (this.origin=="yesno" & this.sign==1) {     
       this.drawing = "fas fa-check-circle " + sizeString 
-      //this.style = "color:#16E2F5"
-      this.style = "color:#36a2eb"
+      this.style = "color:#5BC0DD"
+      // this.style = "color:#36a2eb"
     }
     if (this.origin=="yesno" & this.sign==0) {
       this.drawing = "fas fa-times-circle " + sizeString
-      //this.style = "color:#D3D3D3"
-      this.style = "color:#ff6384"
+      this.style = "color:#5BC0DD"
+      // this.style = "color:#ff6384"
     }
     if (this.origin=="updown" & this.sign==1) {
       this.drawing = "fas fa-arrow-alt-circle-up " + sizeString

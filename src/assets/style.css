@@ -72,6 +72,16 @@ body {
   padding-bottom: 15px;
 }
 
+.navbar>nav-link {
+  color: white;
+  font: black;
+}
+
+.navbar>nav-link-active {
+  color: black;
+  font: white;
+}
+
 .divider {
     margin-bottom: 10px;
     padding-bottom: 10px;
@@ -81,7 +91,7 @@ body {
   display: flex;
   align-items: center;  
   justify-content: center;
-    min-height: 600px;
+  min-height: 600px;
 }
 
 #page {
