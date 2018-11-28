@@ -66,7 +66,8 @@ const router = new VueRouter ({
         { path: '/hosts/:id', name: 'Host', component: Host },
         { path: '/hosts_create', name: 'HostCreate', component: HostCreate },
         { path: '/hosts_edit', name: 'HostEdit', component: HostEdit },
-    ]
+    ],
+    // linkActiveClass: 'active'
 })
 
 export default router;

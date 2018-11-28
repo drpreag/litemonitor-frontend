@@ -14,6 +14,10 @@ import auth from '../modules/Auth.js';
 Vue.use (auth);
 import http from '../modules/Axios.js';
 Vue.use (http);
+import constants from '../modules/constants.js';
+Vue.use (constants);
+import VueSweetalert2 from 'vue-sweetalert2';
+Vue.use(VueSweetalert2);
 
 import * as VueGoogleMaps from "vue2-google-maps";
 Vue.use(VueGoogleMaps, {
@@ -69,7 +73,9 @@ router.beforeEach (
 new Vue({
   auth,
   http,
+  constants,
   router,
+  VueSweetalert2,
   template: `
 	  <div id="app" class="container">
 	    <nav-bar></nav-bar>  

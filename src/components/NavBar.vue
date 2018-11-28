@@ -18,15 +18,15 @@
       <li class="nav-item">
         <router-link class="nav-link" :class="activeClass('Services')" :to="{ name:'Services' }">Services</router-link>
       </li>
-      <div v-if="authUser.user_role_id==9">
+      <div v-if="authUser.user_role_id==this.$constants.USER_ROLE_MODERATOR">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Admin
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <router-link class="dropdown-item" :class="activeClass('Users')" :to="{ name:'Users' }">Users</router-link>
+                <router-link class="nav-link" :class="activeClass('Users')" :to="{ name:'Users' }">Users</router-link>
                 <li>
-                  <router-link class="dropdown-item" :class="activeClass('Roles')" :to="{ name:'Roles' }">Roles</router-link>
+                  <router-link class="nav-link" :class="activeClass('Roles')" :to="{ name:'Roles' }">Roles</router-link>
                 </li>
             <!-- div class="dropdown-divider"></div>
               <a class="dropdown-item" href="#">Something else here</a> -->
@@ -69,12 +69,11 @@ export default {
   methods: {
     activeClass: function (...names) {
       for (let name of names) {
-        if (name == this.$router.name) {
-          // alert (name)          
+        if (name == this.$router.name) {         
           return 'router-link-active'
         }
         else
-          return ''
+          return 'active'
       }
     },
   }

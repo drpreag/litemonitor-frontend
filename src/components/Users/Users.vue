@@ -61,6 +61,9 @@ export default {
   mounted () {
     this.getUsers ()
   },
+  created () {
+    this.getUsers ()
+  },
   methods: {
     getUsers () {
       this.$http
@@ -68,6 +71,9 @@ export default {
         .then(response => {
           this.users = response.data.data
         })
+        .catch(error => {
+          this.errors = error;
+        });
     }
   }
 }

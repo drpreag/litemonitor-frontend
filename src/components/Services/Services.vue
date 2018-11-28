@@ -81,7 +81,12 @@ export default {
         .get('/services')
         .then(response => {
           this.services = response.data.data;
-        });
+        })
+        .catch(error => {
+          console.log(error)
+          this.errors = error;
+          this.$router.go(-1);
+        });        
     }
   }
 }

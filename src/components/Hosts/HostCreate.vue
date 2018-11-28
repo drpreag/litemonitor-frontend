@@ -87,6 +87,11 @@ export default {
         .then(response => {
           this.$router.push({path:'/hosts'})
         })
+        .catch(error => {
+          console.log(error)
+          this.errors = error;
+          this.$router.go(-1);
+        });        
       e.preventDefault()
     },
   }

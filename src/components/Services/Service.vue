@@ -141,7 +141,6 @@ export default {
       // observations: [],
       title: 'Service',
       sign: null,
-      baseURL: null,
       loadedObservations: false,
       observationData: [],
       loadedLastHourObservations: false,
@@ -168,6 +167,11 @@ export default {
           this.service = response.data.data
           this.title = 'Service: ' + this.service.name
         })
+        .catch(error => {
+          console.log(error)
+          this.errors = error;
+          this.$router.go(-1);
+        });        
     },
     deleteService (id) {
       this.$http
@@ -175,6 +179,11 @@ export default {
         .then(response => {
           this.$router.push({path:'/services'})
         })
+        .catch(error => {
+          console.log(error)
+          this.errors = error;
+          this.$router.go(-1);
+        });        
     },
     getObservations () {
       var observations = [];
@@ -187,6 +196,11 @@ export default {
             this.observationData[i]=observations[i];     
           this.loadedObservations = true;
         })
+        .catch(error => {
+          console.log(error)
+          this.errors = error;
+          this.$router.go(-1);
+        });        
     },
     getLastHourObservations () {
       var observations = [];      
@@ -199,6 +213,11 @@ export default {
             this.lastHourObservationData[i]=[observations[i]['created_at'],observations[i]['speed']];     
           this.loadedLastHourObservations = true;
         })
+        .catch(error => {
+          console.log(error)
+          this.errors = error;
+          this.$router.go(-1);
+        });        
     }
 
   }

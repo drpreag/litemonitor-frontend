@@ -109,7 +109,12 @@ export default {
         .then(response => {
           this.service = response.data.data;          
           this.title = 'Service: ' + this.service.name
-        });
+        })
+        .catch(error => {
+          console.log(error)
+          this.errors = error;
+          this.$router.go(-1);
+        });        
     },    
     updateService (e) {
       // browser side data validation will go here
@@ -128,7 +133,12 @@ export default {
         .put('/services', oldService)
         .then(response => {
           this.$router.push({path:'/services'})
-        });
+        })
+        .catch(error => {
+          console.log(error)
+          this.errors = error;
+          this.$router.go(-1);
+        });        
       e.preventDefault()
     },
     getHosts () {
@@ -136,14 +146,24 @@ export default {
         .get('/hosts')
         .then(response => {
           this.hosts = response.data.data;
-        });
+        })
+        .catch(error => {
+          console.log(error)
+          this.errors = error;
+          this.$router.go(-1);
+        });        
     },
     getProbes () {
       this.$http
         .get('/probes')
         .then(response => {
           this.probes = response.data.data;
-        });
+        })
+        .catch(error => {
+          console.log(error)
+          this.errors = error;
+          this.$router.go(-1);
+        });        
     },
   }
 }

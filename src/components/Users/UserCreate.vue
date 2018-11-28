@@ -64,14 +64,16 @@ export default {
       roles: [],
       errors: [],
       title: 'Add User',
-      sign: null,
-      baseURL: null
+      sign: null
     }
   },
   mounted () {
     this.getRoles ()   
   },   
   methods: {
+    changeHandler () {
+      this.$emit('input', !this.value)
+    },    
     addUser (e) {
       let newUser = {
         name: this.user.name,
@@ -84,6 +86,9 @@ export default {
         .then(response => {
           this.$router.push({path:'/users'})
         })
+        .catch(error => {
+          this.errors = error;
+        });        
       e.preventDefault()
     },
     getRoles () {
@@ -91,7 +96,10 @@ export default {
         .get('/roles', { crossdomain: true })
         .then(response => {
           this.roles = response.data.data;
-        });
+        })
+        .catch(error => {
+          this.errors = error;
+        });        
     } 
   }
 }

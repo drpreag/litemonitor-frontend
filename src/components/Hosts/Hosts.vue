@@ -55,7 +55,6 @@ export default {
       title: 'Hosts',
       sign: null,
       origin,
-      baseURL: null      
     }
   },
   created () {
@@ -75,7 +74,9 @@ export default {
           this.hosts = response.data.data;
         })
         .catch(error => {
-            console.log(error)
+          console.log(error)
+          this.errors = error;
+          this.$router.go(-1);
         });
     }    
   }

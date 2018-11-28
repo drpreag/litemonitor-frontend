@@ -81,6 +81,9 @@ export default {
           this.user = response.data.data
           this.title = 'User: ' + this.user.name
         })
+        .catch(error => {
+          this.errors = error;
+        });        
     },  
     updateUser (e) {
       let oldUser = {
@@ -95,6 +98,9 @@ export default {
         .then(response => {
           this.$router.push({path:'/users'})
         })
+        .catch(error => {
+          this.errors = error;
+        });        
       e.preventDefault()
     },
     getRoles () {
@@ -102,7 +108,10 @@ export default {
         .get('/roles', { crossdomain: true })
         .then(response => {
           this.roles = response.data.data;
-        });
+        })
+        .catch(error => {
+          this.errors = error;
+        });        
     }    
   }
 }

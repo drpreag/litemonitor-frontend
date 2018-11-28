@@ -94,20 +94,44 @@ export default {
           this.user = response.data.data
           this.title = 'User: ' + this.user.name
         })
+        .catch(error => {
+          this.errors = error;
+        });        
     },
     deleteUser (id) {
-      this.$http
-        .delete('/users/' + id, { crossdomain: true })
-        .then(response => {
-          this.$router.push({path:'/users'})
-        })
+      // this.$swal (type:'danger','Are you sure?','Please confirm deletion!')
+      this.$swal({
+        title: "Are you sure?",
+        text: "You will not be able to recover deleted data!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-danger",
+        confirmButtonText: "Delete",
+        cancelButtonText: "Cancel",
+      }).then((result) => {
+        if (result.value) {
+          this.$http
+            .delete('/users/' + id)
+            .then(response => {
+              this.$router.push({path:'/users'})
+              this.$swal('Deleted!','Your data has been deleted.','success');              
+            })
+            .catch(error => {
+              this.errors = error;
+              this.$swal('Error!','Your data has not been deleted.','error');
+            });           
+        }
+      })
     },
     getRoles () {
       this.$http
         .get('/roles', { crossdomain: true })
         .then(response => {
           this.roles = response.data.data;
-        });
+        })
+        .catch(error => {
+          this.errors = error;
+        });        
     }     
   }
 }

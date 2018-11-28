@@ -25,12 +25,23 @@ export default Vue.http = axios.create({
 let token = Vue.auth.getToken();
 
 if (token) {
+	// request
 	Vue.http.interceptors.request.use(config => {
 		config.headers['Accept']=`application/json`;
 		config.headers['Authorization']=`Bearer ${token}`;
 		return config;
 	});
+	// response
+	Vue.http.interceptors.response.use((response) => {
+    	return response;
+  	}, (error) => {
+	    if (error.response.status === 401) {
+    		Vue.swal ("You are not authorize for this operation");
+    		this.$router.go(-1);
+  		}
+	});
 }
+
 Object.defineProperties(Vue.prototype, {
 	$http: {
 		get () {

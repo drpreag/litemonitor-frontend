@@ -131,7 +131,6 @@ export default {
       title: 'Host',
       icon: null,
       sign: null,
-      baseURL: null,
       center: { lat: 43.6532, lng: -79.3832 },
       ipLocal: false,
       markers: [],
@@ -159,6 +158,11 @@ export default {
             this.marker.position = this.center;
           }   
         })
+        .catch(error => {
+          console.log(error)
+          this.errors = error;
+          this.$router.go(-1);
+        });        
     },
     deleteHost (id) {
       this.$http
@@ -166,6 +170,11 @@ export default {
         .then(response => {
           this.$router.push({path:'/hosts'});
         })
+        .catch(error => {
+          console.log(error)
+          this.errors = error;
+          this.$router.go(-1);
+        });        
     },
     getServices () {
       this.id = this.$route.params.id
@@ -174,6 +183,11 @@ export default {
         .then(response => {
           this.services = response.data.data;
         })
+        .catch(error => {
+          console.log(error)
+          this.errors = error;
+          this.$router.go(-1);
+        });        
     },    
   }
 }
