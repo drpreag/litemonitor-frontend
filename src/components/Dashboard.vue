@@ -69,7 +69,6 @@ export default {
       flappings: [],
       passedHostChartData: [],
       passedServiceChartData: [],
-      baseURL: null,
       hosts: [],
       center: { lat: 47.527278, lng: -38.314444 },
     }

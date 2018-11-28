@@ -18,7 +18,7 @@
       <li class="nav-item">
         <router-link class="nav-link" :class="activeClass('Services')" :to="{ name:'Services' }">Services</router-link>
       </li>
-      <div v-if="authUser.user_role_id==this.$constants.USER_ROLE_MODERATOR">
+      <div v-if="authUser.user_role_id>=this.$constants.USER_ROLE_MODERATOR">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Admin
