@@ -71,6 +71,7 @@ export default {
       passedServiceChartData: [],
       hosts: [],
       center: { lat: 47.527278, lng: -38.314444 },
+      errors: []
     }
   },
   created () {
@@ -87,7 +88,10 @@ export default {
         .get('/flappings')
         .then(response => {
           this.flappings = response.data.data;
-        });
+        })
+        .catch(error => {
+          this.errors = error;
+        });          
       this.$http
         .get('/hosts-stats')
         .then(response => {
@@ -95,7 +99,10 @@ export default {
               this.passedHostChartData[1]!=response.data.non_monitored) {
             this.passedHostChartData=[response.data.monitored, response.data.non_monitored];
           }
-        });       
+        })
+        .catch(error => {
+          this.errors = error;
+        });
       this.$http
         .get('/services-stats')
         .then(response => {
@@ -104,7 +111,10 @@ export default {
               this.passedServiceChartData[2]!=response.data.non_monitored) {
             this.passedServiceChartData=[response.data.down, response.data.up, response.data.non_monitored];
           }
-        });
+        })
+        .catch(error => {
+          this.errors = error;
+        });          
     },
     getHostsData () {
       this.$http
@@ -117,7 +127,10 @@ export default {
               this.hosts.push ({ip: axios_hosts[i].ip, latitude: parseFloat(axios_hosts[i].latitude), longitude: parseFloat(axios_hosts[i].longitude), active: axios_hosts[i].active, name: axios_hosts[i].name});
             }
           }
-        }); 
+        })
+        .catch(error => {
+          this.errors = error;
+        });          
     }
   }
 }

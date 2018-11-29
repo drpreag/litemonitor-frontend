@@ -31,7 +31,6 @@ export default {
     clearInterval(this.timer)
   },  
   mounted () {
-    this.baseURL = process.env.API_BASE_URL   
     this.getLastId ()
   },
   methods: {
@@ -41,6 +40,9 @@ export default {
         .then(response => {
           this.id = response.data.data.id;
         })
+        .catch(error => {
+          this.errors = error;
+        });          
     },
     getNextId () {
       this.$http
@@ -50,6 +52,7 @@ export default {
             this.id = response.data.data.id;
         })
         .catch(error => {
+          this.errors = error;
         });
     },
     playSound (sound) {

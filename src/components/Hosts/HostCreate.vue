@@ -66,7 +66,6 @@ export default {
       errors: [],
       title: 'Add Host',
       sign: null,
-      baseURL: null  
     }
   },    
   methods: {
@@ -88,9 +87,7 @@ export default {
           this.$router.push({path:'/hosts'})
         })
         .catch(error => {
-          console.log(error)
           this.errors = error;
-          this.$router.go(-1);
         });        
       e.preventDefault()
     },

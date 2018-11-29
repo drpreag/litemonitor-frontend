@@ -104,7 +104,6 @@ export default {
     }
   },
   mounted () {
-    this.baseURL = process.env.API_BASE_URL
     this.getHosts ()
     this.getProbes ()
   },    
@@ -124,26 +123,35 @@ export default {
         user: this.service.user,
         pass: this.service.pass     
       } 
-      axios
-        .post(this.baseURL+'/services', newService, { crossdomain: true })
+      this.$http
+        .post('/services', newService, { crossdomain: true })
         .then(response => {
           this.$router.push({path:'/services'})
-        });
+        })
+        .catch(error => {
+          this.errors = error;
+        });        
       e.preventDefault()
     },
     getHosts () {
-      axios  
-        .get(this.baseURL+'/hosts', { crossdomain: true })
+      this.$http
+        .get('/hosts', { crossdomain: true })
         .then(response => {
           this.hosts = response.data.data;
-        });
+        })
+        .catch(error => {
+          this.errors = error;
+        });        
     },
     getProbes () {
-      axios  
-        .get(this.baseURL+'/probes', { crossdomain: true })
+      this.$http
+        .get('/probes', { crossdomain: true })
         .then(response => {
           this.probes = response.data.data;
-        });
+        })
+        .catch(error => {
+          this.errors = error;
+        });        
     },
   }
 }
