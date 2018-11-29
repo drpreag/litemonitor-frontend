@@ -75,7 +75,7 @@
 
           <div v-if="service.active" class="form-group">
             <label class="control-label">Status</label><br>
-            <drawing :sign="service.status" origin="yesno" size="2"></drawing>
+            <drawing :sign="service.status" origin="updown" size="2"></drawing>
           </div>
 
           <div class="form-group">       

@@ -40,7 +40,7 @@ const router = new VueRouter ({
     base: __dirname,    
     routes: [
         { path: '/', name: 'Home', component: Home, meta: { public: true } },
-        { path: '/home', name: 'Home2', component: Home, meta: { public: true } },
+        { path: '/home', name: 'Home2', component: Home },
         { path: '/dashboard', name: 'Dashboard', component: Dashboard },
 
         { path: '/login', name: 'Login', component: Login, meta: { public: true } },

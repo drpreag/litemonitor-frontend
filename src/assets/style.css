@@ -22,13 +22,25 @@ body {
 
 .container {
   max-width: 1400px;
-  width: 100%;
+  width: 100%;  
+  /*margin: 0 auto;*/
+  padding-bottom: 10px;
+}
+
+.container-center {
+  position: relative;
 }
 
 .container-fluid {
   max-width: 1400px;
   width: 100%;
   display: flex;
+}
+
+.center {
+  position: relative;
+  display: block;
+  text-align: center;
 }
 
 .small-container {
@@ -64,7 +76,13 @@ body {
 }
 
 .card-header {
+  font-size: 13px;  
   background-color: light-gray; 
+}
+
+.card-time {
+  font-size: 10px;
+  padding-bottom: 10px;  
 }
 
 .navbar {
@@ -177,3 +195,14 @@ h1, h2, h3, h4, h5, h6, figure {
   padding: 2px 4px !important;
   font-size: 11px;
 }
+
+.btn.service-ok {
+  padding: 1px 2px;
+  font-size: 9px;
+}
+
+.btn.service-fail {
+  padding: 1px 2px;
+  font-size: 8px;
+}
+

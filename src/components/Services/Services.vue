@@ -16,8 +16,8 @@
     <div v-if="services">
       <table class="table table-bordered table-striped table-condensed">
         <thead>
-          <th>Name</th>
           <th>Host</th>
+          <th>Name</th>          
           <th>Probe</th>
           <th>Port</th>
           <th>Uri</th>
@@ -27,8 +27,8 @@
         </thead>
         <tbody>          
           <tr v-for="service in services" :key="service.id">
-            <td>{{ service.name }}</td>
             <td>{{ service.host_name }}</td>
+            <td>{{ service.name }}</td>            
             <td>{{ service.probe_name }}</td>
             <td>{{ service.port }}</td>
             <td>{{ service.uri }}</td>

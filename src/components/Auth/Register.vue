@@ -1,7 +1,7 @@
 <template>
     <div class="d-flex justify-content-center">
         
-        <div class="col-lg-6 col-lg-offset-3">
+        <div class="col-md-8">
             <div class="card card-default">
                 <form v-on:submit="handleSubmit">                    
                     <div class="card-header">Register new account</div>

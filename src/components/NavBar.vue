@@ -2,16 +2,16 @@
 
   <nav class="navbar navbar-light navbar-expand-sm navbar-light navbar-jw navbar-fixed-top">
 
-    <a v-if="isAuth" class="navbar-brand" href="/dashboard">
-      <img src="/static/logo.png" width="75" class="d-inline-block align-top" alt="">
-    </a>
-    <a  v-if="!isAuth" class="navbar-brand" href="/home">
+    <a class="navbar-brand" href="/home">
       <img src="/static/logo.png" width="75" class="d-inline-block align-top" alt="">
     </a>
 
     <div class="collapse navbar-collapse" id="navbarNav">
 
     <ul v-if="isAuth" class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <router-link class="nav-link" :class="activeClass('Dashboard')" :to="{ name:'Dashboard' }">Dashboard</router-link>
+      </li>      
       <li class="nav-item">
         <router-link class="nav-link" :class="activeClass('Hosts')" :to="{ name:'Hosts' }">Hosts</router-link>
       </li>
