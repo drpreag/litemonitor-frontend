@@ -18,7 +18,7 @@
       <li class="nav-item">
         <router-link class="nav-link" :class="activeClass('Services')" :to="{ name:'Services' }">Services</router-link>
       </li>
-      <div v-if="authUser.user_role_id>=this.$constants.USER_ROLE_MODERATOR">
+      <div v-if="authUser.role_id>=this.$constants.USER_ROLE_MODERATOR">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Admin
@@ -39,7 +39,7 @@
       <router-link class="nav-link" :class="activeClass('Register')" :to="{ name:'Register' }">Register</router-link>
     </ul>
         <ul v-if="isAuth" class="navbar-nav ml-auto">
-          <router-link class="nav-link" :class="activeClass('Logout')" :to="{ name:'Logout' }">{{ authUser.user_fullname }} Logout</router-link>
+          <router-link class="nav-link" :class="activeClass('Logout')" :to="{ name:'Logout' }">{{ authUser.name }} Logout</router-link>
         </ul>
 
     </div>
@@ -51,29 +51,62 @@
 export default {
   name: 'NavBar',
   components: { },
+  
   data () { 
     return {
-      authUser: {},
-      isAuth: true,
+      authUser: {
+        id: null,
+        email: null,
+        name: null,
+        role_id: null
+      },
+      isAuth: false,
       showNavBar: true
     }
   },
   created () {
-    var currentRoute = this.$router;
+
+    this.$eventHub.$on('logged_in', (message) => {
+      this.isAuth=true;
+      this.$auth.getUser().then(userObject=>{this.authUser = userObject});
+      console.log (message);            
+    }); 
+
+    this.$eventHub.$on('logged_out', (message) => {
+      this.isAuth=false;
+      this.authUser={
+        id: null,
+        email: null,
+        name: null,
+        role_id: null
+      };
+      console.log (message);
+    });    
+
+    // var currentRoute = this.$router;
     this.isAuth = this.$auth.isAuthenticated();
-    this.$auth.setAuthUser();    
     if (this.isAuth) {
-      this.authUser = this.$auth.getAuthUser();
+      this.$auth.getUser().then(userObject=>{this.authUser = userObject});      
     }
+
+  },
+  watch: {
+    isAuth: function (value) {
+      if (value==true)
+        this.$auth.getUser().then(userObject=>{this.authUser = userObject});         
+        console.log ("isAuth changed");
+    },
+    authUser: function () {
+        console.log ("authUser changed");
+    }    
   },
   methods: {
     activeClass: function (...names) {
       for (let name of names) {
-        if (name == this.$router.name) {         
-          return 'router-link-active'
-        }
+        if (name == this.$router.name)      
+          return 'router-link-active';
         else
-          return 'active'
+          return 'active';
       }
     },
   }

@@ -14,7 +14,7 @@
               </router-link>
               <div class="card-body">
                   <div v-for="service in services">
-                    <div v-if="service.host_id == host.id">
+                    <div v-if="service.host_id==host.id && service.active==true">
                       <font size="-1">Service: </font><router-link :to="{ name: 'Service', params: { id: service.id }}">{{service.name}}</router-link><br>                          
                       <font size="-1">Probe: </font>{{ service.probe_name }}&nbsp{{ service.port }}
                       <drawing :sign="service.status" origin="updown" size="1"></drawing>

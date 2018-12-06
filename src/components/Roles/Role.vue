@@ -52,6 +52,43 @@
           </div>            
 
         </div>
+
+        <div v-if="permissions" class="row">
+          <div class="col-lg-9">
+            <h4>Permissions</h4>
+            <table class="table table-bordered table-striped table-condensed">
+              <thead>
+                <th>Object</th>
+                <th class="text-center">Browse</th>
+                <th class="text-center">Read</th>
+                <th class="text-center">Edit</th>
+                <th class="text-center">Add</th>
+                <th class="text-center">Delete</th>
+              </thead>
+              <tbody>          
+                <tr v-for="permission in permissions" :key="permissions.id">
+                  <td>{{ permission.object }}</td>
+                  <td class="text-center">
+                    <drawing :sign="permission.b" origin="yesno" size="1"></drawing>
+                  </td>
+                  <td class="text-center">
+                    <drawing :sign="permission.r" origin="yesno" size="1"></drawing>
+                  </td>
+                  <td class="text-center">
+                    <drawing :sign="permission.e" origin="yesno" size="1"></drawing>
+                  </td>
+                  <td class="text-center">
+                    <drawing :sign="permission.a" origin="yesno" size="1"></drawing>
+                  </td>
+                  <td class="text-center">
+                    <drawing :sign="permission.d" origin="yesno" size="1"></drawing>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
       </div>
 
   </div>
@@ -67,13 +104,15 @@ export default {
       role: null,
       id: null,
       errors: [],
+      permissions: [],
       title: 'Role',
       sign: null,
       baseURL: null,      
     }
   },
   mounted () {
-    this.getRole ()
+    this.getRole ();
+    this.getPermissions();
   },
   methods: {
     getRole () {
@@ -85,6 +124,14 @@ export default {
           this.title = 'Role: ' + this.role.name
         })       
     },
+    getPermissions () {
+      this.id = this.$route.params.id
+      this.$http
+        .get('/roles/' + this.id + '/permissions')
+        .then(response => {
+          this.permissions = response.data.data
+        })       
+    },    
     deleteRole (id) {
       this.$http
         .delete('/roles/' + id)

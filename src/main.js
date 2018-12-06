@@ -17,7 +17,9 @@ Vue.use (http);
 import constants from '../modules/constants.js';
 Vue.use (constants);
 import VueSweetalert2 from 'vue-sweetalert2';
-Vue.use(VueSweetalert2);
+Vue.use (VueSweetalert2);
+
+Vue.prototype.$eventHub = new Vue(); 
 
 import * as VueGoogleMaps from "vue2-google-maps";
 Vue.use(VueGoogleMaps, {
@@ -28,7 +30,6 @@ Vue.use(VueGoogleMaps, {
 });
 
 import router from '@/components/routes.js';
-
 
 //Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('content')
 Vue.config.productionTip = false
@@ -46,7 +47,6 @@ Vue.filter('two-decimals', function(value) {
       return value.toFixed(2);
     return null;
   });
-
 
 router.beforeEach (
   (to, from, next) => {
@@ -68,11 +68,10 @@ router.beforeEach (
   }
 )
 
-
 /* eslint-disable no-new */
 new Vue({
-  auth,
   http,
+  auth,
   constants,
   router,
   VueSweetalert2,

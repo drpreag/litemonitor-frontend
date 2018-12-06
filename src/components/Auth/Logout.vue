@@ -9,13 +9,15 @@ export default {
 		this.$http
             .post('logout')
             .then(response => {
-                console.log (response.body);
+                this.$auth.destroyToken();
+                this.$auth.setAuthenticatedUser(null);
+                this.$router.push({path:'/'})        
+                this.$eventHub.$emit('logged_out', 'User logged out');
             })
             .catch(error => {
                 console.log(error)
             })
-        this.$auth.destroyToken();
-        this.$router.push({path:'/'})
+
     }
 };
 </script>
