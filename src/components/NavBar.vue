@@ -1,14 +1,21 @@
 <template>
 
-  <nav class="navbar navbar-light navbar-expand-sm navbar-light navbar-jw navbar-fixed-top">
+  <nav class="navbar navbar-light navbar-expand-sm navbar-light navbar-jw fixed-top">
 
-    <a class="navbar-brand" href="/home">
-      <img src="/static/logo.png" width="75" class="d-inline-block align-top" alt="">
+    <a class="navbar-brand" href="/">
+      <img src="/static/icons-32.png" width="32px" class="d-inline-block align-top" alt="LiteMonitor">LiteMonitor
     </a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
     <div class="collapse navbar-collapse" id="navbarNav">
 
     <ul v-if="isAuth" class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <router-link class="nav-link" :class="activeClass('Statistics')" :to="{ name:'Statistics' }">Statistics</router-link>
+      </li>       
       <li class="nav-item">
         <router-link class="nav-link" :class="activeClass('Dashboard')" :to="{ name:'Dashboard' }">Dashboard</router-link>
       </li>      
@@ -91,13 +98,16 @@ export default {
 
   },
   watch: {
+    '$route' () {
+      $('#navbarNav').collapse('hide');
+    },    
     isAuth: function (value) {
       if (value==true)
         this.$auth.getUser().then(userObject=>{this.authUser = userObject});         
-        console.log ("isAuth changed");
+        // console.log ("isAuth changed");
     },
     authUser: function () {
-        console.log ("authUser changed");
+        // console.log ("authUser changed");
     }    
   },
   methods: {

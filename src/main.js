@@ -3,12 +3,16 @@ import VueRouter from 'vue-router'
 import VueMoment from 'vue-moment'
 import moment from 'moment'
 //import vueResource from 'vue-resource'
+import runtime from 'serviceworker-webpack-plugin/lib/runtime'
+if ('serviceWorker' in navigator) {
+  runtime.register();
+}
 
 // Navigation bar
 import NavBar from '@/components/NavBar'
-
 // custom css restyle
 import "../src/assets/style.css";
+
 // custom modules
 import auth from '../modules/Auth.js';
 Vue.use (auth);
@@ -48,25 +52,25 @@ Vue.filter('two-decimals', function(value) {
     return null;
   });
 
-router.beforeEach (
-  (to, from, next) => {
-    if (! to.matched.some(record => record.meta.public)) {
-      if (! Vue.auth.isAuthenticated()) {
-        next ({
-          path: "/"
-        })
-      } else {
-        next()
-      }
-     } else { //next(false)
-      if (Vue.auth.isAuthenticated()) {
-        next (false)
-      } else {
-        next()
-      }
-     }
-  }
-)
+// router.beforeEach (
+//   (to, from, next) => {
+//     if (! to.matched.some(record => record.meta.public)) {
+//       if (! Vue.auth.isAuthenticated()) {
+//         next ({
+//           path: "/"
+//         })
+//       } else {
+//         next()
+//       }
+//      } else { //next(false)
+//       if (Vue.auth.isAuthenticated()) {
+//         next (false)
+//       } else {
+//         next()
+//       }
+//      }
+//   }
+// )
 
 /* eslint-disable no-new */
 new Vue({

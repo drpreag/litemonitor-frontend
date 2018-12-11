@@ -38,9 +38,9 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="password" class="control-label">Repeated password</label>
+                            <label for="passwordtwo" class="control-label">Repeated password</label>
                             <div>
-                                <input id="password" type="password" class="form-control" name="password" required v-model="passwordtwo" placeholder="Repeated password">
+                                <input id="passwordtwo" type="password" class="form-control" name="password" required v-model="passwordtwo" placeholder="Repeated password">
                             </div>
                             <div v-show="submitted && !passwordtwo" class="invalid-feedback">
                                 Password is required, and must be equal as first password

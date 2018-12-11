@@ -5,6 +5,7 @@ Vue.use(VueRouter);
 
 // Common pages
 import Home from '@/components/Home';
+import Statistics from '@/components/Statistics';
 import Dashboard from '@/components/Dashboard';
 import Login from '@/components/Auth/Login';
 import Logout from '@/components/Auth/Logout';
@@ -40,7 +41,7 @@ const router = new VueRouter ({
     base: __dirname,    
     routes: [
         { path: '/', name: 'Home', component: Home, meta: { public: true } },
-        { path: '/home', name: 'Home2', component: Home },
+        { path: '/statistics', name: 'Statistics', component: Statistics },
         { path: '/dashboard', name: 'Dashboard', component: Dashboard },
 
         { path: '/login', name: 'Login', component: Login, meta: { public: true } },
