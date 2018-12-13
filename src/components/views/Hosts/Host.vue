@@ -118,7 +118,7 @@
 </template>
 
 <script>
-import Drawing from '@/components/Charts/Drawing'
+import Drawing from '@/components/common/Drawing'
 import GoogleMap from '@/components/Charts/GoogleMap'
 
 export default {

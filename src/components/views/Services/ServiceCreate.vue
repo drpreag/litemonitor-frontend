@@ -1,6 +1,6 @@
 /* eslint-disable */
 <template>
-  <div id="servicecreate">
+  <div id="servicescreate">
 
     <div class="row">
       <div class="col-lg-9">
@@ -14,8 +14,8 @@
     </div>  
 
     <div class="row">
-      <div class="col-lg-9">
-        <form v-on:submit="updateService">
+      <div class="col-lg-9">      
+        <form v-on:submit="addService">
 
           <div class="form-group">          
             <label class="control-label">Name</label>
@@ -28,7 +28,7 @@
               <option v-for="host in hosts" :value="host.id">
                 {{ host.name }}
               </option>
-            </select>                
+            </select>
           </div>
 
           <div class="form-group">          
@@ -40,14 +40,14 @@
             </select>                
           </div>
 
-          <div class="form-group">          
+          <div class="form-group">
             <label class="control-label">Port</label>
-            <input class="form-control" type="text" v-model=service.port>
+            <input class="form-control" type="text" minlength=2 v-model=service.port>
           </div>
 
           <div class="form-group">          
             <label class="control-label">URI</label>
-            <input class="form-control" type="text" v-model="service.uri">
+            <input class="form-control" type="text" minlength=5 v-model="service.uri">
           </div>
 
           <div class="form-check">
@@ -55,20 +55,20 @@
             <label class="control-label">Active</label>
           </div>
 
-          <div class="form-group">
+          <div class="form-group">          
             <label class="control-label">Username</label>
-            <input class="form-control" type="text" minlength=5 v-model=service.user>
+            <input class="form-control" type="text" minlength=3 v-model=service.user>
           </div>
 
-          <div class="form-group">
+          <div class="form-group">          
             <label class="control-label">Password</label>
-            <input class="form-control" type="text" minlength=10 v-model="service.pass">
+            <input class="form-control" type="text" minlength=6 v-model="service.pass">
           </div>
 
           <div align="center">
             <button type="submit" class="btn btn-sm btn-info">Update</button> 
           </div>
-        
+
         </form>
       </div>
     </div>
@@ -77,16 +77,26 @@
 </template>
 
 <script>
-import Drawing from '@/components/Charts/Drawing'
+import axios from 'axios'
+import Drawing from '@/components/common/Drawing'
 
 export default {
   components: { Drawing },  
   data () {
     return {
-      service: {},
+      service: {
+        name: null,
+        host_id: null,
+        probe_id: null,
+        port: null,
+        uri: null,
+        active: false,
+        user: null,
+        pass: null,          
+      },
       id: null,
       errors: [],
-      title: 'Edit Service',
+      title: 'Add Service',
       sign: null,
       baseURL: null,
       probes: [],
@@ -96,73 +106,51 @@ export default {
   mounted () {
     this.getHosts ()
     this.getProbes ()
-    this.getService ()
   },    
   methods: {
     changeHandler () {
       this.$emit('input', !this.value)
     },  
-    getService () {
-      this.id = this.$route.params.id    
-      this.$http
-        .get('/services/' + this.id)
-        .then(response => {
-          this.service = response.data.data;          
-          this.title = 'Service: ' + this.service.name
-        })
-        .catch(error => {
-          console.log(error)
-          this.errors = error;
-          this.$router.go(-1);
-        });        
-    },    
-    updateService (e) {
+    addService (e) {
       // browser side data validation will go here
-      let oldService = {
-        id: this.id,      
+      let newService = {
         name: this.service.name,
         host_id: this.service.host_id,
         probe_id: this.service.probe_id,
         port: this.service.port,
         uri: this.service.uri,
-        active: this.service.active == true ? 1 : 0,
+        active: this.service.active === true ? 1 : 0,
         user: this.service.user,
-        pass: this.service.pass,        
+        pass: this.service.pass     
       } 
       this.$http
-        .put('/services', oldService)
+        .post('/services', newService, { crossdomain: true })
         .then(response => {
           this.$router.push({path:'/services'})
         })
         .catch(error => {
-          console.log(error)
           this.errors = error;
-          this.$router.go(-1);
         });        
       e.preventDefault()
     },
     getHosts () {
       this.$http
-        .get('/hosts')
+        .get('/hosts', { crossdomain: true })
         .then(response => {
           this.hosts = response.data.data;
         })
         .catch(error => {
-          console.log(error)
           this.errors = error;
-          this.$router.go(-1);
         });        
     },
     getProbes () {
       this.$http
-        .get('/probes')
+        .get('/probes', { crossdomain: true })
         .then(response => {
           this.probes = response.data.data;
         })
         .catch(error => {
-          console.log(error)
           this.errors = error;
-          this.$router.go(-1);
         });        
     },
   }

@@ -31,7 +31,7 @@ export default {
 	created() {
 		// let gwidth = document.getElementById("gmap_div").clientWidth;
 		let element = document.getElementById("gmap_div");
-		// if (document.body.contains("gmap_div")) {
+
 		if (typeof(element) !== 'undefined' && element != null) {
 			let gwidth = element.clientWidth;
 			if (gwidth>600) {
@@ -51,7 +51,7 @@ export default {
 		      				lng: this.hosts[i].longitude
 		      			},
 						title: this.hosts[i].name,
-						icon: '/static/icons/blue_pin_small.png',
+						icon: '/static/images/gmap_icons/blue_pin_small.png',
 					});
 				} 
 	    	}

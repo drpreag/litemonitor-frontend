@@ -1,6 +1,6 @@
 /* eslint-disable */
 <template>
-  <div id="Hostedit">
+  <div id="hostscreate">
 
     <div class="row">
       <div class="col-lg-9">
@@ -11,25 +11,25 @@
           <button class="btn btn-sm btn-info">Back</button>
         </router-link>
       </div>
-    </div>
+    </div>  
 
     <div class="row">
       <div class="col-lg-9">
-        <form v-on:submit="updateHost">
-
+        <form v-on:submit="addHost">
+      
           <div class="form-group">          
             <label class="control-label">Name</label>
-            <input class="form-control" type="text" v-model=host.name>
+            <input class="form-control" type="text" minlength=5 v-model=host.name>
           </div>
 
           <div class="form-group">
             <label class="control-label">Description</label>
-            <input class="form-control" type="text" v-model=host.description>
+            <input class="form-control" type="text" minlength=5 v-model=host.description>
           </div>
-          
+
           <div class="form-group">
-            <label class="control-label">Fqdn</label>
-            <input class="form-control" type="text" v-model=host.fqdn>
+            <label class="control-label">FQDN / IP address</label>
+            <input class="form-control" type="text" minlength=10 v-model="host.fqdn">
           </div>
 
           <div class="form-check">
@@ -37,80 +37,60 @@
             <label class="control-label">Active</label>
           </div>
 
-          <div class="form-group">
-            <label class="control-label">Created</label>
-            <input class="form-control" type="text" readonly="readonly" v-model=host.created_at>
-          </div>
-
-          <div class="form-group">
-            <label class="control-label">Updated</label>
-            <input class="form-control" type="text" readonly="readonly" v-model=host.updated_at>
-          </div>   
-
           <div align="center">
             <button type="submit" class="btn btn-sm btn-info">Update</button> 
           </div>
+
         </form>
-      </div>        
+      </div>      
     </div>
+
   </div>
 </template>
 
 <script>
-import Drawing from '@/components/Charts/Drawing'
+import axios from 'axios'
+import Drawing from '@/components/common/Drawing'
 
 export default {
   components: { Drawing },  
   data () {
     return {
-      id: null,
       host: {
         name: "",
         description: "",
         fqdn: "",
-        active: true
-      },      
+        active: false
+      },
+      id: null,
       errors: [],
-      title: 'Edit Host',
-      sign: null
+      title: 'Add Host',
+      sign: null,
     }
-  },  
-  mounted () {
-    this.getHost () 
-  },  
+  },    
   methods: {
     changeHandler () {
       this.$emit('input', !this.value)
-    },  
-    getHost () {
-      this.id = this.$route.params.id
-      this.$http
-        .get('/hosts/' + this.id)
-        .then(response => {
-          this.host = response.data.data
-          this.title = 'Host: ' + this.host.name
-        })
-    },  
-    updateHost (e) {
-      let oldHost = {
-        id: this.id,       
+    },
+    addHost (e) {
+      // browser side data validation will go here
+      let newHost = {
         name: this.host.name,
         description: this.host.description,
         fqdn: this.host.fqdn,
-        active: this.host.active == true ? 1 : 0        
-      }
+        active: this.host.active === true ? 1 : 0
+      } 
+      //console.log (newHost);
       this.$http
-        .put('/hosts/', oldHost)
+        .post('/hosts', newHost)
         .then(response => {
           this.$router.push({path:'/hosts'})
         })
         .catch(error => {
-          console.log(error)
           this.errors = error;
-          this.$router.go(-1);
-        });
+        });        
       e.preventDefault()
-    }
+    },
   }
 }
 </script>

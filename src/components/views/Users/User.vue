@@ -67,7 +67,7 @@
 </template>
 
 <script>
-import Drawing from '@/components/Charts/Drawing'
+import Drawing from '@/components/common/Drawing'
 
 export default {
   components: { Drawing },  

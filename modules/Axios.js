@@ -32,14 +32,34 @@ if (token) {
 		return config;
 	});
 	// response
-	Vue.http.interceptors.response.use((response) => {
-    	return response;
-  	}, (error) => {
-	    if (error.response.status === 401) {
-    		Vue.swal ("You are not authorize for this operation");
-    		this.$router.go(-1);
-  		}
-	});
+	// Vue.http.interceptors.response.use((response) => {
+ //    	return response;
+ //  	}, (error) => {
+	//     if (error.response.status === 401) {
+ //    		Vue.swal ("You are not authorize for this operation");
+ //    		this.$router.go(-1);
+ //  		}
+	// });
+
+	Vue.http.interceptors.response.use(response => {return response}, error => {
+	  console.log("Error: (" + error.response.status + ") " + error.response.statusText);
+	  if (error.response.status === 401) {
+	    router.push("/401");
+	  }
+	  else if (error.response.status === 403) {
+	    router.push("/403");
+	  }
+	  else if (error.response.status === 404) {
+	    router.push("/404");
+	  }
+	  else if (error.response.status === 500) {
+	    router.push("/500");
+	  }
+	  else if (error.response.status === 503) {
+	    router.push("/503");
+	  }
+	  return Promise.reject(error);
+	});	
 }
 
 Object.defineProperties(Vue.prototype, {

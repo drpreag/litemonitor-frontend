@@ -128,7 +128,7 @@
 
 <script>
 import axios from 'axios'
-import Drawing from '@/components/Charts/Drawing'
+import Drawing from '@/components/common/Drawing'
 import LineObservationsChart from '@/components/Charts/LineObservationsChart'
 
 export default {
