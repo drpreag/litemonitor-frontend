@@ -34,11 +34,12 @@
 if ('serviceWorker' in navigator && 'PushManager' in window) {
   console.log('Service Worker and Push is supported');
 
-  navigator.serviceWorker.register('/static/sw.js')
+  navigator.serviceWorker.register('/static/sw_lm.js')
   .then(function(swReg) {
     console.log('Service Worker is registered', swReg);
     swRegistration = swReg;
-    initializeUI();
+    // initializeUI();
+    askPermission();
   })
   .catch(function(error) {
     console.error('Service Worker Error', error);
@@ -48,18 +49,35 @@ if ('serviceWorker' in navigator && 'PushManager' in window) {
   pushButton.textContent = 'Push Not Supported';
 }
 
-function initializeUI() {
-  // Set the initial subscription value
-  swRegistration.pushManager.getSubscription()
-  .then(function(subscription) {
-    isSubscribed = !(subscription === null);
+// function initializeUI() {
+//   // Set the initial subscription value
+//   swRegistration.pushManager.getSubscription()
+//   .then(function(subscription) {
+//     isSubscribed = !(subscription === null);
 
-    if (isSubscribed) {
-      console.log('User IS subscribed.');
-    } else {
-      console.log('User is NOT subscribed.');
+//     if (isSubscribed) {
+//       console.log('User IS subscribed.');
+//     } else {
+//       console.log('User is NOT subscribed.');
+//     }
+//     // updateBtn();
+//   });
+// }
+
+function askPermission() {
+  return new Promise(function(resolve, reject) {
+    const permissionResult = Notification.requestPermission(function(result) {
+      resolve(result);
+    });
+
+    if (permissionResult) {
+      permissionResult.then(resolve, reject);
     }
-    // updateBtn();
+  })
+  .then(function(permissionResult) {
+    if (permissionResult !== 'granted') {
+      console.warn('We weren\'t granted permission.');
+    }
   });
 }
 

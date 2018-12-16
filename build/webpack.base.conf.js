@@ -82,7 +82,7 @@ module.exports = {
   },
   plugins: [
     new ServiceWorkerWebpackPlugin({
-      entry: path.join(__dirname, '../static/sw.js')
+      entry: path.join(__dirname, '../static/sw_lm.js')
     })
   ]  
 }

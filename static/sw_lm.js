@@ -39,14 +39,27 @@ self.addEventListener('fetch', e => {
 });
 
 self.addEventListener('push', function(event) {
-  console.log('[Service Worker] Push Received.');
-  console.log(`[Service Worker] Push had this data: "${event.data.text()}"`);
-
+  console.log('[Service Worker] Push Notification Received.');
   const title = 'LiteMonitor';
   const options = {
     body: event.data.text(),
     icon: '/static/icons-48.png',
-    badge: '/static/icons-48.png'
+    // badge: '/static/icons-48.png'
   };
-  event.waitUntil(self.registration.showNotification(title, options));
+  event.waitUntil(self.registration.showNotification(title, options));  
 });
+
+// askPermission();
+
+// Notification.requestPermission().then(function(result) {
+//   if (result === 'denied') {
+//     console.log('Permission wasn\'t granted. Allow a retry.');
+//     return;
+//   }
+//   if (result === 'default') {
+//     console.log('The permission request was dismissed.');
+//     return;
+//   }
+//   // Do something with the granted permission.
+//   // subscribeUserToPush();
+// });
