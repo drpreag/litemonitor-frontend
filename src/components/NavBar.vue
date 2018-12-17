@@ -57,54 +57,55 @@
 
 export default {
   name: 'NavBar',
-  components: { },
-  
   data () { 
     return {
       authUser: {
-        id: null,
-        email: null,
-        name: null,
-        role_id: null
+         id: null,
+         email: null,
+         name: null,
+         role_id: null
       },
       isAuth: false,
       showNavBar: true
     }
   },
   created () {
-
     this.$eventHub.$on('logged_in', (message) => {
       this.isAuth=true;
-      this.$auth.getUser().then(userObject=>{this.authUser = userObject});
+      this.$auth.getUser()      
+      this.authUser.id = localStorage.getItem('userId');
+      this.authUser.email = localStorage.getItem('userEmail');
+      this.authUser.name = localStorage.getItem('userName');
+      this.authUser.role_id = localStorage.getItem('userRoleId');
       console.log (message);            
     }); 
 
     this.$eventHub.$on('logged_out', (message) => {
       this.isAuth=false;
-      this.authUser={
-        id: null,
-        email: null,
-        name: null,
-        role_id: null
-      };
+      this.authUser=null;
       console.log (message);
     });    
 
-    // var currentRoute = this.$router;
     this.isAuth = this.$auth.isAuthenticated();
     if (this.isAuth) {
-      this.$auth.getUser().then(userObject=>{this.authUser = userObject});      
+      this.$auth.getUser()
+      this.authUser.id = localStorage.getItem('userId');
+      this.authUser.email = localStorage.getItem('userEmail');
+      this.authUser.name = localStorage.getItem('userName');
+      this.authUser.role_id = localStorage.getItem('userRoleId');
     }
-
   },
   watch: {
     '$route' () {
       $('#navbarNav').collapse('hide');
     },    
     isAuth: function (value) {
-      if (value==true)
-        this.$auth.getUser().then(userObject=>{this.authUser = userObject});         
-        // console.log ("isAuth changed");
+      if (value==true) {
+        this.authUser.id = localStorage.getItem('userId');
+        this.authUser.email = localStorage.getItem('userEmail');
+        this.authUser.name = localStorage.getItem('userName');
+        this.authUser.role_id = localStorage.getItem('userRoleId');      
+      }
     },
     authUser: function () {
         // console.log ("authUser changed");

@@ -11,39 +11,3 @@
         </div>
     </div>
 </template>
-
-<script>
-
-export default {
-    data () {
-        return {
-            username: '',
-            password: ''
-        }
-    },     
-    methods: {
-
-        handleSubmit (e) {
-            let data = {};
-            if (this.username && this.password)
-                data = { username: this.username, password: this.password }               
-            else 
-                return false;
-
-            this.$http
-                .post('login', data)
-                .then(response => {
-                    this.$auth.setToken(response.data.access_token, response.data.expires_in + Date.now());
-                    this.$auth.setAuthenticatedUser(data);
-                    this.$eventHub.$emit('logged_in', 'User logged in');
-                    this.$router.push({ name: 'Dashboard'});                    
-                })
-                .catch(error => {
-                    console.log(error);
-                });
-
-            e.preventDefault();
-        }
-    }
-};
-</script>

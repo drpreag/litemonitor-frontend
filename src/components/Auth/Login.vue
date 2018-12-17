@@ -34,36 +34,47 @@
 
 <script>
 
-// import Vue from 'vue'
+import Vue from 'vue'
+import unauthHttp from "../../../modules/Axios"
 
 export default {
     data () {
         return {
             username: '',
-            password: ''
+            password: '',
+            isAuth: false,
+            authUser: {}
         }
     },     
     methods: {
-
         handleSubmit (e) {
-            let data = {};
+            let data = {}
+            let userObject = {}
             if (this.username && this.password)
                 data = { username: this.username, password: this.password }               
             else 
                 return false;
 
-            this.$http
+            unauthHttp
                 .post('login', data)
                 .then(response => {
-                    this.$auth.setToken(response.data.access_token, response.data.expires_in + Date.now());
-                    this.$auth.setAuthenticatedUser(data);
-                    this.$eventHub.$emit('logged_in', 'User logged in');
-                    this.$router.push({ name: 'Dashboard'});                    
+                    Vue.auth.setToken(response.data.access_token, response.data.expires_in + Date.now())
+                    Vue.auth.setAuthenticatedUser(data)
+
+                    Vue.auth.getUser()
+
+                    this.isAuth = true
+                    this.authUser.id = localStorage.getItem('userId');
+                    this.authUser.email = localStorage.getItem('userEmail');
+                    this.authUser.name = localStorage.getItem('userName');
+                    this.authUser.role_id = localStorage.getItem('userRoleId');
+
+                    this.$eventHub.$emit('logged_in', 'User logged in')
+                    this.$router.push({ name: 'Dashboard'})
                 })
                 .catch(error => {
                     console.log(error);
                 });
-
             e.preventDefault();
         }
     }

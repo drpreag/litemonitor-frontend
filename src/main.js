@@ -16,7 +16,7 @@ import "../src/assets/style.css";
 // custom modules
 import auth from '../modules/Auth.js';
 Vue.use (auth);
-import http from '../modules/Axios.js';
+import http from '../modules/Axios_api.js';
 Vue.use (http);
 import constants from '../modules/constants.js';
 Vue.use (constants);

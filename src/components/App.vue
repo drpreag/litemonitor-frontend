@@ -1,6 +1,6 @@
 <template>
 	<div id-"app" class="container">
-    	<top-menu-bar></top-menu-bar>  
+    	<top-menu-bar/>
     	<router-view/>
 	</div>
 </template>

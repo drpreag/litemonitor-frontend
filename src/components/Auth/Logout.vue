@@ -9,10 +9,14 @@ export default {
 		this.$http
             .post('logout')
             .then(response => {
-                this.$auth.destroyToken();
-                this.$auth.setAuthenticatedUser(null);
+                this.$auth.destroyToken()
+                this.$auth.setAuthenticatedUser(null)
                 this.$router.push({path:'/'})        
-                this.$eventHub.$emit('logged_out', 'User logged out');
+                localStorage.removeItem('userId')
+                localStorage.removeItem('userEmail')
+                localStorage.removeItem('userName')
+                localStorage.removeItem('userRoleId')
+                this.$eventHub.$emit('logged_out', 'User logged out')
             })
             .catch(error => {
                 console.log(error)

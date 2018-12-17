@@ -15,19 +15,13 @@
 </template>
 
 <script>
-// import axios from 'axios'
-import Drawing from '@/components/common/Drawing'
 
 export default {
-  components: { Drawing },
   data () {
     return {
       title: 'Home',
       errors: []
     }
-  },
-  methods: {
-    
   }
 }
 </script>

@@ -3,25 +3,32 @@
   <div class="container" id="dashboard">
     
     <div class="center" v-if="hosts">
-      <div class="row" v-for="i in Math.ceil(hosts.length / 6)" style="padding-bottom: 10px;">
-        <div v-for="host in hosts.slice((i - 1) * 6, i * 6)">
+      <div class="row" v-for="i in Math.ceil(hosts.length / 4)" style="padding-bottom: 20px;">
+        <div v-for="host in hosts.slice((i - 1) * 4, i * 4)">
           <div class="col">
             <div class="card">
               <router-link :to="{ name: 'Host', params: { id: host.id }}">
                 <div class="card-header">
                   {{host.name}}
-                </div>                
+                </div>                                  
               </router-link>
+
               <div class="card-body">
+                <servicewidget :hostid="host.id"></servicewidget>
+              </div>
+                
+              <!-- div class="card-body">
                   <div v-for="service in services">
                     <div v-if="service.host_id==host.id && service.active==true">
-                      <font size="-1">Service: </font><router-link :to="{ name: 'Service', params: { id: service.id }}">{{service.name}}</router-link><br>                          
-                      <font size="-1">Probe: </font>{{ service.probe_name }}&nbsp{{ service.port }}
-                      <drawing :sign="service.status" origin="updown" size="1"></drawing>
-                      <div class="card-time" v-show="service.status_change">{{service.status_change}}</div>
-                    </div>                    
+                      <servicewidget :serviceid="service.id"></servicewidget>
+                      index: {{ services.index }} length:{{ services.length }}
+                      <div v-if="services.index!=services.length">
+                        <hr>
+                      </div>
+                    </div>
                   </div>
-              </div>
+              </div -->
+
             </div>
           </div>
         </div>
@@ -31,10 +38,10 @@
 </template>
 
 <script>
-import Drawing from '@/components/common/Drawing'
+import Servicewidget from '@/components/common/Servicewidget';
 
 export default {
-  components: { Drawing },
+  components: { Servicewidget },
   data () {
     return {
       title: 'Dashboard',

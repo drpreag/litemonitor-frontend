@@ -62,30 +62,42 @@ export default function(Vue) {
 		},
 
 	    async getUser () {
-	    	let userObject = {} 
 			try {
-    			const user = await this.WhoAmI();
-		    	userObject = { 
-						id: user.id,
-						email: user.email,
-						name: user.name,
-						role_id: user.role_id
-				};
-  			} catch(e) {
-    			return null;
-  			}	
-	     	return userObject;
+    			await this.WhoAmI()
+    			 	.then ((response)=> {
+			    // 		const userObject = { 
+							// id: response.data.id,
+							// email: response.data.email,
+							// name: response.data.name,
+							// role_id: response.data.role_id    			 		
+	    		// 	 	}
+	    			 	localStorage.setItem('userId', response.data.id);
+	    			 	localStorage.setItem('userEmail', response.data.email);
+	    			 	localStorage.setItem('userName', response.data.name);
+	    			 	localStorage.setItem('userRoleId', response.data.role_id);
+	     				return response.data
+					})
+					.catch(error => {
+						console.log(error)
+					});
+			} catch (err) {
+					console.log (err)
+			}
 	    },
 
 	    WhoAmI () {
-			return new Promise(resolve => {
+			return new Promise((resolve,reject) => {
 				Vue.http
-					.get('/whoami')
+					.get('whoami')
 					.then(response => {
-						resolve(response.data);
+	    			 	localStorage.setItem('userId', response.data.id);
+	    			 	localStorage.setItem('userEmail', response.data.email);
+	    			 	localStorage.setItem('userName', response.data.name);
+	    			 	localStorage.setItem('userRoleId', response.data.role_id);						
+						resolve(response)
 				  	})
 					.catch(error => {
-						console.log(error);
+						reject (error)
 					});
 			});
 	    },

@@ -27,7 +27,7 @@ self.addEventListener('fetch', e => {
       .then(res => {
         // Make copy/clone of response
         const resClone = res.clone();
-        // Open cahce
+        // Open cache
         caches.open(cacheName).then(cache => {
           // Add response to cache
           cache.put(e.request, resClone);
@@ -48,18 +48,3 @@ self.addEventListener('push', function(event) {
   };
   event.waitUntil(self.registration.showNotification(title, options));  
 });
-
-// askPermission();
-
-// Notification.requestPermission().then(function(result) {
-//   if (result === 'denied') {
-//     console.log('Permission wasn\'t granted. Allow a retry.');
-//     return;
-//   }
-//   if (result === 'default') {
-//     console.log('The permission request was dismissed.');
-//     return;
-//   }
-//   // Do something with the granted permission.
-//   // subscribeUserToPush();
-// });
