@@ -1,0 +1,31 @@
+{
+  "short_name": "LiteMonitor",
+  "name": "LiteMonitor",
+  "icons": [
+    {
+      "src": "/static/icons-96.png",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "/static/icons-144.png",
+      "type": "image/png",
+      "sizes": "144x144"
+    },
+    {
+      "src": "/static/icons-256.png",
+      "type": "image/png",
+      "sizes": "256x256"
+    },
+    {
+      "src": "/static/icons-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }    
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#29BDBB",
+  "background_color": "#29BDBB"
+}

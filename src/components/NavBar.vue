@@ -1,14 +1,21 @@
 <template>
 
-  <nav class="navbar navbar-light navbar-expand-sm navbar-light navbar-jw navbar-fixed-top">
+  <nav class="navbar navbar-light navbar-expand-sm navbar-light navbar-jw fixed-top">
 
-    <a class="navbar-brand" href="/home">
-      <img src="/static/logo.png" width="75" class="d-inline-block align-top" alt="">
+    <a class="navbar-brand" href="/">
+      <img src="/static/icons-32.png" width="32px" class="d-inline-block align-top" alt="LiteMonitor">LiteMonitor
     </a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
     <div class="collapse navbar-collapse" id="navbarNav">
 
     <ul v-if="isAuth" class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <router-link class="nav-link" :class="activeClass('Statistics')" :to="{ name:'Statistics' }">Statistics</router-link>
+      </li>       
       <li class="nav-item">
         <router-link class="nav-link" :class="activeClass('Dashboard')" :to="{ name:'Dashboard' }">Dashboard</router-link>
       </li>      
@@ -50,65 +57,57 @@
 
 export default {
   name: 'NavBar',
-  components: { },
-  
   data () { 
     return {
-      authUser: {
-        id: null,
-        email: null,
-        name: null,
-        role_id: null
-      },
+      authUser: {},
       isAuth: false,
       showNavBar: true
     }
   },
   created () {
-
     this.$eventHub.$on('logged_in', (message) => {
       this.isAuth=true;
-      this.$auth.getUser().then(userObject=>{this.authUser = userObject});
-      console.log (message);            
+      this.getAuthUser()
+      console.log (message)
     }); 
 
     this.$eventHub.$on('logged_out', (message) => {
-      this.isAuth=false;
-      this.authUser={
-        id: null,
-        email: null,
-        name: null,
-        role_id: null
-      };
-      console.log (message);
+      this.isAuth=false
+      this.authUser=null
+      console.log (message)
     });    
 
-    // var currentRoute = this.$router;
-    this.isAuth = this.$auth.isAuthenticated();
+    this.isAuth = this.$auth.isAuthenticated()
     if (this.isAuth) {
-      this.$auth.getUser().then(userObject=>{this.authUser = userObject});      
+      this.getAuthUser()
     }
-
   },
   watch: {
+    '$route' () {
+      $('#navbarNav').collapse('hide')
+    },    
     isAuth: function (value) {
-      if (value==true)
-        this.$auth.getUser().then(userObject=>{this.authUser = userObject});         
-        console.log ("isAuth changed");
-    },
-    authUser: function () {
-        console.log ("authUser changed");
-    }    
+      if (value==true) {
+        this.getAuthUser()
+      }
+    }   
   },
   methods: {
     activeClass: function (...names) {
       for (let name of names) {
         if (name == this.$router.name)      
-          return 'router-link-active';
+          return 'router-link-active'
         else
-          return 'active';
+          return 'active'
       }
     },
+    getAuthUser() {
+      this.$auth.getUser()
+      this.authUser.id = localStorage.getItem('user_id')
+      this.authUser.email = localStorage.getItem('user_email')
+      this.authUser.name = localStorage.getItem('user_name')
+      this.authUser.role_id = localStorage.getItem('user_role_id')     
+    }
   }
 }
 </script>
