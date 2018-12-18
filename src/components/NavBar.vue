@@ -59,12 +59,7 @@ export default {
   name: 'NavBar',
   data () { 
     return {
-      authUser: {
-         id: null,
-         email: null,
-         name: null,
-         role_id: null
-      },
+      authUser: {},
       isAuth: false,
       showNavBar: true
     }
@@ -72,54 +67,47 @@ export default {
   created () {
     this.$eventHub.$on('logged_in', (message) => {
       this.isAuth=true;
-      this.$auth.getUser()      
-      this.authUser.id = localStorage.getItem('userId');
-      this.authUser.email = localStorage.getItem('userEmail');
-      this.authUser.name = localStorage.getItem('userName');
-      this.authUser.role_id = localStorage.getItem('userRoleId');
-      console.log (message);            
+      this.getAuthUser()
+      console.log (message)
     }); 
 
     this.$eventHub.$on('logged_out', (message) => {
-      this.isAuth=false;
-      this.authUser=null;
-      console.log (message);
+      this.isAuth=false
+      this.authUser=null
+      console.log (message)
     });    
 
-    this.isAuth = this.$auth.isAuthenticated();
+    this.isAuth = this.$auth.isAuthenticated()
     if (this.isAuth) {
-      this.$auth.getUser()
-      this.authUser.id = localStorage.getItem('userId');
-      this.authUser.email = localStorage.getItem('userEmail');
-      this.authUser.name = localStorage.getItem('userName');
-      this.authUser.role_id = localStorage.getItem('userRoleId');
+      this.getAuthUser()
     }
   },
   watch: {
     '$route' () {
-      $('#navbarNav').collapse('hide');
+      $('#navbarNav').collapse('hide')
     },    
     isAuth: function (value) {
       if (value==true) {
-        this.authUser.id = localStorage.getItem('userId');
-        this.authUser.email = localStorage.getItem('userEmail');
-        this.authUser.name = localStorage.getItem('userName');
-        this.authUser.role_id = localStorage.getItem('userRoleId');      
+        this.getAuthUser()
       }
-    },
-    authUser: function () {
-        // console.log ("authUser changed");
-    }    
+    }   
   },
   methods: {
     activeClass: function (...names) {
       for (let name of names) {
         if (name == this.$router.name)      
-          return 'router-link-active';
+          return 'router-link-active'
         else
-          return 'active';
+          return 'active'
       }
     },
+    getAuthUser() {
+      this.$auth.getUser()
+      this.authUser.id = localStorage.getItem('user_id')
+      this.authUser.email = localStorage.getItem('user_email')
+      this.authUser.name = localStorage.getItem('user_name')
+      this.authUser.role_id = localStorage.getItem('user_role_id')     
+    }
   }
 }
 </script>

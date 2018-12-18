@@ -42,8 +42,8 @@ export default {
         return {
             username: '',
             password: '',
-            isAuth: false,
-            authUser: {}
+            // isAuth: false,
+            // authUser: {}
         }
     },     
     methods: {
@@ -60,17 +60,13 @@ export default {
                 .then(response => {
                     Vue.auth.setToken(response.data.access_token, response.data.expires_in + Date.now())
                     Vue.auth.setAuthenticatedUser(data)
-
                     Vue.auth.getUser()
-
-                    this.isAuth = true
-                    this.authUser.id = localStorage.getItem('userId');
-                    this.authUser.email = localStorage.getItem('userEmail');
-                    this.authUser.name = localStorage.getItem('userName');
-                    this.authUser.role_id = localStorage.getItem('userRoleId');
-
-                    this.$eventHub.$emit('logged_in', 'User logged in')
-                    this.$router.push({ name: 'Dashboard'})
+                    setTimeout( function () {
+                        this.$router.push({ name: 'Home'})
+                        this.$router.go()
+                    }.bind(this), 1000)
+                    // this.$router.push({ name: 'Home'})
+                    this.$eventHub.$emit('logged_in', 'User logged in')                                        
                 })
                 .catch(error => {
                     console.log(error);

@@ -65,16 +65,6 @@ export default function(Vue) {
 			try {
     			await this.WhoAmI()
     			 	.then ((response)=> {
-			    // 		const userObject = { 
-							// id: response.data.id,
-							// email: response.data.email,
-							// name: response.data.name,
-							// role_id: response.data.role_id    			 		
-	    		// 	 	}
-	    			 	localStorage.setItem('userId', response.data.id);
-	    			 	localStorage.setItem('userEmail', response.data.email);
-	    			 	localStorage.setItem('userName', response.data.name);
-	    			 	localStorage.setItem('userRoleId', response.data.role_id);
 	     				return response.data
 					})
 					.catch(error => {
@@ -90,10 +80,10 @@ export default function(Vue) {
 				Vue.http
 					.get('whoami')
 					.then(response => {
-	    			 	localStorage.setItem('userId', response.data.id);
-	    			 	localStorage.setItem('userEmail', response.data.email);
-	    			 	localStorage.setItem('userName', response.data.name);
-	    			 	localStorage.setItem('userRoleId', response.data.role_id);						
+						localStorage.setItem('user_id', response.data.id);
+	    			 	localStorage.setItem('user_email', response.data.email);
+	    			 	localStorage.setItem('user_name', response.data.name);
+	    			 	localStorage.setItem('user_role_id', response.data.role_id);					
 						resolve(response)
 				  	})
 					.catch(error => {

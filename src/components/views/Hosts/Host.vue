@@ -107,7 +107,7 @@
         <div class="col-lg-6">   
           <div> 
             Google Map
-            <google-map v-if="ipLocal" v-bind:marker="marker" :width="600" :height="400"></google-map>            
+            <google-map v-if="ipLocal" v-bind:marker="marker"></google-map>            
           </div>
         </div>
 
@@ -153,7 +153,7 @@ export default {
             this.ipLocal = true;
             this.center = { lat: parseFloat(this.host.latitude), lng: parseFloat(this.host.longitude) };
 
-            this.marker.icon = '/static/icons/blue_pin_small.png'
+            this.marker.icon = '/static/images/gmap_icons/blue_pin_small.png'
             this.marker.title = this.title;
             this.marker.position = this.center;
           }   
