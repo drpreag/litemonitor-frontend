@@ -2,7 +2,7 @@
  *
  * usage:
  *
- * import http from '../modules/Axios.js';
+ * import http from '../modules/Axios_api.js';
  * Vue.use (http);
  * 
  * this.$http ...

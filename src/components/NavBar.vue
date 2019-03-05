@@ -80,6 +80,9 @@ export default {
     this.isAuth = this.$auth.isAuthenticated()
     if (this.isAuth) {
       this.getAuthUser()
+      console.log ("User data exists on local storage.")
+    } else {
+      console.log ("User data does NOT exist on local storage.")
     }
   },
   watch: {

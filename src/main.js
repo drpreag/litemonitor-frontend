@@ -74,7 +74,7 @@ Vue.filter('two-decimals', function(value) {
 
 /* eslint-disable no-new */
 new Vue({
-  http,
+  //http,
   auth,
   constants,
   router,
